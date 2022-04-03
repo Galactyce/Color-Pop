@@ -1,9 +1,9 @@
 function Blimp() {
-  this.position = new Vector2(900, 0);
-  this.velocity = new Vector2(0, 15)
+  this.position = new Vector2(900, -300);
+  this.velocity = new Vector2(0, 20)
   this.origin = new Vector2(275, 195);
-  this.maxHealth = 1000
-  this.health = 1000;
+  this.maxHealth = 100
+  this.health = 100;
   this.healthState = 'full'
 }
 

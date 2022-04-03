@@ -15,7 +15,7 @@ function Balloon(xPosition, velocity, index, health) {
   this.moveDir = -2;
   this.leftMoved = false;
   this.rightMoved = false
-  this.rainbowProbability = 0.05;
+  this.rainbowProbability = 0.06;
   this.specialProbability = 0.035 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.penaltyProbability = 0.035 + Game.gameWorld.penaltyBalloons.length / 200 + Game.gameWorld.score / 25000
   
@@ -29,7 +29,7 @@ function Balloon(xPosition, velocity, index, health) {
 
 Balloon.prototype.applyHealth = function() {
   if (this.currentColor === 'metal') {
-    this.health = 15
+    this.health = 9
     this.velocity.y = 25
   }
   

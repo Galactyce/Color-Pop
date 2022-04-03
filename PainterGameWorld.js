@@ -10,12 +10,13 @@ function painterGameWorld() {
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
   this.score = 0;
+  this.playEndSound = false
   this.freezeTimer = 0;
-  this.playEndSound = false;
+  this.playEndSound = true;
   this.backgroundMusicPlaying = false;
   this.balloons = new Array();
   this.cannon = new Cannon();
-  this.bossCount = 1;
+  this.bossCount = 0;
   this.blimps = new Array();
   this.balls = new Array();
   this.specialBalloons = new Array();
@@ -386,10 +387,10 @@ painterGameWorld.prototype.update = function (delta) {
           this.balloons[k].health -= 1;
           removeBall = true;
           sounds.clang.play()
-          if (this.balloons[k].health === 10) {
+          if (this.balloons[k].health === 6) {
             this.balloons[k].currentColor = "metal_cracked";
           }
-          if (this.balloons[k].health === 5) {
+          if (this.balloons[k].health === 3) {
             this.balloons[k].currentColor = "metal_damaged";
           }
           if (this.balloons[k].health <= 0) {
@@ -468,7 +469,7 @@ painterGameWorld.prototype.update = function (delta) {
           this.balls[i].position.y <= this.blimps[z].position.y + this.blimps[z].origin.y - 50 &&
           this.balls[i].position.y >= this.blimps[z].position.y - this.blimps[z].origin.y + 50 &&
           this.balls[i].hitBlimp === false) {
-        this.blimps[z].health -= 30
+        this.blimps[z].health -= 1
         this.balls[i].hitBlimp = true
         if (this.blimps[z].health <= 0) {
           this.blimps[z] = null;
@@ -524,8 +525,11 @@ painterGameWorld.prototype.update = function (delta) {
   this.intenseBarriers = this.intenseBarriers.filter((a) => a);
 
 
-  if (this.lives <= 0) 
+  if (this.lives <= 0 && this.playEndSound === true) {
+    this.playEndSound = false;
+    sounds.gameOver.play()
     sounds.backgroundMusicBasic.volume = 0;
+  }
   if (Game.paused === true || this.started === false  || this.lives <= 0) return;
   
   
