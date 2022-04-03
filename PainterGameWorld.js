@@ -257,7 +257,9 @@ painterGameWorld.prototype.addScore = function (value) {
     // Also add waves to the balloons
   }
 
-
+  if (this.score < 1500 && this.score + value >= 1500) {
+    this.bossCount = 1;
+  }
 
   this.score += value;
 
@@ -279,9 +281,7 @@ painterGameWorld.prototype.addScore = function (value) {
     this.intenseBarrierCount = 1;
   }
 
-  if (this.score >= 1500) {
-    this.bossCount = 1;
-  }
+  
 };
 
 painterGameWorld.prototype.update = function (delta) {
@@ -432,21 +432,7 @@ painterGameWorld.prototype.update = function (delta) {
       }
     }
 
-    for (var z=0; z < this.blimps.length; z++) {
-      if (this.balls[i].position.x >= this.blimps[z].position.x - this.blimps[z].origin.x &&
-          this.balls[i].position.x <= this.blimps[z].position.x + this.blimps[z].origin.x &&
-          this.balls[i].position.y <= this.blimps[z].position.y + this.blimps[z].origin.y - 50 &&
-          this.balls[i].position.y >= this.blimps[z].position.y - this.blimps[z].origin.y + 50) {
-            this.blimps[z].health -= 30
-            if (this.blimps[z].health <= 0) {
-              this.blimps[z] = null;
-              this.blimps = this.blimps.filter((a) => a);
-              this.bossCount = 0
-              removeBall = true
-            }
-            break
-          }
-    }
+    
 
     // Check for barrier collisions
     for (var j = 0; j < this.barriers.length; j++) {
@@ -463,7 +449,6 @@ painterGameWorld.prototype.update = function (delta) {
     }
 
     // Check for intense barrier collisions
-
     for (var l = 0; l < this.intenseBarriers.length; l++) {
       if (
         this.balls[i].position.x > this.intenseBarriers[l].position.x - 20 &&
@@ -474,6 +459,23 @@ painterGameWorld.prototype.update = function (delta) {
         removeBall = true;
         sounds.bump.play()
         break;
+      }
+    }
+
+    for (var z=0; z < this.blimps.length; z++) {
+      if (this.balls[i].position.x >= this.blimps[z].position.x - this.blimps[z].origin.x &&
+          this.balls[i].position.x <= this.blimps[z].position.x + this.blimps[z].origin.x &&
+          this.balls[i].position.y <= this.blimps[z].position.y + this.blimps[z].origin.y - 50 &&
+          this.balls[i].position.y >= this.blimps[z].position.y - this.blimps[z].origin.y + 50 &&
+          this.balls[i].hitBlimp === false) {
+        this.blimps[z].health -= 30
+        this.balls[i].hitBlimp = true
+        if (this.blimps[z].health <= 0) {
+          this.blimps[z] = null;
+          this.blimps = this.blimps.filter((a) => a);
+          this.bossCount -= 1
+        }
+        break
       }
     }
 

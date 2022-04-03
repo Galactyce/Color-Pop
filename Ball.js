@@ -3,7 +3,8 @@
               this.origin = new Vector2(10, 10);
               this.velocity = new Vector2(0, 0)
               this.rotation = 0;
-              this.active = true
+              this.active = true;
+              this.hitBlimp = false;
               this.reset();
               this.currentColor = Game.gameWorld.cannon.currentColor
           }
