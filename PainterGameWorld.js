@@ -4,12 +4,12 @@ function painterGameWorld() {
   this.balloonsPerRow = 1; // Desired # of balloons per row
   this.barrierCount = 0;
   this.intenseBarrierCount = 0;
-  this.lives = 15;
+  this.lives = 5;
   this.maxBalloons = 3;
   this.started = false;
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
-  this.score = 1500;
+  this.score = 0;
   this.freezeTimer = 0;
   this.playEndSound = false;
   this.backgroundMusicPlaying = false;
