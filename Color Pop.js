@@ -24,7 +24,8 @@ Game.loadAssets = function() {
     'golden': {'normal': loadImage("golden_balloon.png")},
     'metal': {'normal': loadImage("lead_balloon_full.png")},
     'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png")}, 
-    'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png")}
+    'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png")},
+    'homing': {'normal': loadImage('homing_balloon.png')}
   };
 
   sprites.blimp = {

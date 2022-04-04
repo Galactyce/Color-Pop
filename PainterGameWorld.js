@@ -11,6 +11,7 @@ function painterGameWorld() {
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
   this.score = 0;
+  this.homingBalls = false
   this.playEndSound = false
   this.freezeTimer = 0;
   this.playEndSound = true;
@@ -252,27 +253,23 @@ painterGameWorld.prototype.resetBalloons = function () {
 painterGameWorld.prototype.addScore = function (value) {
   this.score += value;
 
+  
+
   if (this.difficulty === 'normal') {
   if (this.score < 400 && this.score + value >= 400) {
     this.specialBalloons.push('bomb');
   }
 
+ 
   if (this.score < 600 && this.score + value >= 600) {
     this.penaltyBalloons.push('ghost');
+    this.specialBalloons.push('homing')
   }
 
-  if (this.score < 800 && this.score + value >= 800) {
-    this.penaltyBalloons.push('metal');
-  }
 
-  if (this.score < 1000 && this.score + value >= 1000) {
-    this.specialBalloons.push('ice');
-    // Also add waves to the balloons
-  }
+  
 
-  if (this.score < 600 && this.score + value >= 600) {
-    this.specialBalloons.push('golden')
-  }
+ 
 
   if (this.score < 1500 && this.score + value >= 1500) {
     this.bossCount = 1;
@@ -292,15 +289,24 @@ painterGameWorld.prototype.addScore = function (value) {
     this.balloonsPerRow = 2;
   }
 
+ 
+
   if (this.score >= 700) {
     this.barrierCount = 1;
     this.intenseBarrierCount = 1;
   }
+
   }
   if (this.difficulty === 'easy') {                           // Easy mode
     if (this.score < 400 && this.score + value >= 400) {
       this.specialBalloons.push('bomb');
     }
+
+    
+  if (this.score < 800 && this.score + value >= 800) {
+    this.penaltyBalloons.push('metal');
+  }
+
   
     if (this.score < 1000 && this.score + value >= 1000) {
       this.specialBalloons.push('ice');
@@ -351,10 +357,9 @@ painterGameWorld.prototype.addScore = function (value) {
         this.intenseBarrierCount = 1;
       }
 
-      if (this.score < 500 && this.score + value >= 500) {          // Hard Mode
-        this.specialBalloons.push('bomb');
+      if (this.score < 600 && this.score + value >= 600) {
+        this.penaltyBalloons.push('metal')
       }
- 
 
       if (this.score >= 800) {
         this.barrierCount = 2;
@@ -365,19 +370,23 @@ painterGameWorld.prototype.addScore = function (value) {
         this.balloonsPerRow = 3
       }
 
+      if (this.score < 900 && this.score + value >= 900) {
+        this.penaltyBalloons.push('ghost');
+        // Also add waves to the balloons
+      }
+
       if (this.score >= 1200) {
         this.barrierCount = 2;
         this.intenseBarrierCount = 2;
       }
-  
-      if (this.score < 1300 && this.score + value >= 1300) {
-        this.specialBalloons.push('ice');
-        // Also add waves to the balloons
+
+
+      //  Add the boss
+      if (this.score < 2000 && this.score + value >= 2000) {
+        this.bossCount += 1;
       }
 
-      if (this.score < 2000 && this.score + value >= 2000) {
-        this.bossCount = 1;
-      }
+    
     }
 
 };
@@ -408,6 +417,10 @@ painterGameWorld.prototype.update = function (delta) {
       ); // Draw balloons
       this.rows[i] += 1;
     }
+  }
+
+  if (Date.now() > this.homingPowerUpStart + 20000) {
+    this.homingBalls = false
   }
 
 
@@ -469,6 +482,21 @@ painterGameWorld.prototype.update = function (delta) {
             sounds.boom.play()
           }
           break;
+        }
+
+        // Homing power-up balloon physics
+
+        if (this.balloons[k].currentColor === 'homing') {
+          this.balloons[k].health -= 1;
+          removeBall = true;
+          if (this.balloons[k].health <= 0) {
+            this.homingBalls = true
+            this.homingPowerUpStart = Date.now()
+          }
+        }
+
+        if (Date.now > this.homingPowerUpStart + 30000) {
+          this.homingBalls = false
         }
 
         //  Ice balloon physics
@@ -689,6 +717,7 @@ painterGameWorld.prototype.update = function (delta) {
     if (Date.now() > this.freezeTimer + 5000) {
     this.blimps[i].update(delta);
     }
+    
   }
 };
 

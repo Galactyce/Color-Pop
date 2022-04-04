@@ -1,8 +1,15 @@
 function Blimp() {
-  this.position = new Vector2(900, -300);
+  this.position = new Vector2(900, -200);
   this.velocity = new Vector2(0, 20)
   this.origin = new Vector2(275, 195);
   this.healthState = 'full'
+  this.health = undefined;
+  this.maxHealth = undefined
+  this.applyHealth()
+  alert(this.health)
+}
+
+Blimp.prototype.applyHealth = function() {
   if (Game.gameWorld.difficulty === 'easy') {
     this.maxHealth = 75
     this.health = 75

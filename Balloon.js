@@ -33,9 +33,10 @@ Balloon.prototype.applyHealth = function() {
   }
   if (this.currentColor === 'golden') {
     this.health = 3;
-    this.velocity.y = 50
+    this.velocity.y = 100
   }
 }
+
 
 
 Balloon.prototype.moveToTop = function() {
@@ -47,6 +48,7 @@ Balloon.prototype.draw = function() {
 }
 
 Balloon.prototype.calculateRandomVelocity = function() {
+    if (Game.gameWorld.difficulty === 'hard') this.minVelocity = 50
     this.velocity.y =  Math.random() * 20 + this.minVelocity;
 }
 
@@ -82,7 +84,7 @@ Balloon.prototype.chooseColor = function() {
     this.currentColor = 'rainbow'
 
  }
-  else if (randomval > 1 - this.specialProbability && Game.gameWorld.specialBalloons.length > 0 &&
+  else if (randomval > 1 - this.specialProbability && Game.gameWorld.specialBalloons.length > 0 && 
      Date.now() > Game.gameWorld.lastSpecialBalloons + 15000 ) {
     this.currentColor = Game.gameWorld.specialBalloons[Math.floor(Math.random() * Game.gameWorld.specialBalloons.length)];
     Game.gameWorld.lastSpecialBalloons = Date.now()
