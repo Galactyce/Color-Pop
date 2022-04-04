@@ -10,7 +10,7 @@ function painterGameWorld() {
   this.started = false;
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
-  this.score = 600;
+  this.score = 0;
   this.playEndSound = false
   this.freezeTimer = 0;
   this.playEndSound = true;
@@ -26,7 +26,9 @@ function painterGameWorld() {
   this.barriers = new Array();
   this.intenseBarriers = new Array();
   this.pauseButton = new PauseButton();
-  this.playButton = new PlayButton()
+  this.playButton = new PlayButton(460, 50, 'normal');
+  this.easyButton = new PlayButton(100, 400, 'easy');
+  this.hardButton = new PlayButton(700, 400, 'hard')
   this.buttons = new Array();
   this.lastSpecialBalloons = 0
 }
@@ -53,7 +55,7 @@ painterGameWorld.prototype.drawLives = function () {
     }
     Canvas.drawImage(
       sprites.extras["life_marker"].normal,
-      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15), 60),
+      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15) + 10, 80),
       0,
       { x: 0, y: 0 }
     ); // First row of hearts
@@ -68,7 +70,7 @@ painterGameWorld.prototype.addRowsOfLives = function () {
   for (var i = 0; i < 6; i++) {
     Canvas.drawImage(
       sprites.extras["life_marker"].normal,
-      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15), 60),
+      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15) + 10, 80),
       0,
       { x: 0, y: 0 }
     );
@@ -76,7 +78,7 @@ painterGameWorld.prototype.addRowsOfLives = function () {
   for (var i = 0; i < this.lives - 6; i++) {
     Canvas.drawImage(
       sprites.extras["life_marker"].normal,
-      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15), 130),
+      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15) + 10, 150),
       0,
       { x: 0, y: 0 }
     ); // Second row of hearts
@@ -87,7 +89,7 @@ painterGameWorld.prototype.addAnotherRowOfLives = function () {
   for (var i = 0; i < 6; i++) {
     Canvas.drawImage(
       sprites.extras["life_marker"].normal,
-      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15), 60),
+      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15) + 10, 80),
       0,
       { x: 0, y: 0 }
     );
@@ -95,7 +97,7 @@ painterGameWorld.prototype.addAnotherRowOfLives = function () {
   for (var i = 0; i < 6; i++) {
     Canvas.drawImage(
       sprites.extras["life_marker"].normal,
-      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15), 130),
+      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15) + 10, 150),
       0,
       { x: 0, y: 0 }
     );
@@ -103,7 +105,7 @@ painterGameWorld.prototype.addAnotherRowOfLives = function () {
   for (var i = 0; i < this.lives - 12; i++) {
     Canvas.drawImage(
       sprites.extras["life_marker"].normal,
-      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15), 200),
+      new Vector2(i * (sprites.extras["life_marker"].normal.width + 15) + 10, 220),
       0,
       { x: 0, y: 0 }
     ); // Third row of hearts
@@ -186,24 +188,28 @@ painterGameWorld.prototype.drawUpdateLog = function () {
 
 
 painterGameWorld.prototype.draw = function () {
+  Canvas.context.fillStyle = 'white';
+  Canvas.context.fillRect(0, 0, 1500, 800)
   this.playButton.draw()
+  this.easyButton.draw()
+  this.hardButton.draw()
   if (this.started === false) return;
   Canvas.drawImage(
     sprites.extras["score_text_box"].normal,
-    { x: 50, y: 20 },
+    { x: 70, y: 40 },
     0,
     { x: 50, y: 20 }
   ); // Score text box
 
   Canvas.drawText(
     "Score: " + this.score,
-    new Vector2(55, 10),
+    new Vector2(75, 30),
     "white",
     "top",
     "Comic Sans",
     "30px"
-  ); // Score text
-  this.drawUpdateLog();
+  ); 
+ // this.drawUpdateLog();
 
   this.drawBalloons();
   this.cannon.draw();
@@ -212,23 +218,24 @@ painterGameWorld.prototype.draw = function () {
     this.balls[i].draw();
   }
 
-  if (this.score >= 100) {
     for (var i = 0; i < this.barriers.length; i++) {
       this.barriers[i].draw();
     }
-  }
+  
 
-  if (this.score >= 250) {
     for (var i = 0; i < this.intenseBarriers.length; i++) {
       this.intenseBarriers[i].draw();
     }
-  }
+  
 
   this.drawLives();
   this.pauseButton.draw();
 };
 
 painterGameWorld.prototype.handleInput = function (delta) {
+  //if (Keyboard.keyPressed === 70) 
+  //document.getElementById('mycanvas').requestFullscreen()
+
   if (Game.paused) return;
   if (this.lives <= 0) return;
   this.cannon.handleInput(delta); // Rotate cannon + change cannon color
@@ -290,12 +297,103 @@ painterGameWorld.prototype.addScore = function (value) {
     this.intenseBarrierCount = 1;
   }
   }
+  if (this.difficulty === 'easy') {                           // Easy mode
+    if (this.score < 400 && this.score + value >= 400) {
+      this.specialBalloons.push('bomb');
+    }
   
+    if (this.score < 1000 && this.score + value >= 1000) {
+      this.specialBalloons.push('ice');
+      // Also add waves to the balloons
+    }
+  
+    if (this.score < 1000 && this.score + value >= 1000) {
+      this.bossCount = 1;
+    }
+  
+  
+    if (this.score >= 150) {
+      this.barrierCount = 1;
+    }
+  
+    if (this.score >= 450) {
+      this.barrierCount = 0;
+      this.intenseBarrierCount = 1;
+    }
+  
+    if (this.score >= 500) {
+      this.balloonsPerRow = 2;
+    }
+  
+    if (this.score >= 800) {
+      this.barrierCount = 1;
+      this.intenseBarrierCount = 1;
+    }
+
+    if (this.score >= 1000) {
+      this.balloonsPerRow = 1
+    }
+    }
+
+    if (this.difficulty === 'hard') {
+      
+    
+      
+   
+    
+    
+      if (this.score >= 50) {
+        this.barrierCount = 1;
+      }
+    
+     
+      if (this.score >= 150) {
+        this.balloonsPerRow = 2;
+      }
+    
+      if (this.score >= 450) {
+        this.barrierCount = 1;
+        this.intenseBarrierCount = 1;
+      }
+
+      if (this.score < 500 && this.score + value >= 500) {          // Hard Mode
+        this.specialBalloons.push('bomb');
+      }
+
+      if (this.score >= 800) {
+        this.barrierCount = 2;
+        this.intenseBarrierCount = 1
+      }
+
+      if (this.score >= 1200) {
+        this.barrierCount = 2;
+        this.intenseBarrierCount = 2;
+      }
+  
+      if (this.score < 1300 && this.score + value >= 1300) {
+        this.specialBalloons.push('ice');
+        // Also add waves to the balloons
+      }
+
+      if (this.score >= 1500) {
+        this.balloonsPerRow = 3
+      }
+       
+      if (this.score < 1750 && this.score + value >= 1750) {
+        this.bossCount = 1;
+      }
+    }
+
 };
 
 painterGameWorld.prototype.update = function (delta) {
   this.pauseButton.update();
-  this.playButton.update()
+
+  if (this.started === false) {
+  this.playButton.update();
+  this.easyButton.update();
+  this.hardButton.update()
+  }
   for (var i=this.buttons.length; i < this.difficulty.length; i++) {
     this.buttons.push(new PlayButton(300 + (i * 200), this.difficulty[i]));
   }
@@ -544,6 +642,7 @@ painterGameWorld.prototype.update = function (delta) {
   if (this.lives <= 0 && this.playEndSound === true) {
     this.playEndSound = false;
     sounds.gameOver.play()
+    document.exitFullscreen()
     sounds.backgroundMusicBasic.volume = 0;
   }
   if (Game.paused === true || this.started === false  || this.lives <= 0) return;

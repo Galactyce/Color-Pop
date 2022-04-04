@@ -33,7 +33,7 @@ Cannon.prototype.handleInput = function() {
   var adj = Mouse.position.x - this.position.x;
   this.rotation = Math.atan2(opp, adj);
 
-  if (Mouse.leftPressed && Game.gameWorld.playButton.clicked) {
+  if (Mouse.leftPressed && Game.gameWorld.started) {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
   Game.gameWorld.balls.push(new Ball())
   sounds.cannonShot.play()

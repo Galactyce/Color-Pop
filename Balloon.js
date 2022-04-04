@@ -9,8 +9,8 @@ function Balloon(xPosition, velocity, index, health) {
   this.popPointValue = 10;
   this.popHeartValue = 1;
   this.velocity = new Vector2(0, velocity);
+  this.minVelocity = 30
   this.origin = new Vector2(60, 60);
-  this.minVelocity = 30 + Game.gameWorld.score / 20;
   this.wavy = false;
   this.moveDir = -2;
   this.leftMoved = false;
@@ -18,11 +18,10 @@ function Balloon(xPosition, velocity, index, health) {
   this.rainbowProbability = 0.06;
   this.specialProbability = 0.035 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.penaltyProbability = 0.035 + Game.gameWorld.penaltyBalloons.length / 200 + Game.gameWorld.score / 25000;
-  
-  this.chooseColor();
-  this.moveToTop();
   this.calculateRandomVelocity();
+  this.chooseColor();
   this.applyHealth();
+  this.moveToTop()
 }
 
 
@@ -48,7 +47,7 @@ Balloon.prototype.draw = function() {
 }
 
 Balloon.prototype.calculateRandomVelocity = function() {
-  this.velocity.y =  Math.random() * 20 + this.minVelocity;
+    this.velocity.y =  Math.random() * 20 + this.minVelocity;
 }
 
 
@@ -77,6 +76,8 @@ Balloon.prototype.update = function (delta) { // 1
 
 Balloon.prototype.chooseColor = function() {
   var randomval = Math.random();
+  if (Game.gameWorld.difficulty === 'easy') 
+  this.rainbowProbability = 0.1
   if (randomval < this.rainbowProbability) {
     this.currentColor = 'rainbow'
 
@@ -93,7 +94,9 @@ Balloon.prototype.chooseColor = function() {
 
   else {
     this.currentColor = Game.gameWorld.normalBalloons[Math.floor(Math.random() * Game.gameWorld.normalBalloons.length)];
-    if (Game.gameWorld.score >= 1000 && Math.random() < 0.2) this.wavy = true;
+    if (Game.gameWorld.difficulty === 'normal') {
+    if (Game.gameWorld.score >= 1000 && Math.random() < 0.1) this.wavy = true;
+    }
   }
   
 }

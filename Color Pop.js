@@ -57,6 +57,8 @@ Game.loadAssets = function() {
     'life_marker': {'normal': loadImage("heart.png")},
     'score_text_box': {'normal': loadImage("text_box.png")},
     'play_button': {'normal': loadImage('play_button.png')},
+    'easy_button': {'normal': loadImage("easy_mode_button.png")},
+    'hard_button': {'normal': loadImage("hard_mode_button.png")},
     'pause_button': {'normal':  loadImage("basic_pause_button.png")}
   }
 
