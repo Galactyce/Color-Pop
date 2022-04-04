@@ -337,11 +337,6 @@ painterGameWorld.prototype.addScore = function (value) {
 
     if (this.difficulty === 'hard') {
       
-    
-      
-   
-    
-    
       if (this.score >= 50) {
         this.barrierCount = 1;
       }
@@ -366,6 +361,10 @@ painterGameWorld.prototype.addScore = function (value) {
         this.intenseBarrierCount = 1
       }
 
+      if (this.score >= 800) {
+        this.balloonsPerRow = 3
+      }
+
       if (this.score >= 1200) {
         this.barrierCount = 2;
         this.intenseBarrierCount = 2;
@@ -376,11 +375,7 @@ painterGameWorld.prototype.addScore = function (value) {
         // Also add waves to the balloons
       }
 
-      if (this.score >= 1500) {
-        this.balloonsPerRow = 3
-      }
-       
-      if (this.score < 1750 && this.score + value >= 1750) {
+      if (this.score < 2000 && this.score + value >= 2000) {
         this.bossCount = 1;
       }
     }
