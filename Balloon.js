@@ -16,7 +16,7 @@ function Balloon(xPosition, velocity, index, health) {
   this.leftMoved = false;
   this.rightMoved = false;
   this.rainbowProbability = 0.06;
-  this.specialProbability = 0.035 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
+  this.specialProbability = 0.015 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.penaltyProbability = 0.035 + Game.gameWorld.penaltyBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.calculateRandomVelocity();
   this.chooseColor();
@@ -48,6 +48,8 @@ Balloon.prototype.draw = function() {
 }
 
 Balloon.prototype.calculateRandomVelocity = function() {
+  if (Game.gameWorld.difficulty === 'easy') this.minVelocity = 20
+
     if (Game.gameWorld.difficulty === 'hard') this.minVelocity = 50
     this.velocity.y =  Math.random() * 20 + this.minVelocity;
 }

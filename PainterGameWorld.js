@@ -113,81 +113,6 @@ painterGameWorld.prototype.addAnotherRowOfLives = function () {
   }
 };
 
-painterGameWorld.prototype.drawUpdateLog = function () {
-  // Canvas.drawText("Info Log: " , new Vector2(75, 300), 'black', "top", "Comic Sans", "30px"); // Score text
-  if (this.score >= 0 && this.score < 60) {
-    Canvas.drawText(
-      "Match the colors to",
-      new Vector2(75, 350),
-      "black",
-      "top",
-      "Comic Sans",
-      "30px"
-    );
-    Canvas.drawText(
-      " pop the balloons!",
-      new Vector2(75, 385),
-      "black",
-      "top",
-      "Comic Sans",
-      "30px"
-    );
-  }
-  if (this.score >= 100 && this.score < 130)
-    Canvas.drawText(
-      "Barriers incoming!",
-      new Vector2(75, 350),
-      "black",
-      "top",
-      "Comic Sans",
-      "30px"
-    );
-  if (this.score >= 250 && this.score < 280)
-    Canvas.drawText(
-      "More intense barriers!",
-      new Vector2(75, 350),
-      "black",
-      "top",
-      "Comic Sans",
-      "30px"
-    );
-  if (this.score >= 300 && this.score < 330)
-    Canvas.drawText(
-      "More balloons!",
-      new Vector2(75, 350),
-      "black",
-      "top",
-      "Comic Sans",
-      "30px"
-    );
-  if (this.score >= 400 && this.score < 430)
-    Canvas.drawText(
-      "Bomb balloons!",
-      new Vector2(75, 350),
-      "black",
-      "top",
-      "Comic Sans",
-      "30px"
-    );
-  
-  if (this.score >= 600 && this.score < 630) {
-  Canvas.drawText("Keep an eye out for", new Vector2(75, 350), "black", "top", "Comic Sans", "30px");
-  Canvas.drawText("ghost balloons...", new Vector2(75, 385), "black", "top", "Comic Sans", "30px");
-}
-  if (this.score >= 700 && this.score < 730) 
-  Canvas.drawText("Both barriers are now active.", new Vector2(75, 350), "black", "top", "Comic Sans", "30px");
-  if (this.score >= 800 && this.score < 830) {
-  Canvas.drawText("Metal balloons are strong.", new Vector2(75, 350), "black", "top", "Comic Sans", "30px");
-  Canvas.drawText("Three hits to pop!", new Vector2(75, 385), "black", "top", "Comic Sans", "30px");
-  }
-  if (this.score >= 1000 && this.score < 1070) {
-    Canvas.drawText("Getting chilly...", new Vector2(75, 350), "black", "top", "Comic Sans", "30px");
-  }
-
-};
-
-
-
 painterGameWorld.prototype.draw = function () {
   Canvas.context.fillStyle = 'white';
   Canvas.context.fillRect(0, 0, 1500, 800)
@@ -296,12 +221,23 @@ painterGameWorld.prototype.addScore = function (value) {
     this.intenseBarrierCount = 1;
   }
 
+  if (this.score >= 1750) {
+    this.balloonsPerRow = 3;
+  }
+
+  if (this.score >= 2000) {
+    this.barrierCount = 2
+  }
+
   }
   if (this.difficulty === 'easy') {                           // Easy mode
     if (this.score < 400 && this.score + value >= 400) {
       this.specialBalloons.push('bomb');
     }
 
+    if (this.score < 600 && this.score + value >= 600) {
+      this.specialBalloons.push('homing')
+    }
     
   if (this.score < 800 && this.score + value >= 800) {
     this.penaltyBalloons.push('metal');
@@ -380,6 +316,9 @@ painterGameWorld.prototype.addScore = function (value) {
         this.intenseBarrierCount = 2;
       }
 
+      if (this.score < 1500 && this.score + value >= 1500) {
+        this.specialBalloons.push('homing')
+      }
 
       //  Add the boss
       if (this.score < 2000 && this.score + value >= 2000) {
