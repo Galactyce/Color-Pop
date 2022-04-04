@@ -359,6 +359,7 @@ painterGameWorld.prototype.addScore = function (value) {
       if (this.score < 500 && this.score + value >= 500) {          // Hard Mode
         this.specialBalloons.push('bomb');
       }
+ 
 
       if (this.score >= 800) {
         this.barrierCount = 2;
@@ -592,7 +593,12 @@ painterGameWorld.prototype.update = function (delta) {
         }
         break
       }
+      if (this.blimps[z].position.y > 900) {
+        this.lives = 0
+      }
+
     }
+
 
     // If a collision was found
     if (removeBall) {
