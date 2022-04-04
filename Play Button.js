@@ -1,7 +1,6 @@
 
-            function PlayButton(xPosition, difficulty) {
-              this.position = new Vector2(xPosition, 250);
-              this.difficulty = difficulty
+            function PlayButton() {
+              this.position = new Vector2(650, 250);
               this.origin = new Vector2(0, 0);
               this.clicked = false;
               this.rect = new Rectangle(this.position.x, this.position.y, 350, 300);
@@ -24,7 +23,7 @@
 
           PlayButton.prototype.draw = function() {
               if (!Game.gameWorld.started) 
-              if (this.difficulty === 'normal') {
+           
               Canvas.drawImage(sprites.extras['play_button'].normal, this.position, 0, this.origin)
-              }
+              
           }

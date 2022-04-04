@@ -6,7 +6,7 @@ function painterGameWorld() {
   this.intenseBarrierCount = 0;
   this.lives = 5;
   this.maxBalloons = 3;
-  this.difficulty = new Array('normal')
+  this.difficulty = new Array('easy', 'normal', 'hard')
   this.started = false;
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
@@ -26,6 +26,7 @@ function painterGameWorld() {
   this.barriers = new Array();
   this.intenseBarriers = new Array();
   this.pauseButton = new PauseButton();
+  this.playButton = new PlayButton()
   this.buttons = new Array();
   this.lastSpecialBalloons = 0
 }
@@ -185,6 +186,7 @@ painterGameWorld.prototype.drawUpdateLog = function () {
 
 
 painterGameWorld.prototype.draw = function () {
+  this.playButton.draw()
   if (this.started === false) return;
   Canvas.drawImage(
     sprites.extras["score_text_box"].normal,
@@ -208,10 +210,6 @@ painterGameWorld.prototype.draw = function () {
 
   for (var i = 0; i < this.balls.length; i++) {
     this.balls[i].draw();
-  }
-
-  for (var i=0; this.buttons.length; i++) {
-    this.buttons[i].draw()
   }
 
   if (this.score >= 100) {
@@ -297,7 +295,7 @@ painterGameWorld.prototype.addScore = function (value) {
 
 painterGameWorld.prototype.update = function (delta) {
   this.pauseButton.update();
-
+  this.playButton.update()
   for (var i=this.buttons.length; i < this.difficulty.length; i++) {
     this.buttons.push(new PlayButton(300 + (i * 200), this.difficulty[i]));
   }
