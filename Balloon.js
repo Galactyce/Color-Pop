@@ -32,7 +32,10 @@ Balloon.prototype.applyHealth = function() {
     this.health = 9;
     this.velocity.y = 25;
   }
-  
+  if (this.currentColor === 'golden') {
+    this.health = 3;
+    this.velocity.y = 50
+  }
 }
 
 

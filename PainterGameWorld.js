@@ -6,10 +6,11 @@ function painterGameWorld() {
   this.intenseBarrierCount = 0;
   this.lives = 5;
   this.maxBalloons = 3;
+  this.difficulty = new Array('normal')
   this.started = false;
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
-  this.score = 0;
+  this.score = 600;
   this.playEndSound = false
   this.freezeTimer = 0;
   this.playEndSound = true;
@@ -25,7 +26,7 @@ function painterGameWorld() {
   this.barriers = new Array();
   this.intenseBarriers = new Array();
   this.pauseButton = new PauseButton();
-  this.playButton = new PlayButton();
+  this.buttons = new Array();
   this.lastSpecialBalloons = 0
 }
 
@@ -184,7 +185,6 @@ painterGameWorld.prototype.drawUpdateLog = function () {
 
 
 painterGameWorld.prototype.draw = function () {
-  this.playButton.draw();
   if (this.started === false) return;
   Canvas.drawImage(
     sprites.extras["score_text_box"].normal,
@@ -208,6 +208,10 @@ painterGameWorld.prototype.draw = function () {
 
   for (var i = 0; i < this.balls.length; i++) {
     this.balls[i].draw();
+  }
+
+  for (var i=0; this.buttons.length; i++) {
+    this.buttons[i].draw()
   }
 
   if (this.score >= 100) {
@@ -241,6 +245,9 @@ painterGameWorld.prototype.resetBalloons = function () {
 };
 
 painterGameWorld.prototype.addScore = function (value) {
+  this.score += value;
+
+  if (this.difficulty === 'normal') {
   if (this.score < 400 && this.score + value >= 400) {
     this.specialBalloons.push('bomb');
   }
@@ -258,11 +265,14 @@ painterGameWorld.prototype.addScore = function (value) {
     // Also add waves to the balloons
   }
 
+  if (this.score < 600 && this.score + value >= 600) {
+    this.specialBalloons.push('golden')
+  }
+
   if (this.score < 1500 && this.score + value >= 1500) {
     this.bossCount = 1;
   }
 
-  this.score += value;
 
   if (this.score >= 100) {
     this.barrierCount = 1;
@@ -281,13 +291,16 @@ painterGameWorld.prototype.addScore = function (value) {
     this.barrierCount = 1;
     this.intenseBarrierCount = 1;
   }
-
+  }
   
 };
 
 painterGameWorld.prototype.update = function (delta) {
-  this.playButton.update();
   this.pauseButton.update();
+
+  for (var i=this.buttons.length; i < this.difficulty.length; i++) {
+    this.buttons.push(new PlayButton(300 + (i * 200), this.difficulty[i]));
+  }
 
   // See if the score unlocks anything new
 
@@ -374,6 +387,7 @@ painterGameWorld.prototype.update = function (delta) {
           this.balloons[k] = null;
           this.freezeTimer = Date.now();
           this.addScore(10)
+          removeBall = true
           break;
         }
 
@@ -444,7 +458,11 @@ painterGameWorld.prototype.update = function (delta) {
         this.balls[i].position.y >= this.barriers[j].position.y - 110 
       ) {
         removeBall = true;
+        this.barriers[j].health -= 1
         sounds.bump.play()
+        if (this.barriers[j].health <= 0) {
+          this.barriers[i] = null;
+        }
         break;
       }
     }
