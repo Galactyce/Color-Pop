@@ -10,7 +10,7 @@ function painterGameWorld() {
   this.started = false;
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
-  this.score = 0;
+  this.score = 1330;
   this.homingBalls = false
   this.playEndSound = false
   this.freezeTimer = 0;
@@ -24,14 +24,17 @@ function painterGameWorld() {
   this.specialBalloons = new Array();
   this.penaltyBalloons = new Array()
   this.normalBalloons = new Array('red', 'blue', 'green');
+  this.lastHomingBalloon = Date.now()
   this.barriers = new Array();
   this.intenseBarriers = new Array();
+  this.balloonMinVelocity = 0
   this.pauseButton = new PauseButton();
   this.playButton = new PlayButton(460, 50, 'normal');
   this.easyButton = new PlayButton(100, 400, 'easy');
   this.hardButton = new PlayButton(700, 400, 'hard')
   this.buttons = new Array();
-  this.lastSpecialBalloons = 0
+  this.lastSpecialBalloons = Date.now()
+  this.blimpColorChangeFrequency = 0
 }
 
 painterGameWorld.prototype.drawBalloons = function () {
@@ -114,12 +117,16 @@ painterGameWorld.prototype.addAnotherRowOfLives = function () {
 };
 
 painterGameWorld.prototype.draw = function () {
+
   Canvas.context.fillStyle = 'white';
   Canvas.context.fillRect(0, 0, 1500, 800)
+  Canvas.drawImage(sprites.extras['background'].normal, new Vector2(0, 0), 0, new Vector2(0, 0)),
   this.playButton.draw()
   this.easyButton.draw()
   this.hardButton.draw()
   if (this.started === false) return;
+  Canvas.drawImage(sprites.extras['platform'].normal, new Vector2(-30, 650), 0, new Vector2(0, 0))
+
   Canvas.drawImage(
     sprites.extras["score_text_box"].normal,
     { x: 70, y: 40 },
@@ -136,6 +143,12 @@ painterGameWorld.prototype.draw = function () {
     "30px"
   ); 
  // this.drawUpdateLog();
+for (var i=0; i < this.blimps.length; i++) {
+  if (this.blimps.length > 0) {
+    Canvas.drawText("Blimp's color weakness:", new Vector2(10, 350), "Black", "top", "Comic Sans", "30px")
+    Canvas.drawImage(sprites.blimp[this.blimps[i].markerColor].normal, new Vector2(80, 380), 0, new Vector2(0, 0))
+  }
+}
 
   this.drawBalloons();
   this.cannon.draw();
@@ -177,29 +190,32 @@ painterGameWorld.prototype.resetBalloons = function () {
 
 painterGameWorld.prototype.addScore = function (value) {
   this.score += value;
-
+  this.balloons.minVelocity += 3
   
 
   if (this.difficulty === 'normal') {
-  if (this.score < 400 && this.score + value >= 400) {
+  if (this.score < 400 && this.score + value >= 400) {      // Normal mode
     this.specialBalloons.push('bomb');
   }
 
  
   if (this.score < 600 && this.score + value >= 600) {
     this.penaltyBalloons.push('ghost');
-    this.specialBalloons.push('homing')
   }
 
-
+  if (this.score < 650 && this.score + value >= 650) {
+    this.penaltyBalloons.push('homing');
+  }
   
 
  
 
   if (this.score < 1500 && this.score + value >= 1500) {
     this.bossCount = 1;
+    this.barrierCount = 4
   }
 
+ 
 
   if (this.score >= 100) {
     this.barrierCount = 1;
@@ -214,7 +230,9 @@ painterGameWorld.prototype.addScore = function (value) {
     this.balloonsPerRow = 2;
   }
 
- 
+  if (this.score < 900 && this.score + value >= 900) {
+    this.penaltyBalloons.push('metal')
+  }
 
   if (this.score >= 700) {
     this.barrierCount = 1;
@@ -226,7 +244,8 @@ painterGameWorld.prototype.addScore = function (value) {
   }
 
   if (this.score >= 2000) {
-    this.barrierCount = 2
+    this.barrierCount = 3
+    this.intenseBarrierCount = 2
   }
 
   }
@@ -251,6 +270,8 @@ painterGameWorld.prototype.addScore = function (value) {
   
     if (this.score < 1000 && this.score + value >= 1000) {
       this.bossCount = 1;
+      this.barrierCount = 4;
+
     }
   
   
@@ -277,7 +298,7 @@ painterGameWorld.prototype.addScore = function (value) {
     }
     }
 
-    if (this.difficulty === 'hard') {
+    if (this.difficulty === 'hard') {   // Hard mode
       
       if (this.score >= 50) {
         this.barrierCount = 1;
@@ -321,12 +342,18 @@ painterGameWorld.prototype.addScore = function (value) {
       }
 
       //  Add the boss
-      if (this.score < 2000 && this.score + value >= 2000) {
-        this.bossCount += 1;
+      if (this.score >= 2000) {
+        this.bossCount = 1;
+        this.barrierCount = 3;
+        this.intenseBarrierCount = 2;
+        this.balloonsPerRow = 1;
+
       }
 
-    
+   
     }
+
+    
 
 };
 
@@ -344,15 +371,21 @@ painterGameWorld.prototype.update = function (delta) {
 
   // See if the score unlocks anything new
 
+  if (this.difficulty === 'normal') this.blimpColorChangeFrequency = 0.4;
+  if (this.difficulty === 'hard') this.blimpColorChangeFrequency = 0.7;
+  if (this.difficulty === 'easy') this.blimpColorChangeFrequency = 0.2
+
 
   for (var i=this.blimps.length; i < this.bossCount; i++) {
     this.blimps.push(new Blimp())
   }
 
+
+
   for (var i = 0; i < this.rows.length; i++) {
     if (this.rows[i] < this.balloonsPerRow) {
       this.balloons.push(
-        new Balloon(this.rowPositions[i], 0, i, this.defaultBalloonHealth)
+        new Balloon(this.rowPositions[i], this.balloonMinVelocity, i, this.defaultBalloonHealth)
       ); // Draw balloons
       this.rows[i] += 1;
     }
@@ -430,11 +463,12 @@ painterGameWorld.prototype.update = function (delta) {
           removeBall = true;
           if (this.balloons[k].health <= 0) {
             this.homingBalls = true
+            this.lastHomingBalloon = Date.now()
             this.homingPowerUpStart = Date.now()
           }
         }
 
-        if (Date.now > this.homingPowerUpStart + 30000) {
+        if (Date.now > this.homingPowerUpStart + 10000) {
           this.homingBalls = false
         }
 
@@ -475,6 +509,10 @@ painterGameWorld.prototype.update = function (delta) {
             break;
           }
         }
+
+        // Blimp physics
+
+        
         
         // Normal physics
         if (
@@ -496,10 +534,13 @@ painterGameWorld.prototype.update = function (delta) {
         if (this.balloons[k].health <= 0) {
           this.rows[this.balloons[k].index] -= 1
           this.balloons[k] = null;
+          this.balloonMinVelocity += 0.02
           this.balloons = this.balloons.filter((a) => a);
         }
          else if (
           this.balls[i].currentColor !== this.balloons[k].currentColor
+         
+          
         ) {
           removeBall = true;
         }
@@ -545,9 +586,12 @@ painterGameWorld.prototype.update = function (delta) {
           this.balls[i].position.x <= this.blimps[z].position.x + this.blimps[z].origin.x &&
           this.balls[i].position.y <= this.blimps[z].position.y + this.blimps[z].origin.y - 50 &&
           this.balls[i].position.y >= this.blimps[z].position.y - this.blimps[z].origin.y + 50 &&
-          this.balls[i].hitBlimp === false) {
+          this.balls[i].hitBlimp === false &&
+          this.balls[i].currentColor === this.blimps[z].markerColor) {
         this.blimps[z].health -= 1
         this.balls[i].hitBlimp = true
+        if (Math.random() < this.blimpColorChangeFrequency) 
+        this.blimps[z].changeMarker()
         if (this.blimps[z].health <= 0) {
           this.blimps[z] = null;
           this.blimps = this.blimps.filter((a) => a);

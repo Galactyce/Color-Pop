@@ -14,27 +14,32 @@ Game.loadAssets = function() {
   } 
 
   sprites.balloons = {
-    'red': {'normal': loadImage("balloon_red.png"), 'popped': loadImage("red_pop_effect.png")},
-    'green': {'normal': loadImage("balloon_green.png"), 'popped': loadImage("green_pop_effect.png")},
-    'blue': {'normal': loadImage("balloon_blue.png"), 'popped': loadImage("blue_pop_effect.png")},
-    'rainbow': {'normal': loadImage("rainbow_balloon.png")},
-    'bomb': {'normal': loadImage("bomb_balloon.png")},
-    'ice': {'normal': loadImage("ice_balloon.png")},
-    'ghost': {'normal': loadImage("ghost_balloon.png")},
+    'red': {'normal': loadImage("balloon_red.png"), 'popped': loadImage("red_pop_effect.png"), 'reinforced': loadImage("balloon_red_reinforced.png")},
+    'green': {'normal': loadImage("balloon_green.png"), 'popped': loadImage("green_pop_effect.png"), 'reinforced': loadImage("balloon_green_reinforced.png")},
+    'blue': {'normal': loadImage("balloon_blue.png"), 'popped': loadImage("blue_pop_effect.png"), 'reinforced': loadImage("balloon_blue_reinforced.png")},
+    'rainbow': {'normal': loadImage("rainbow_balloon.png"), "reinforced": loadImage("rainbow_balloon.png")},
+    'bomb': {'normal': loadImage("bomb_balloon.png"), 'reinforced': loadImage("bomb_balloon_reinforced.png")},
+    'ice': {'normal': loadImage("ice_balloon.png"), 'reinforced': loadImage("ice_balloon_reinforced.png")},
+    'ghost': {'normal': loadImage("ghost_balloon.png"), 'reinforced': loadImage("ice_balloon.png")},
     'golden': {'normal': loadImage("golden_balloon.png")},
-    'metal': {'normal': loadImage("lead_balloon_full.png")},
-    'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png")}, 
-    'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png")},
-    'homing': {'normal': loadImage('homing_balloon.png')}
+    'metal': {'normal': loadImage("lead_balloon_full.png"), 'reinforced': loadImage("metal_balloon_full_reinforced.png")},
+    'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png"), 'reinforced': loadImage("metal_balloon_cracked_reinforced.png")}, 
+    'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png"), 'reinforced': loadImage("metal_balloon_damaged_reinforced.png")},
+    'homing': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png")}
   };
 
   sprites.blimp = {
-    'full': {'normal': loadImage("basic_blimp_full.png")},
-    'hit1': {'normal': loadImage("basic_blimp_hit.png")},
-    'hit2': {'normal': loadImage("basic_blimp_hit2.png")},
-    'hit3': {'normal': loadImage("basic_blimp_hit3.png")},
-    'hit4': {'normal': loadImage("basic_blimp_hit4.png")}
+    'red': {'normal': loadImage("marker_red.png")},
+    'green': {'normal': loadImage("marker_green.png")},
+    'blue': {'normal': loadImage("marker_blue.png")},
+    'full': {'normal': loadImage("basic_blimp_full.png"), 'reinforced': loadImage("reinforced_blimp_full.png")},
+    'hit1': {'normal': loadImage("basic_blimp_hit.png"), 'reinforced': loadImage("reinforced_blimp_hit1.png")},
+    'hit2': {'normal': loadImage("basic_blimp_hit2.png"), 'reinforced': loadImage("reinforced_blimp_hit2.png")},
+    'hit3': {'normal': loadImage("basic_blimp_hit3.png"), 'reinforced': loadImage("reinforced_blimp_hit3.png")},
+    'hit4': {'normal': loadImage("basic_blimp_hit4.png"), 'reinforced': loadImage("reinforced_blimp_hit4.png")}
   }
+
+  
 
   sprites.balls = {
     'red': {'normal': loadImage("ball_red.png")},
@@ -55,6 +60,8 @@ Game.loadAssets = function() {
   }
 
   sprites.extras = {
+    'background': {'normal': loadImage("background.jpg")},
+    'platform': {'normal': loadImage("platform.png")},
     'life_marker': {'normal': loadImage("heart.png")},
     'score_text_box': {'normal': loadImage("text_box.png")},
     'play_button': {'normal': loadImage('play_button.png')},
