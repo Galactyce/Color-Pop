@@ -22,7 +22,7 @@ Cannon.prototype.ballPosition = function() {
 }
 
 Cannon.prototype.handleInput = function() {
-  if (!Game.gameWorld.paused) {
+  if (!Game.paused) {
   if (Keyboard.keyDown === 66) 
   this.currentColor = 'blue'
   else if (Keyboard.keyDown === 71) 
@@ -38,6 +38,7 @@ Cannon.prototype.handleInput = function() {
   if (Mouse.leftPressed && Game.gameWorld.started && !Game.paused) {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
   Game.gameWorld.balls.push(new Ball())
+  Game.gameWorld.ballsFired += 1;
   sounds.cannonShot.play()
   }
 }

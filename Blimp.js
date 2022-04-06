@@ -23,15 +23,9 @@ Blimp.prototype.changeMarker = function() {
 }
 
 Blimp.prototype.applyHealth = function() {
+  if (Game.gameWorld.mode === "only_armored")
+  this.armored = true
   if (Game.gameWorld.difficulty === 'easy') {
-    this.maxHealth = 25
-    this.health = 25
-    if (this.armored) {
-      this.maxHealth *= 2;
-      this.health *= 2;
-    }
-  }
-  if (Game.gameWorld.difficulty === 'intermediate') {
     this.maxHealth = 45;
     this.health = 45;
     if (this.armored) {
@@ -39,13 +33,26 @@ Blimp.prototype.applyHealth = function() {
       this.health *= 2;
     }
   }
-  if (Game.gameWorld.difficulty === 'hard') {
-    this.maxHealth = 55;
-    this.health = 55
+  if (Game.gameWorld.difficulty === 'intermediate') {
+    this.maxHealth = 60;
+    this.health = 60;
     if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
     }
+  }
+  if (Game.gameWorld.difficulty === 'hard') {
+    this.maxHealth = 90;
+    this.health = 90
+    if (this.armored) {
+      this.maxHealth *= 2;
+      this.health *= 2;
+    }
+  }
+  if (Game.gameWorld.mode === 'only_armored') {
+    this.maxHealth = 120
+    this.health = 120;
+    this.velocity.y = 10
   }
 }
 

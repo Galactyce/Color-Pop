@@ -18,10 +18,10 @@ Game_Singleton.prototype.mainLoop = function() {
 
   if (!this.paused) {
   
-  
+    Game.gameWorld.handleInput(delta);
+
   Game.gameWorld.update(delta);
   Canvas.clear();
-  Game.gameWorld.handleInput(delta);
   Game.gameWorld.resetInputs();
   Game.gameWorld.draw();
   }

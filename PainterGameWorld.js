@@ -1,17 +1,18 @@
 function painterGameWorld() {
   this.rows = new Array(0, 0, 0); // # of balloons in a row
   this.rowPositions = new Array(700, 900, 1100);
-  this.balloonsPerRow = 0; // Desired # of balloons per row
+  this.balloonsPerRow = 1; // Desired # of balloons per row
   this.barrierCount = 0;
   this.mode = 'normal'
   this.intenseBarrierCount = 0;
-  this.lives = 15;
+  this.lives = 5;
   this.maxBalloons = 3;
+  this.win = false;
   this.difficulty = new Array('easy', 'intermediate', 'hard', 'elite')
   this.started = false;
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
-  this.score = 1330;
+  this.score = 0;
   this.homingBalls = false
   this.playEndSound = false
   this.freezeTimer = 0;
@@ -35,9 +36,11 @@ function painterGameWorld() {
   this.hardButton = new PlayButton(460, 450, 'hard');
   this.armoredOnlyButton = new ModeButton('armored_only', 20, 50)
   this.buttons = new Array();
-  this.lastSpecialBalloons = Date.now()
-  this.blimpColorChangeFrequency = 0
-  this.modeButtons = new Array()
+  this.lastSpecialBalloons = Date.now();
+  this.blimpColorChangeFrequency = 0;
+  this.modeButtons = new Array();
+  this.balloonsPopped = 0;
+  this.ballsFired = 0;
 }
 
 painterGameWorld.prototype.drawBalloons = function () {
@@ -92,43 +95,6 @@ painterGameWorld.prototype.addRowsOfLives = function () {
   }
 };
 
-painterGameWorld.prototype.reset = function() {
-  this.rows = new Array(0, 0, 0);
-  this.barrierCount = 0;
-  this.intenseBarrierCount = 0;
-  this.homingBalls = false;
-  this.balloonMinVelocity = 0;
-  this.balloonMinVelocity = 30
-  this.specialBalloons = new Array();
-  this.penaltyBalloons = new Array();
-  this.score = 0;
-  this.balls = new Array()
-  this.balloons = new Array()
-  this.lives = 5;
-  this.balloonsPerRow = 1
-  this.maxBalloons = 3;
-  this.started = false
-  this.playButton = new PlayButton(460, 50, 'intermediate');
-  this.easyButton = new PlayButton(100, 400, 'easy');
-  this.hardButton = new PlayButton(700, 400, 'hard')
-
-  for (var i=0; i < this.balloons.length; i++) {
-    this.balloons[i] = null;
-  }
-  for (var i=0; i< this.barriers.length; i++) {
-    this.barriers[i] = null;
-  }
-  for (var i=0; i<this.intenseBarriers.length; i++) {
-    this.intenseBarriers[i] = null;
-  }
-  for (var i=0; i <this.balls.length; i++) {
-    this.balls[i] = null;
-  }
-  var delta = 1/ 60;
-  setTimeout(this.update(delta), 1000)
-  this.draw();
-
-}
 
 painterGameWorld.prototype.addAnotherRowOfLives = function () {
   for (var i = 0; i < 6; i++) {
@@ -211,6 +177,8 @@ for (var i=0; i < this.blimps.length; i++) {
 
   this.drawLives();
   this.pauseButton.draw();
+  this.playWinScreen()
+
 };
 
 painterGameWorld.prototype.handleInput = function (delta) {
@@ -225,195 +193,25 @@ painterGameWorld.prototype.resetInputs = function () {
   Keyboard.reset();
 };
 
-painterGameWorld.prototype.addScore = function (value) {
-  this.score += value;
-  this.balloons.minVelocity += 3
-  
-if (this.mode === 'normal') {
-  if (this.difficulty === 'intermediate') {
-  if (this.score < 400 && this.score + value >= 400) {      // Normal mode
-    this.specialBalloons.push('bomb');
+
+painterGameWorld.prototype.playWinScreen = function() {
+  if (this.win) {
+  Canvas.drawImage(sprites.extras['end_screen'].normal, {x: 350, y: 100}, 0, {x: 0, y: 0});
+  Canvas.drawText('You win!', new Vector2(500, 140), 'black', 'top', 'Comic Sans', '70px');
+  Canvas.drawText("You popped " + this.balloonsPopped + " balloons.", new Vector2(370, 210), 'black', 'top', 'Comic Sans', '50px');
+  Canvas.drawText("You fired " + this.ballsFired + " balls.", new Vector2(370, 280), 'black', 'top', 'Comic Sans', '50px');
+  Canvas.drawText("Press Space to restart.", new Vector2(370, 330), 'black', 'top', 'Comic Sans', '50px')
   }
+}
 
- 
-  if (this.score < 600 && this.score + value >= 600) {
-    this.penaltyBalloons.push('ghost');
-  }
-
-  if (this.score < 650 && this.score + value >= 650) {
-    this.penaltyBalloons.push('homing');
-  }
-  
-
- 
-
-  if (this.score < 1500 && this.score + value >= 1500) {
-    this.bossCount = 1;
-    this.barrierCount = 4
-  }
-
- 
-
-  if (this.score >= 100) {
-    this.barrierCount = 1;
-  }
-
-  if (this.score >= 250) {
-    this.barrierCount = 0;
-    this.intenseBarrierCount = 1;
-  }
-
-  if (this.score >= 300) {
-    this.balloonsPerRow = 2;
-  }
-
-  if (this.score < 900 && this.score + value >= 900) {
-    this.penaltyBalloons.push('metal')
-  }
-
-  if (this.score >= 700) {
-    this.barrierCount = 1;
-    this.intenseBarrierCount = 1;
-  }
-
-  if (this.score >= 1750) {
-    this.balloonsPerRow = 3;
-  }
-
-  if (this.score >= 2000) {
-    this.barrierCount = 2
-    this.intenseBarrierCount = 1
-  }
-
-  }
-  if (this.difficulty === 'easy') {                           // Easy mode
-    if (this.score < 400 && this.score + value >= 400) {
-      this.specialBalloons.push('bomb');
-    }
-
-    if (this.score < 600 && this.score + value >= 600) {
-      this.specialBalloons.push('homing')
-    }
-    
-    if (this.score < 800 && this.score + value >= 800) {
-    this.penaltyBalloons.push('metal');
-   }
-
-  
-    if (this.score < 1000 && this.score + value >= 1000) {
-      this.specialBalloons.push('ice');
-      // Also add waves to the balloons
-    }
-  
-    if (this.score < 1000 && this.score + value >= 1000) {
-      this.bossCount = 1;
-      this.barrierCount = 4;
-
-    }
-  
-  
-    if (this.score >= 150) {
-      this.barrierCount = 1;
-    }
-  
-    if (this.score >= 450) {
-      this.barrierCount = 0;
-      this.intenseBarrierCount = 1;
-    }
-  
-    if (this.score >= 500) {
-      this.balloonsPerRow = 2;
-    }
-  
-    if (this.score >= 800) {
-      this.barrierCount = 1;
-      this.intenseBarrierCount = 1;
-    }
-
-    if (this.score >= 1000) {
-      this.balloonsPerRow = 1
-    }
-    }
-
-    if (this.difficulty === 'hard') {   // Hard mode
-      
-      if (this.score >= 50) {
-        this.barrierCount = 1;
-      }
-    
-     
-      if (this.score >= 150) {
-        this.balloonsPerRow = 2;
-      }
-    
-      if (this.score >= 450) {
-        this.barrierCount = 1;
-        this.intenseBarrierCount = 1;
-      }
-
-      if (this.score < 600 && this.score + value >= 600) {
-        this.penaltyBalloons.push('metal')
-      }
-
-      if (this.score >= 800) {
-        this.barrierCount = 2;
-        this.intenseBarrierCount = 1
-      }
-
-      if (this.score >= 800) {
-        this.balloonsPerRow = 3
-      }
-
-      if (this.score < 900 && this.score + value >= 900) {
-        this.penaltyBalloons.push('ghost');
-        // Also add waves to the balloons
-      }
-
-      if (this.score >= 1200) {
-        this.barrierCount = 2;
-        this.intenseBarrierCount = 2;
-      }
-
-      if (this.score < 1500 && this.score + value >= 1500) {
-        this.specialBalloons.push('homing')
-      }
-
-      //  Add the boss
-      if (this.score >= 2000) {
-        this.bossCount = 1;
-        this.barrierCount = 3;
-        this.intenseBarrierCount = 2;
-        this.balloonsPerRow = 1;
-
-      }
-    }
-    
-    }
-
-    if (this.mode === 'only_armored') {
-      this.balloonMinVelocity = 25;
-      this.balloonsPerRow = 1;
-    }
-
-    if (this.score >= 80) {
-      this.barrierCount = 1
-    }
-
-    if (this.score < 150 && this.score + value >= 150) {
-      this.specialBalloons.push('bomb');
-    }
-
-    if (this.score >= 250) {
-      this.barrierCount = 2;
-    }
-   
-    if (this.score < 350 && this.score + value >= 350) {
-      this.penaltyBalloons.push('ghost')
-    }
-
-};
 
 painterGameWorld.prototype.update = function (delta) {
+
+  if (this.win) {
+    if (Keyboard.keyDown === 32) 
+    window.location.reload()
+  }
+
   this.pauseButton.update();
   if (this.started === false) {
   this.playButton.update();
@@ -424,7 +222,7 @@ painterGameWorld.prototype.update = function (delta) {
 
   // See if the score unlocks anything new
 
-  if (this.difficulty === 'intermediate') this.blimpColorChangeFrequency = 0.4;
+  if (this.difficulty === 'intermediate' || this.mode === 'only_armored') this.blimpColorChangeFrequency = 0.4;
   if (this.difficulty === 'hard') this.blimpColorChangeFrequency = 0.7;
   if (this.difficulty === 'easy') this.blimpColorChangeFrequency = 0.2
 
@@ -487,6 +285,7 @@ painterGameWorld.prototype.update = function (delta) {
             this.lives += this.balloons[k].popHeartValue;
             this.score += this.balloons[k].popPointValue;
             sounds.extraLife.play()
+            this.balloonsPopped += 1;
             this.balloons[k] = null;
             this.balloons = this.balloons.filter((a) => a);
             removeBall = true;
@@ -500,9 +299,11 @@ painterGameWorld.prototype.update = function (delta) {
           this.balloons[k].health -= 1;
           removeBall = true;
           if (this.balloons[k].health <= 0) {
+            this.balloonsPopped += 1;
             for (var b = 0; b < this.balloons.length; b++) {
               this.rows[this.balloons[b].index] -= 1;
               this.balloons[b] = null;
+              this.balloonsPopped += 1;
             }
             sounds.boom.play()
           }
@@ -516,6 +317,7 @@ painterGameWorld.prototype.update = function (delta) {
           removeBall = true;
           if (this.balloons[k].health <= 0) {
             this.homingBalls = true
+            this.balloonsPopped += 1;
             this.lastHomingBalloon = Date.now()
             this.homingPowerUpStart = Date.now()
           }
@@ -531,6 +333,7 @@ painterGameWorld.prototype.update = function (delta) {
           this.removeBall = true;
           this.rows[this.balloons[k].index] -= 1;
           this.balloons[k] = null;
+          this.balloonsPopped += 1;
           this.freezeTimer = Date.now();
           this.addScore(10)
           removeBall = true
@@ -556,7 +359,8 @@ painterGameWorld.prototype.update = function (delta) {
           if (this.balloons[k].health <= 0) {
             this.rows[this.balloons[k].index] -= 1;
             this.score += this.balloons[k].popPointValue;
-            this.addScore(25)
+            this.addScore(25);
+            this.balloonsPopped += 1;
             this.balloons[k] = null;
             this.balloons = this.balloons.filter((a) => a);
             break;
@@ -576,7 +380,8 @@ painterGameWorld.prototype.update = function (delta) {
           removeBall = true;
 
           if (this.balloons[k].health <= 0) {
-            sounds.popEffect.volume = 0.4
+            sounds.popEffect.volume = 0.4;
+            this.balloonsPopped += 1;
             sounds.popEffect.play()
             this.addScore(this.balloons[k].popPointValue);
           }
@@ -649,6 +454,10 @@ painterGameWorld.prototype.update = function (delta) {
           this.blimps[z] = null;
           this.blimps = this.blimps.filter((a) => a);
           this.bossCount -= 1
+          this.balloonsPopped += 1;
+          this.balloonsPerRow = 0
+          Game.paused = true;
+          this.win = true
         }
         break
       }

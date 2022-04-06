@@ -18,6 +18,7 @@
               Game.gameWorld.started = true;
               sounds.playSound.volume = 0.2
               sounds.cannonShot.volume = 0.4
+              Game.gameWorld.addScore(0)
               sounds.playSound.play()
               sounds.backgroundMusicBasic.volume = 0.1;
               
