@@ -22,6 +22,7 @@ Cannon.prototype.ballPosition = function() {
 }
 
 Cannon.prototype.handleInput = function() {
+  if (!Game.gameWorld.paused) {
   if (Keyboard.keyDown === 66) 
   this.currentColor = 'blue'
   else if (Keyboard.keyDown === 71) 
@@ -32,12 +33,14 @@ Cannon.prototype.handleInput = function() {
   var opp = Mouse.position.y - this.position.y;
   var adj = Mouse.position.x - this.position.x;
   this.rotation = Math.atan2(opp, adj);
-
-  if (Mouse.leftPressed && Game.gameWorld.started) {
+  
+  
+  if (Mouse.leftPressed && Game.gameWorld.started && !Game.paused) {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
   Game.gameWorld.balls.push(new Ball())
   sounds.cannonShot.play()
   }
+}
 }
 
 Cannon.prototype.update = function() {

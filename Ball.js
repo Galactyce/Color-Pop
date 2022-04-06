@@ -1,6 +1,7 @@
 
             function Ball() {
               this.origin = new Vector2(10, 10);
+              this.position = new Vector2(0, 0)
               this.velocity = new Vector2(0, 0)
               this.rotation = 0;
               this.active = true;

@@ -13,8 +13,8 @@ function Balloon(xPosition, velocity, index, health) {
   this.origin = new Vector2(60, 60);
   this.wavy = false;
   this.moveDir = -2;
-  this.reinforced = false;
-  this.reinforcedChance = 0.15
+  this.armored = false;
+  this.armoredChance = 0.15
   this.leftMoved = false;
   this.rightMoved = false;
   this.rainbowProbability = 0.06;
@@ -38,10 +38,16 @@ Balloon.prototype.applyHealth = function() {
     this.health = 3;
     this.velocity.y = 100
   }
-  if (this.reinforced === true) {
-    this.health *= 2
+ 
+
+  if (Game.gameWorld.mode === 'only_armored') {
+    this.armored = true
   }
  
+  if (this.armored) {
+    this.health *= 2
+  }
+
 }
 
 
@@ -51,9 +57,9 @@ Balloon.prototype.moveToTop = function() {
 }
 
 Balloon.prototype.draw = function() {
-  if (!this.reinforced)
+  if (!this.armored)
    Canvas.drawImage(sprites.balloons[this.currentColor].normal, this.position, 0, this.origin);
-   if (this.reinforced)
+   if (this.armored)
    Canvas.drawImage(sprites.balloons[this.currentColor].reinforced, this.position, 0, this.origin);
    if (this.currentColor === 'ghost') {
      Canvas.drawImage(sprites.balloons[this.currentColor].reinforced, this.position, 0, this.origin, 0.1)
@@ -98,9 +104,9 @@ Balloon.prototype.chooseRandomValue = function(value) {
 
 Balloon.prototype.checkReinforced = function() {
   var randomval = this.chooseRandomValue(1) 
-  if (Game.gameWorld.difficulty === 'normal') {
-    if (randomval < this.reinforcedChance && Game.gameWorld.score >= 2000) {
-      this.reinforced = true
+  if (Game.gameWorld.difficulty === 'intermediate') {
+    if (randomval < this.armoredChance && Game.gameWorld.score >= 2000) {
+      this.armored = true
       this.health *= 2
     }
   }
@@ -129,7 +135,7 @@ Balloon.prototype.chooseColor = function() {
 
   else {
     this.currentColor = Game.gameWorld.normalBalloons[Math.floor(Math.random() * Game.gameWorld.normalBalloons.length)];
-    if (Game.gameWorld.difficulty === 'normal') {
+    if (Game.gameWorld.difficulty === 'intermediate') {
     if (Game.gameWorld.score >= 1000 && Math.random() < 0.1) this.wavy = true;
     }
   }

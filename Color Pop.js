@@ -17,7 +17,7 @@ Game.loadAssets = function() {
     'red': {'normal': loadImage("balloon_red.png"), 'popped': loadImage("red_pop_effect.png"), 'reinforced': loadImage("balloon_red_reinforced.png")},
     'green': {'normal': loadImage("balloon_green.png"), 'popped': loadImage("green_pop_effect.png"), 'reinforced': loadImage("balloon_green_reinforced.png")},
     'blue': {'normal': loadImage("balloon_blue.png"), 'popped': loadImage("blue_pop_effect.png"), 'reinforced': loadImage("balloon_blue_reinforced.png")},
-    'rainbow': {'normal': loadImage("rainbow_balloon.png"), "reinforced": loadImage("rainbow_balloon.png")},
+    'rainbow': {'normal': loadImage("rainbow_balloon.png"), "reinforced": loadImage("reinforced_rainbow_balloon.png")},
     'bomb': {'normal': loadImage("bomb_balloon.png"), 'reinforced': loadImage("bomb_balloon_reinforced.png")},
     'ice': {'normal': loadImage("ice_balloon.png"), 'reinforced': loadImage("ice_balloon_reinforced.png")},
     'ghost': {'normal': loadImage("ghost_balloon.png"), 'reinforced': loadImage("ice_balloon.png")},
@@ -64,7 +64,8 @@ Game.loadAssets = function() {
     'platform': {'normal': loadImage("platform.png")},
     'life_marker': {'normal': loadImage("heart.png")},
     'score_text_box': {'normal': loadImage("text_box.png")},
-    'play_button': {'normal': loadImage('play_button.png')},
+    'armored_only_button': {'normal': loadImage("armored_only_mode_button.png")},
+    'intermediate_button': {'normal': loadImage('intermediate_mode_button.png')},
     'easy_button': {'normal': loadImage("easy_mode_button.png")},
     'hard_button': {'normal': loadImage("hard_mode_button.png")},
     'pause_button': {'normal':  loadImage("basic_pause_button.png")}

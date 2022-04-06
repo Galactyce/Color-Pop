@@ -22,6 +22,7 @@ Game_Singleton.prototype.mainLoop = function() {
   Game.gameWorld.update(delta);
   Canvas.clear();
   Game.gameWorld.handleInput(delta);
+  Game.gameWorld.resetInputs();
   Game.gameWorld.draw();
   }
   Mouse.checkInputs();

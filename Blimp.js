@@ -3,7 +3,7 @@ function Blimp() {
   this.velocity = new Vector2(0, 20)
   this.origin = new Vector2(275, 195);
   this.healthState = 'full'
-  this.reinforced = false;
+  this.armored = false;
   this.health = undefined;
   this.maxHealth = undefined;
   this.markerColor = undefined;
@@ -26,15 +26,15 @@ Blimp.prototype.applyHealth = function() {
   if (Game.gameWorld.difficulty === 'easy') {
     this.maxHealth = 25
     this.health = 25
-    if (this.reinforced) {
+    if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
     }
   }
-  if (Game.gameWorld.difficulty === 'normal') {
+  if (Game.gameWorld.difficulty === 'intermediate') {
     this.maxHealth = 45;
     this.health = 45;
-    if (this.reinforced) {
+    if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
     }
@@ -42,7 +42,7 @@ Blimp.prototype.applyHealth = function() {
   if (Game.gameWorld.difficulty === 'hard') {
     this.maxHealth = 55;
     this.health = 55
-    if (this.reinforced) {
+    if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
     }
@@ -50,11 +50,12 @@ Blimp.prototype.applyHealth = function() {
 }
 
 Blimp.prototype.draw = function() {
-  if (!this.reinforced)
+  var origin = new Vector2(sprites.blimp[this.markerColor].normal.width, sprites.blimp[this.markerColor].normal.height)
+  if (!this.armored)
   Canvas.drawImage(sprites.blimp[this.healthState].normal, this.position, 0, this.origin);
-  if (this.reinforced)
+  if (this.armored)
   Canvas.drawImage(sprites.blimp[this.healthState].reinforced, this.position, 0, this.origin);
-  Canvas.drawImage(sprites.blimp[this.markerColor].normal, this.position, 0, {x: 20, y: 20})
+  Canvas.drawImage(sprites.blimp[this.markerColor].normal, this.position, 0, origin)
 
 }
 
