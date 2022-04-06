@@ -172,7 +172,10 @@ if (this.mode === 'normal') {
     if (this.mode === 'only_armored') {
       this.balloonMinVelocity = 25;
       this.balloonsPerRow = 1;
+      
     
+
+
 
     if (this.score >= 80) {
       this.barrierCount = 1
@@ -205,6 +208,7 @@ if (this.mode === 'normal') {
 
     if (this.score >= 1000) {
       this.balloonsPerRow = 3;
+      this.barrierCount = 2
     }
 
     if (this.score >= 1250) {

@@ -9,7 +9,7 @@ function Game_Singleton() {
 Game_Singleton.prototype.start = function() {
   Canvas.init();
   Game.loadAssets();
-  Game.assetLoadingLoop()
+  Game.assetLoadingLoop();
 };
 
 
@@ -38,6 +38,7 @@ Game_Singleton.prototype.assetLoadingLoop = function() {
   }
 else {
   Game.gameWorld = new painterGameWorld();
+  
   console.log("Sprites loaded.")
   Game.mainLoop()
 }

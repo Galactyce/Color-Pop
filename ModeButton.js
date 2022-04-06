@@ -14,20 +14,30 @@ ModeButton.prototype.draw = function() {
   this.rect = new Rectangle(
     this.position.x, this.position.y, sprites.extras['armored_only_button'].normal.width, sprites.extras['armored_only_button'].normal.height);
   }
+  if (this.mode === 'faster_balloons') {
+    Canvas.drawImage(sprites.extras['faster_balloons_button'].normal, this.position, 0, new Vector2(0, 0))
+    Canvas.drawText("Faster Balloons", new Vector2(this.position.x + 7, this.position.y + 60), "black", "top", "Comic Sans", "60px")
+    this.rect = new Rectangle(
+    this.position.x, this.position.y, sprites.extras['faster_balloons_button'].normal.width, sprites.extras['faster_balloons_button'].normal.height);
+  }
 }
 }
 
 ModeButton.prototype.update = function() {
   
   if (this.rect.contains(Mouse.position) && Mouse.leftPressed && this.clicked === false) {
+    if (this.mode === "armored_only") {
+      Game.gameWorld.mode = 'only_armored'
+    }
+    if (this.mode === 'faster_balloons') {
+      Game.gameWorld.mode = 'faster_balloons'
+    }
     Game.gameWorld.playButton.clicked = true
     Game.gameWorld.easyButton.clicked = true;
     Game.gameWorld.hardButton.clicked = true;
     Game.gameWorld.armoredOnlyButton.clicked = true;
-    if (this.mode === "armored_only") {
-      Game.gameWorld.mode = 'only_armored'
-      Game.gameWorld.addScore(0)
-    }
+    Game.gameWorld.fasterBalloonsButton.clicked = true;
+
     Game.gameWorld.started = true;
 
     sounds.playSound.volume = 0.2
@@ -36,6 +46,8 @@ ModeButton.prototype.update = function() {
     sounds.backgroundMusicBasic.volume = 0.1;
   
     sounds.backgroundMusicBasic.play()
-    Game.gameWorld.difficulty = this.difficulty
+    Game.gameWorld.difficulty = this.difficulty;
+    Game.gameWorld.addScore(0)
+
   }
 }

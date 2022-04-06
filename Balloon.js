@@ -20,10 +20,10 @@ function Balloon(xPosition, velocity, index, health) {
   this.rainbowProbability = 0.06;
   this.specialProbability = 0.025 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.penaltyProbability = 0.035 + Game.gameWorld.penaltyBalloons.length / 200 + Game.gameWorld.score / 25000;
-  this.calculateRandomVelocity();
-  this.checkReinforced()
-  this.chooseColor();
   this.applyHealth();
+  this.calculateRandomVelocity();
+  this.chooseColor();
+  this.checkSpecials()
   this.moveToTop()
 }
 
@@ -34,16 +34,6 @@ Balloon.prototype.applyHealth = function() {
     this.health = 9;
     this.velocity.y = 25;
   }
-  if (this.currentColor === 'golden') {
-    this.health = 3;
-    this.velocity.y = 100
-  }
- 
-
-  if (Game.gameWorld.mode === 'only_armored') {
-    this.armored = true
-  }
- 
   if (this.armored) {
     this.health *= 2
   }
@@ -102,7 +92,16 @@ Balloon.prototype.chooseRandomValue = function(value) {
   return Math.random() * value
 }
 
-Balloon.prototype.checkReinforced = function() {
+Balloon.prototype.checkSpecials = function() {
+  if (Game.gameWorld.mode === 'only_armored') {
+    this.armored = true
+  }
+  if (Game.gameWorld.mode === 'faster_balloons') {
+    this.velocity.y *= 3
+  }
+
+  
+
   var randomval = this.chooseRandomValue(1) 
   if (Game.gameWorld.difficulty === 'intermediate') {
     if (randomval < this.armoredChance && Game.gameWorld.score >= 2000) {

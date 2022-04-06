@@ -35,6 +35,7 @@ function painterGameWorld() {
   this.easyButton = new PlayButton(460, 50, 'easy');
   this.hardButton = new PlayButton(460, 450, 'hard');
   this.armoredOnlyButton = new ModeButton('armored_only', 20, 50)
+  this.fasterBalloonsButton = new ModeButton('faster_balloons', 20, 250);
   this.buttons = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -123,6 +124,11 @@ painterGameWorld.prototype.addAnotherRowOfLives = function () {
   }
 };
 
+painterGameWorld.prototype.drawModeButtons = function() {
+  this.fasterBalloonsButton.draw();
+  this.armoredOnlyButton.draw();
+}
+
 painterGameWorld.prototype.draw = function () {
 
   Canvas.context.fillStyle = 'white';
@@ -131,7 +137,7 @@ painterGameWorld.prototype.draw = function () {
   this.playButton.draw();
   this.easyButton.draw();
   this.hardButton.draw();
-  this.armoredOnlyButton.draw();
+  this.drawModeButtons()
   if (this.started === false) return;
   Canvas.drawImage(sprites.extras['platform'].normal, new Vector2(-30, 650), 0, new Vector2(0, 0))
 
@@ -206,7 +212,6 @@ painterGameWorld.prototype.playWinScreen = function() {
 
 
 painterGameWorld.prototype.update = function (delta) {
-
   if (this.win) {
     if (Keyboard.keyDown === 32) 
     window.location.reload()
@@ -218,29 +223,40 @@ painterGameWorld.prototype.update = function (delta) {
   this.easyButton.update();
   this.hardButton.update();
   this.armoredOnlyButton.update();
+  this.fasterBalloonsButton.update()
   }
 
   // See if the score unlocks anything new
 
-  if (this.difficulty === 'intermediate' || this.mode === 'only_armored') this.blimpColorChangeFrequency = 0.4;
+ 
   if (this.difficulty === 'hard') this.blimpColorChangeFrequency = 0.7;
-  if (this.difficulty === 'easy') this.blimpColorChangeFrequency = 0.2
-
+  else if (this.difficulty === 'easy') this.blimpColorChangeFrequency = 0.2;
+  else {
+    this.blimpColorChangeFrequency = 0.4
+  }
 
   for (var i=this.blimps.length; i < this.bossCount; i++) {
     this.blimps.push(new Blimp())
   }
 
 
-
   for (var i = 0; i < this.rows.length; i++) {
     if (this.rows[i] < this.balloonsPerRow) {
       this.balloons.push(
         new Balloon(this.rowPositions[i], this.balloonMinVelocity, i, this.defaultBalloonHealth)
+       
       ); // Draw balloons
+      if (this.mode === 'only_armored') {
+        this.balloons[i].armored = true
+      }
+      if (this.mode === 'faster_balloons') {
+        this.balloons[i].minVelocity *= 2
+      }
+     
       this.rows[i] += 1;
     }
   }
+  
 
   if (Date.now() > this.homingPowerUpStart + 20000) {
     this.homingBalls = false

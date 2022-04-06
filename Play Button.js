@@ -5,6 +5,7 @@
               this.difficulty = difficulty
               this.rect = new Rectangle(0, 0, xPosition, yPosition);
               this.clicked = false
+
           }
 
           PlayButton.prototype.update = function() {
@@ -13,7 +14,8 @@
                 Game.gameWorld.playButton.clicked = true
                 Game.gameWorld.easyButton.clicked = true;
                 Game.gameWorld.hardButton.clicked = true
-                Game.gameWorld.armoredOnlyButton.clicked = true
+                Game.gameWorld.armoredOnlyButton.clicked = true;
+                Game.gameWorld.fasterBalloonsButton.clicked = true
                 
               Game.gameWorld.started = true;
               sounds.playSound.volume = 0.2

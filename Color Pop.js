@@ -64,6 +64,7 @@ Game.loadAssets = function() {
     'platform': {'normal': loadImage("platform.png")},
     'life_marker': {'normal': loadImage("heart.png")},
     'score_text_box': {'normal': loadImage("text_box.png")},
+    'faster_balloons_button': {'normal': loadImage('faster_balloons_mode_button.png')},
     'armored_only_button': {'normal': loadImage("armored_only_mode_button.png")},
     'intermediate_button': {'normal': loadImage('intermediate_mode_button.png')},
     'easy_button': {'normal': loadImage("easy_mode_button.png")},
