@@ -20,6 +20,12 @@ ModeButton.prototype.draw = function() {
     this.rect = new Rectangle(
     this.position.x, this.position.y, sprites.extras['faster_balloons_button'].normal.width, sprites.extras['faster_balloons_button'].normal.height);
   }
+  if (this.mode === 'no_color_mode') {
+    Canvas.drawImage(sprites.extras['no_color_mode'].normal, this.position, 0, new Vector2(0, 0))
+    Canvas.drawText("No Color", new Vector2(this.position.x + 70, this.position.y + 60), "black", "top", "Comic Sans", "60px")
+    this.rect = new Rectangle(
+    this.position.x, this.position.y, sprites.extras['no_color_mode'].normal.width, sprites.extras['no_color_mode'].normal.height);
+  }
 }
 }
 
@@ -27,16 +33,26 @@ ModeButton.prototype.update = function() {
   
   if (this.rect.contains(Mouse.position) && Mouse.leftPressed && this.clicked === false) {
     if (this.mode === "armored_only") {
+      Game.gameWorld.balloonsPerRow = 1
       Game.gameWorld.mode = 'only_armored'
     }
     if (this.mode === 'faster_balloons') {
+      Game.gameWorld.balloonsPerRow = 1
       Game.gameWorld.mode = 'faster_balloons'
     }
-    Game.gameWorld.playButton.clicked = true
+
+    if (this.mode === 'no_color_mode') {
+      Game.gameWorld.mode = 'no_color'
+    }
+
+
+    Game.gameWorld.playButton.clicked = true;
     Game.gameWorld.easyButton.clicked = true;
     Game.gameWorld.hardButton.clicked = true;
+    Game.gameWorld.apexButton.clicked = true;
     Game.gameWorld.armoredOnlyButton.clicked = true;
     Game.gameWorld.fasterBalloonsButton.clicked = true;
+    Game.gameWorld.noColorModeButton.clicked = true
 
     Game.gameWorld.started = true;
 
@@ -48,6 +64,5 @@ ModeButton.prototype.update = function() {
     sounds.backgroundMusicBasic.play()
     Game.gameWorld.difficulty = this.difficulty;
     Game.gameWorld.addScore(0)
-
   }
 }

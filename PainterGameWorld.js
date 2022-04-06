@@ -1,14 +1,15 @@
 function painterGameWorld() {
   this.rows = new Array(0, 0, 0); // # of balloons in a row
   this.rowPositions = new Array(700, 900, 1100);
-  this.balloonsPerRow = 1; // Desired # of balloons per row
+  this.balloonsPerRow = 0; // Desired # of balloons per row
   this.barrierCount = 0;
   this.mode = 'normal'
+  this.balloonMinVelocity = 30
   this.intenseBarrierCount = 0;
   this.lives = 5;
   this.maxBalloons = 3;
   this.win = false;
-  this.difficulty = new Array('easy', 'intermediate', 'hard', 'elite')
+  this.difficulty = new Array('easy', 'intermediate', 'hard', 'apex')
   this.started = false;
   this.defaultBalloonHealth = 1;
   this.livesPosition = 50;
@@ -29,13 +30,16 @@ function painterGameWorld() {
   this.lastHomingBalloon = Date.now()
   this.barriers = new Array();
   this.intenseBarriers = new Array();
-  this.balloonMinVelocity = 0
+  this.balloonMinVelocity = 30;
+  this.wavyActive = false;
   this.pauseButton = new PauseButton();
   this.playButton = new PlayButton(460, 250, 'intermediate');
   this.easyButton = new PlayButton(460, 50, 'easy');
   this.hardButton = new PlayButton(460, 450, 'hard');
+  this.apexButton = new PlayButton(20, 450, 'apex');
   this.armoredOnlyButton = new ModeButton('armored_only', 20, 50)
   this.fasterBalloonsButton = new ModeButton('faster_balloons', 20, 250);
+  this.noColorModeButton = new ModeButton('no_color_mode', 880, 50);
   this.buttons = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -52,6 +56,7 @@ painterGameWorld.prototype.drawBalloons = function () {
 
   for (var i = 0; i < this.balloons.length; i++) {
     this.balloons[i].draw();
+    
   }
 
  
@@ -127,6 +132,7 @@ painterGameWorld.prototype.addAnotherRowOfLives = function () {
 painterGameWorld.prototype.drawModeButtons = function() {
   this.fasterBalloonsButton.draw();
   this.armoredOnlyButton.draw();
+  this.noColorModeButton.draw();
 }
 
 painterGameWorld.prototype.draw = function () {
@@ -137,6 +143,7 @@ painterGameWorld.prototype.draw = function () {
   this.playButton.draw();
   this.easyButton.draw();
   this.hardButton.draw();
+  this.apexButton.draw()
   this.drawModeButtons()
   if (this.started === false) return;
   Canvas.drawImage(sprites.extras['platform'].normal, new Vector2(-30, 650), 0, new Vector2(0, 0))
@@ -150,11 +157,11 @@ painterGameWorld.prototype.draw = function () {
 
   Canvas.drawText(
     "Score: " + this.score,
-    new Vector2(75, 30),
+    new Vector2(130, 33),
     "white",
-    "top",
-    "Comic Sans",
-    "30px"
+    "center",
+    "Courier New",
+    "25px"
   ); 
  // this.drawUpdateLog();
 for (var i=0; i < this.blimps.length; i++) {
@@ -213,25 +220,33 @@ painterGameWorld.prototype.playWinScreen = function() {
 
 painterGameWorld.prototype.update = function (delta) {
   if (this.win) {
-    if (Keyboard.keyDown === 32) 
+    if (Keyboard.keyDown === 13) 
     window.location.reload()
   }
-
+  
   this.pauseButton.update();
   if (this.started === false) {
   this.playButton.update();
   this.easyButton.update();
   this.hardButton.update();
+  this.apexButton.update()
   this.armoredOnlyButton.update();
-  this.fasterBalloonsButton.update()
+  this.fasterBalloonsButton.update();
+  this.noColorModeButton.update()
   }
 
   // See if the score unlocks anything new
-
  
-  if (this.difficulty === 'hard') this.blimpColorChangeFrequency = 0.7;
-  else if (this.difficulty === 'easy') this.blimpColorChangeFrequency = 0.2;
+  if (this.difficulty === 'hard' || this.difficulty === 'apex') {
+    this.blimpColorChangeFrequency = 0.7;
+    this.balloonMinVelocity = 50
+  }
+  else if (this.difficulty === 'easy') {
+    this.blimpColorChangeFrequency = 0.2;
+    this.balloonMinVelocity = 30
+}
   else {
+    this.balloonMinVelocity = 30
     this.blimpColorChangeFrequency = 0.4
   }
 
@@ -242,17 +257,7 @@ painterGameWorld.prototype.update = function (delta) {
 
   for (var i = 0; i < this.rows.length; i++) {
     if (this.rows[i] < this.balloonsPerRow) {
-      this.balloons.push(
-        new Balloon(this.rowPositions[i], this.balloonMinVelocity, i, this.defaultBalloonHealth)
-       
-      ); // Draw balloons
-      if (this.mode === 'only_armored') {
-        this.balloons[i].armored = true
-      }
-      if (this.mode === 'faster_balloons') {
-        this.balloons[i].minVelocity *= 2
-      }
-     
+      this.balloons.push(new Balloon(this.rowPositions[i], i, this.defaultBalloonHealth)); // Draw balloons
       this.rows[i] += 1;
     }
   }
@@ -346,6 +351,8 @@ painterGameWorld.prototype.update = function (delta) {
         //  Ice balloon physics
 
         if (this.balloons[k].currentColor === 'ice') {
+          this.health -= 1
+          if (this.health <= 0) {
           this.removeBall = true;
           this.rows[this.balloons[k].index] -= 1;
           this.balloons[k] = null;
@@ -354,6 +361,7 @@ painterGameWorld.prototype.update = function (delta) {
           this.addScore(10)
           removeBall = true
           break;
+          }
         }
 
         // Metal balloon Physics
@@ -390,7 +398,7 @@ painterGameWorld.prototype.update = function (delta) {
         // Normal physics
         if (
           this.balls[i].currentColor === this.balloons[k].currentColor ||
-          this.balloons[k].currentColor === "ghost"
+          this.balloons[k].currentColor === "white"
         ) {
           this.balloons[k].health -= 1;
           removeBall = true;
@@ -412,11 +420,10 @@ painterGameWorld.prototype.update = function (delta) {
           this.balloons = this.balloons.filter((a) => a);
         }
          else if (
-          this.balls[i].currentColor !== this.balloons[k].currentColor
-         
-          
-        ) {
+          this.balls[i].currentColor !== this.balloons[k].currentColor) {
           removeBall = true;
+      
+        
         }
       }
     }

@@ -35,7 +35,7 @@ Cannon.prototype.handleInput = function() {
   this.rotation = Math.atan2(opp, adj);
   
   
-  if (Mouse.leftPressed && Game.gameWorld.started && !Game.paused) {
+  if (Mouse.leftPressed || Keyboard.keyPressed === 32 && Game.gameWorld.started && !Game.paused) {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
   Game.gameWorld.balls.push(new Ball())
   Game.gameWorld.ballsFired += 1;

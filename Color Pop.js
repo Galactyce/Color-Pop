@@ -20,13 +20,14 @@ Game.loadAssets = function() {
     'rainbow': {'normal': loadImage("rainbow_balloon.png"), "reinforced": loadImage("reinforced_rainbow_balloon.png")},
     'bomb': {'normal': loadImage("bomb_balloon.png"), 'reinforced': loadImage("bomb_balloon_reinforced.png")},
     'ice': {'normal': loadImage("ice_balloon.png"), 'reinforced': loadImage("ice_balloon_reinforced.png")},
-    'ghost': {'normal': loadImage("ghost_balloon.png"), 'reinforced': loadImage("ice_balloon.png")},
+    'white': {'normal': loadImage("ghost_balloon.png"), 'reinforced': loadImage("ghost_balloon.png")},
     'golden': {'normal': loadImage("golden_balloon.png")},
     'metal': {'normal': loadImage("lead_balloon_full.png"), 'reinforced': loadImage("metal_balloon_full_reinforced.png")},
     'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png"), 'reinforced': loadImage("metal_balloon_cracked_reinforced.png")}, 
     'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png"), 'reinforced': loadImage("metal_balloon_damaged_reinforced.png")},
     'homing': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png")}
   };
+
 
   sprites.blimp = {
     'red': {'normal': loadImage("marker_red.png")},
@@ -66,10 +67,13 @@ Game.loadAssets = function() {
     'score_text_box': {'normal': loadImage("text_box.png")},
     'faster_balloons_button': {'normal': loadImage('faster_balloons_mode_button.png')},
     'armored_only_button': {'normal': loadImage("armored_only_mode_button.png")},
-    'intermediate_button': {'normal': loadImage('intermediate_mode_button.png')},
+    'no_color_mode': {'normal': loadImage('no_color_mode_button.png')},
     'easy_button': {'normal': loadImage("easy_mode_button.png")},
+    'intermediate_button': {'normal': loadImage('intermediate_mode_button.png')},
     'hard_button': {'normal': loadImage("hard_mode_button.png")},
+    'apex_button': {'normal': loadImage("apex_mode_button.png")},
     'pause_button': {'normal':  loadImage("basic_pause_button.png")},
+    'play_button': {'normal': loadImage('basic_play_button.png')},
     'end_screen': {'normal': loadImage("blank_end_screen.png")}
   }
 

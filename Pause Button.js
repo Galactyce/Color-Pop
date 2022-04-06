@@ -11,8 +11,10 @@
           }
 
           PauseButton.prototype.draw = function() {
+              if (!Game.paused)
               Canvas.drawImage(sprites.extras['pause_button'].normal, this.position, 0, this.origin);
-              
+              if (Game.paused)
+              Canvas.drawImage(sprites.extras['play_button'].normal, this.position, 0, this.origin)
           }
 
           PauseButton.prototype.update = function() {

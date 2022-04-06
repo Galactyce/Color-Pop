@@ -1,4 +1,4 @@
-function Balloon(xPosition, velocity, index, health) {
+function Balloon(xPosition, index, health) {
   this.position =  new Vector2(xPosition, -100);
   this.rainbowBalloonChance = 2.7;
   this.index = index;
@@ -9,7 +9,6 @@ function Balloon(xPosition, velocity, index, health) {
   this.popPointValue = 10;
   this.popHeartValue = 1;
   this.velocity = new Vector2(0, 0);
-  this.minVelocity = 30 + velocity
   this.origin = new Vector2(60, 60);
   this.wavy = false;
   this.moveDir = -2;
@@ -19,11 +18,11 @@ function Balloon(xPosition, velocity, index, health) {
   this.rightMoved = false;
   this.rainbowProbability = 0.06;
   this.specialProbability = 0.025 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
-  this.penaltyProbability = 0.035 + Game.gameWorld.penaltyBalloons.length / 200 + Game.gameWorld.score / 25000;
-  this.applyHealth();
+  this.penaltyProbability = 0.075 + Game.gameWorld.penaltyBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.calculateRandomVelocity();
   this.chooseColor();
   this.checkSpecials()
+  this.applyHealth();
   this.moveToTop()
 }
 
@@ -49,19 +48,16 @@ Balloon.prototype.moveToTop = function() {
 Balloon.prototype.draw = function() {
   if (!this.armored)
    Canvas.drawImage(sprites.balloons[this.currentColor].normal, this.position, 0, this.origin);
-   if (this.armored)
+   if (this.armored) {
    Canvas.drawImage(sprites.balloons[this.currentColor].reinforced, this.position, 0, this.origin);
-   if (this.currentColor === 'ghost') {
-     Canvas.drawImage(sprites.balloons[this.currentColor].reinforced, this.position, 0, this.origin, 0.1)
+   if (this.health === 1) {
+    Canvas.drawImage(sprites.balloons[this.currentColor].normal, this.position, 0, this.origin);
    }
-
+   }
 }
 
 Balloon.prototype.calculateRandomVelocity = function() {
-  if (Game.gameWorld.difficulty === 'easy') this.minVelocity = 20
-
-    if (Game.gameWorld.difficulty === 'hard') this.minVelocity = 50
-    this.velocity.y =  Math.random() * 20 + this.minVelocity;
+    this.velocity.y =  Math.random() * 20 + Game.gameWorld.balloonMinVelocity;
 }
 
 
@@ -69,7 +65,7 @@ Balloon.prototype.calculateRandomVelocity = function() {
 
 Balloon.prototype.update = function (delta) { // 1
     this.position.addTo(this.velocity.multiply(delta));
-    if (this.wavy) {
+    if (Game.gameWorld.wavyActive) {
       if (this.position.x >= 1100 && this.leftMoved === false) {
         this.leftMoved = true;
         this.rightMoved = false;
@@ -95,14 +91,15 @@ Balloon.prototype.chooseRandomValue = function(value) {
 Balloon.prototype.checkSpecials = function() {
   if (Game.gameWorld.mode === 'only_armored') {
     this.armored = true
+    this.health *= 2
   }
   if (Game.gameWorld.mode === 'faster_balloons') {
-    this.velocity.y *= 3
+    this.velocity.y *= 2
   }
 
   
 
-  var randomval = this.chooseRandomValue(1) 
+  var randomval = this.chooseRandomValue() 
   if (Game.gameWorld.difficulty === 'intermediate') {
     if (randomval < this.armoredChance && Game.gameWorld.score >= 2000) {
       this.armored = true
@@ -115,8 +112,13 @@ Balloon.prototype.checkSpecials = function() {
 Balloon.prototype.chooseColor = function() {
   var randomval = this.chooseRandomValue(1)
   if (Game.gameWorld.difficulty === 'easy') 
-  this.rainbowProbability = 0.1
-  if (randomval < this.rainbowProbability) {
+  this.rainbowProbability = 0.1;
+
+  if (Game.gameWorld.mode === 'no_color') {
+    this.currentColor = 'white'
+  }
+
+  else if (randomval < this.rainbowProbability) {
     this.currentColor = 'rainbow'
 
  }
@@ -128,9 +130,10 @@ Balloon.prototype.chooseColor = function() {
    
   }
 
-  else if (randomval > 0.5 && randomval < 0.5 + this.penaltyProbability && Game.gameWorld.penaltyBalloons.length > 0 &&  Date.now() > Game.gameWorld.lastSpecialBalloon + 60000) {
+  else if (randomval > 0.5 && randomval < 0.5 + this.penaltyProbability && Game.gameWorld.penaltyBalloons.length > 0 ) {
     this.currentColor = Game.gameWorld.penaltyBalloons[Math.floor(Math.random() * Game.gameWorld.penaltyBalloons.length)];
   }
+
 
   else {
     this.currentColor = Game.gameWorld.normalBalloons[Math.floor(Math.random() * Game.gameWorld.normalBalloons.length)];

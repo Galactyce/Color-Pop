@@ -31,13 +31,16 @@ Canvas_Singleton.prototype.resize = function() {
 }
 
 Canvas_Singleton.prototype.drawImage = function(sprite, position, rotation, origin, alpha) {
+
   this.context.save();
+  this.context.globalAlpha = alpha;
+
   this.context.translate(position.x, position.y);
-  this.context.globalAlpha = alpha
   this.context.rotate(rotation);
   this.context.drawImage(sprite, 0, 0, sprite.width, sprite.height,
    -origin.x, -origin.y, sprite.width, sprite.height);
   this.context.restore();
+
 }
 
 Canvas_Singleton.prototype.clear = function() {
