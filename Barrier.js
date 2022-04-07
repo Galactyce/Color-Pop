@@ -1,6 +1,7 @@
 function Barrier() {
   this.position = new Vector2(700, -110);
   this.origin = new Vector2(0, 110);
+  this.health = 10;
   this.speed = 2
   this.health = 10
   this.setX()

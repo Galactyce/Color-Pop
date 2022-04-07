@@ -17,7 +17,7 @@ function Balloon(xPosition, index, health) {
   this.leftMoved = false;
   this.rightMoved = false;
   this.rainbowProbability = 0.06;
-  this.specialProbability = 0.025 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
+  this.specialProbability = 0.035 + Game.gameWorld.specialBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.penaltyProbability = 0.075 + Game.gameWorld.penaltyBalloons.length / 200 + Game.gameWorld.score / 25000;
   this.calculateRandomVelocity();
   this.chooseColor();
@@ -50,8 +50,8 @@ Balloon.prototype.draw = function() {
    Canvas.drawImage(sprites.balloons[this.currentColor].normal, this.position, 0, this.origin);
    if (this.armored) {
    Canvas.drawImage(sprites.balloons[this.currentColor].reinforced, this.position, 0, this.origin);
-   if (this.health === 1) {
-    Canvas.drawImage(sprites.balloons[this.currentColor].normal, this.position, 0, this.origin);
+   if (this.health === 1) { // Show the normal balloon image at 1 hp for the armored balloon
+    Canvas.drawImage(sprites.balloons[this.currentColor].normal, this.position, 0, this.origin); 
    }
    }
 }
@@ -137,10 +137,12 @@ Balloon.prototype.chooseColor = function() {
 
   else {
     this.currentColor = Game.gameWorld.normalBalloons[Math.floor(Math.random() * Game.gameWorld.normalBalloons.length)];
-    if (Game.gameWorld.difficulty === 'intermediate') {
+    if (Game.gameWorld.difficulty === 'intermediate' || Game.gameWorld.mode === 'freeplay') {
     if (Game.gameWorld.score >= 1000 && Math.random() < 0.1) this.wavy = true;
     }
   }
+
+ 
   
 }
 

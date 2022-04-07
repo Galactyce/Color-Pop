@@ -161,12 +161,13 @@ if (this.mode === 'normal') {
 
     }
       if (this.difficulty === 'apex') {
+       
         if (this.score === 0) {
         this.barrierCount = 3;
         this.balloonsPerRow = 2;
         }
       if (this.score >= 300) {
-        this.intenseBarrierCount = 2;
+        this.intenseBarrierCount = 1;
       }
 
       if (this.score >= 450) {
@@ -292,13 +293,11 @@ if (this.mode === 'normal') {
 
 if (this.mode === 'no_color') {
 
-  this.balloonsPerRow = 5;
-
   if (this.score >= 200) {
     this.barrierCount = 2;
   }
 
-  if (this.score >= 500) {
+  if (this.score >= 700) {
     this.barrierCount = 3;
     this.intenseBarrierCount = 1
   }
@@ -307,7 +306,83 @@ if (this.mode === 'no_color') {
     this.specialBalloons.push('ice')
   }
 
-  
+  if (this.score >= 1200) {
+    this.balloonsPerRow = 6;
+  }
+
+  if (this.score >= 1450) {
+    this.intenseBarrierCount = 2;
+  }
+
+  if (this.score >= 1750) {
+    this.bossCount = 1;
+  }
 }
+
+  if (this.mode === 'freeplay') {
+    this.balloonsPerRow = 1;
+
+    if (this.score >= 100) {
+      this.barrierCount = 1;
+    }
+
+    if (this.score >= 250) {
+      this.barrierCount = 0;
+      this.intenseBarrierCount = 1;
+    }
+
+    if (this.score >= 300) {
+      this.balloonsPerRow = 2;
+    }
+
+    if (this.score < 450 && this.score + value >= 450) {
+      this.specialBalloons.push('bomb');
+    }
+
+    if (this.score >= 600) {
+      this.barrierCount = 2;
+      this.intenseBarrierCount = 0
+    }
+
+    if (this.score >= 750) {
+      this.intenseBarrierCount = 1;
+    }
+
+    if (this.score < 800 && this.score + value >= 800) {
+      this.specialBalloons.push('ice');
+    }
+
+    if (this.score >= 900) {
+      this.balloonsPerRow = 3;
+      this.intenseBarrierCount = 2;
+    }
+
+    if (this.score >= 1000) {
+      this.specialBalloons.push('homing');
+    }
+
+    if (this.score >= 1250) {
+      this.barrierCount = 3;
+    }
+
+    if (this.score >= 1500) {
+      this.bossCount = 1;
+      this.balloonsPerRow = 2
+    }
+  
+    if (this.score >= 1570) {     // Make sure it only sends one blimp 
+      this.bossCount = 0  
+    } 
+
+    if (this.score >= 1700) {
+      this.balloonsPerRow = 3
+    }
+
+    if (this.score >= 2000) {
+      this.intenseBarrierCount = 3;
+    }
+
+
+  }
 
 };

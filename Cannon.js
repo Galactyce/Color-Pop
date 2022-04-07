@@ -4,6 +4,7 @@ function Cannon() {
   this.position = new Vector2(220, 550);
   this.origin = new Vector2(0, 20);
   this.velocity = new Vector2(0, 0)
+  this.firstClickClicked = false  // Detect if the click was for the menu screen
 }
 
 
@@ -34,13 +35,16 @@ Cannon.prototype.handleInput = function() {
   var adj = Mouse.position.x - this.position.x;
   this.rotation = Math.atan2(opp, adj);
   
-  
   if (Mouse.leftPressed || Keyboard.keyPressed === 32 && Game.gameWorld.started && !Game.paused) {
-    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
+    if (this.firstClickClicked) { 
+  this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
   Game.gameWorld.balls.push(new Ball())
   Game.gameWorld.ballsFired += 1;
   sounds.cannonShot.play()
+}
   }
+  if (Mouse.leftPressed) this.firstClickClicked = true
+
 }
 }
 

@@ -33,13 +33,14 @@ function painterGameWorld() {
   this.balloonMinVelocity = 30;
   this.wavyActive = false;
   this.pauseButton = new PauseButton();
-  this.playButton = new PlayButton(460, 250, 'intermediate');
   this.easyButton = new PlayButton(460, 50, 'easy');
+  this.playButton = new PlayButton(460, 250, 'intermediate');
   this.hardButton = new PlayButton(460, 450, 'hard');
   this.apexButton = new PlayButton(20, 450, 'apex');
   this.armoredOnlyButton = new ModeButton('armored_only', 20, 50)
   this.fasterBalloonsButton = new ModeButton('faster_balloons', 20, 250);
   this.noColorModeButton = new ModeButton('no_color_mode', 880, 50);
+  this.freeplayModeButton = new ModeButton('freeplay_mode', 880, 250)
   this.buttons = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -49,7 +50,6 @@ function painterGameWorld() {
 }
 
 painterGameWorld.prototype.drawBalloons = function () {
-
   for (var k=0; k < this.blimps.length; k++) {
     this.blimps[k].draw()
   } 
@@ -133,13 +133,14 @@ painterGameWorld.prototype.drawModeButtons = function() {
   this.fasterBalloonsButton.draw();
   this.armoredOnlyButton.draw();
   this.noColorModeButton.draw();
+  this.freeplayModeButton.draw();
 }
 
 painterGameWorld.prototype.draw = function () {
 
   Canvas.context.fillStyle = 'white';
-  Canvas.context.fillRect(0, 0, 1500, 800)
-  Canvas.drawImage(sprites.extras['background'].normal, new Vector2(0, 0), 0, new Vector2(0, 0));
+  Canvas.context.fillRect(0, 0, 1500, 800)  // For fullscreen mode
+  Canvas.drawImage(sprites.extras['background'].normal, new Vector2(0, 0), 0, new Vector2(0, 0)); 
   this.playButton.draw();
   this.easyButton.draw();
   this.hardButton.draw();
@@ -147,6 +148,12 @@ painterGameWorld.prototype.draw = function () {
   this.drawModeButtons()
   if (this.started === false) return;
   Canvas.drawImage(sprites.extras['platform'].normal, new Vector2(-30, 650), 0, new Vector2(0, 0))
+
+
+
+
+
+ 
 
   Canvas.drawImage(
     sprites.extras["score_text_box"].normal,
@@ -163,10 +170,12 @@ painterGameWorld.prototype.draw = function () {
     "Courier New",
     "25px"
   ); 
+
+
  // this.drawUpdateLog();
 for (var i=0; i < this.blimps.length; i++) {
   if (this.blimps.length > 0) {
-    Canvas.drawText("Blimp's color weakness:", new Vector2(10, 350), "Black", "top", "Comic Sans", "30px")
+    Canvas.drawText("Blimp's color weakness:", new Vector2(10, 350), "Black", "top", "Courier New", "30px")
     Canvas.drawImage(sprites.blimp[this.blimps[i].markerColor].normal, new Vector2(80, 380), 0, new Vector2(0, 0))
   }
 }
@@ -219,7 +228,7 @@ painterGameWorld.prototype.playWinScreen = function() {
 
 
 painterGameWorld.prototype.update = function (delta) {
-  if (this.win) {
+  if (this.win === true) {
     if (Keyboard.keyDown === 13) 
     window.location.reload()
   }
@@ -229,24 +238,29 @@ painterGameWorld.prototype.update = function (delta) {
   this.playButton.update();
   this.easyButton.update();
   this.hardButton.update();
-  this.apexButton.update()
+  this.apexButton.update();
   this.armoredOnlyButton.update();
   this.fasterBalloonsButton.update();
-  this.noColorModeButton.update()
+  this.noColorModeButton.update();
+  this.freeplayModeButton.update()
   }
 
+  
+
   // See if the score unlocks anything new
- 
-  if (this.difficulty === 'hard' || this.difficulty === 'apex') {
+  if (this.mode === 'no_color') {
+    this.balloonMinVelocity = 50   // Set no color mode speed to a static pace of 50
+  } 
+
+  else if (this.difficulty === 'hard' || this.difficulty === 'apex') {
     this.blimpColorChangeFrequency = 0.7;
-    this.balloonMinVelocity = 50
-  }
+    
+    }
+  
   else if (this.difficulty === 'easy') {
     this.blimpColorChangeFrequency = 0.2;
-    this.balloonMinVelocity = 30
 }
   else {
-    this.balloonMinVelocity = 30
     this.blimpColorChangeFrequency = 0.4
   }
 
@@ -404,20 +418,26 @@ painterGameWorld.prototype.update = function (delta) {
           removeBall = true;
 
           if (this.balloons[k].health <= 0) {
+            
             sounds.popEffect.volume = 0.4;
             this.balloonsPopped += 1;
             sounds.popEffect.play()
             this.addScore(this.balloons[k].popPointValue);
+            
           }
+         
         }
 
         //  Check if a balloon ran out of health
 
         if (this.balloons[k].health <= 0) {
+         
           this.rows[this.balloons[k].index] -= 1
           this.balloons[k] = null;
-          this.balloonMinVelocity += 0.02
+            this.balloonMinVelocity += 0.3
           this.balloons = this.balloons.filter((a) => a);
+          if (this.mode === 'no_color')
+          break
         }
          else if (
           this.balls[i].currentColor !== this.balloons[k].currentColor) {
@@ -467,8 +487,8 @@ painterGameWorld.prototype.update = function (delta) {
           this.balls[i].position.x <= this.blimps[z].position.x + this.blimps[z].origin.x &&
           this.balls[i].position.y <= this.blimps[z].position.y + this.blimps[z].origin.y - 50 &&
           this.balls[i].position.y >= this.blimps[z].position.y - this.blimps[z].origin.y + 50 &&
-          this.balls[i].hitBlimp === false &&
-          this.balls[i].currentColor === this.blimps[z].markerColor) {
+          this.balls[i].hitBlimp === false) {
+         if (this.balls[i].currentColor === this.blimps[z].markerColor || this.mode === "no_color") {
         this.blimps[z].health -= 1
         this.balls[i].hitBlimp = true
         if (Math.random() < this.blimpColorChangeFrequency) 
@@ -478,16 +498,18 @@ painterGameWorld.prototype.update = function (delta) {
           this.blimps = this.blimps.filter((a) => a);
           this.bossCount -= 1
           this.balloonsPopped += 1;
+          if (this.mode !== 'freeplay') {
           this.balloonsPerRow = 0
           Game.paused = true;
           this.win = true
+          }
         }
         break
       }
       if (this.blimps[z].position.y > 900) {
         this.lives = 0
       }
-
+    }
     }
 
 
@@ -509,10 +531,12 @@ painterGameWorld.prototype.update = function (delta) {
   // Check if balloon fell off screen
   for (var k = 0; k < this.balloons.length; k++) {
     if (this.balloons[k].position.y > 800) {
+
       this.rows[this.balloons[k].index] -= 1;
       this.balloons[k] = null;
       this.lives -= 1;
       sounds.hitSound.play()
+      
     }
   }
 

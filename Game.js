@@ -2,7 +2,7 @@ function Game_Singleton() {
   this.spritesStillLoading = 0;
   this.bombActive = false;
   this.iceActive = false
-  this.paused = false;
+  this.paused = true;
 }
 
 
@@ -20,8 +20,8 @@ Game_Singleton.prototype.mainLoop = function() {
   
   Game.gameWorld.update(delta);
   Game.gameWorld.handleInput(delta);
-  Canvas.clear();
   Game.gameWorld.resetInputs();
+  Canvas.clear();
   Game.gameWorld.draw();
   }
   Mouse.checkInputs();

@@ -12,6 +12,7 @@ function Blimp() {
 }
 
 Blimp.prototype.changeMarker = function() {
+  if (Game.gameWorld.mode !== 'no_color') {
   var randomval = Math.floor(Math.random() * 3);
 
   if (randomval === 0) 
@@ -20,6 +21,11 @@ Blimp.prototype.changeMarker = function() {
   this.markerColor = 'green';
   if (randomval === 2) 
   this.markerColor = 'blue';
+  }
+
+  if (Game.gameWorld.mode === 'no_color') {
+    this.markerColor = 'white'
+  }
 }
 
 Blimp.prototype.applyHealth = function() {
@@ -54,6 +60,10 @@ Blimp.prototype.applyHealth = function() {
     this.health = 120;
     this.velocity.y = 10
   }
+  if (Game.gameWorld.mode === 'no_color') {
+    this.maxHealth = 100;
+    this.health = 100;
+  }
 }
 
 Blimp.prototype.draw = function() {
@@ -62,6 +72,7 @@ Blimp.prototype.draw = function() {
   Canvas.drawImage(sprites.blimp[this.healthState].normal, this.position, 0, this.origin);
   if (this.armored)
   Canvas.drawImage(sprites.blimp[this.healthState].reinforced, this.position, 0, this.origin);
+  
   Canvas.drawImage(sprites.blimp[this.markerColor].normal, this.position, 0, origin)
 
 }
