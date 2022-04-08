@@ -17,7 +17,7 @@ ModeButton.prototype.draw = function() {
   }
   if (this.mode === 'faster_balloons') {
     Canvas.drawImage(sprites.extras['faster_balloons_button'].normal, this.position, 0, new Vector2(0, 0))
-    Canvas.drawText("Faster Balloons", new Vector2(this.position.x + 7, this.position.y + 60),
+    Canvas.drawText("Faster Balloons", new Vector2(this.position.x + 15, this.position.y + 60),
      "black", "top", "Courier New", "40px")
     this.rect = new Rectangle(
     this.position.x, this.position.y, sprites.extras['faster_balloons_button'].normal.width,

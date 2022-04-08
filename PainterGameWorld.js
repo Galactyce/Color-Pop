@@ -358,10 +358,7 @@ painterGameWorld.prototype.update = function (delta) {
           }
         }
 
-        if (Date.now > this.homingPowerUpStart + 10000) {
-          this.homingBalls = false
-        }
-
+      
         //  Ice balloon physics
 
         if (this.balloons[k].currentColor === 'ice') {
@@ -498,18 +495,18 @@ painterGameWorld.prototype.update = function (delta) {
           this.blimps = this.blimps.filter((a) => a);
           this.bossCount -= 1
           this.balloonsPopped += 1;
-          if (this.mode !== 'freeplay') {
+   
           this.balloonsPerRow = 0
           Game.paused = true;
           this.win = true
-          }
+          
         }
-        break
+      }
       }
       if (this.blimps[z].position.y > 900) {
         this.lives = 0
       }
-    }
+    
     }
 
 
