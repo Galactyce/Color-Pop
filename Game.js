@@ -2,6 +2,7 @@ function Game_Singleton() {
   this.spritesStillLoading = 0;
   this.bombActive = false;
   this.iceActive = false
+  this.size = {x: 1300, y: 700}
   this.paused = true;
 }
 
