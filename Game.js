@@ -14,6 +14,7 @@ Game_Singleton.prototype.start = function() {
 };
 
 
+
 Game_Singleton.prototype.mainLoop = function() {
   var delta = 1 / 50;
 
