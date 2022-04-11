@@ -339,6 +339,7 @@ painterGameWorld.prototype.update = function (delta) {
               this.rows[this.balloons[b].index] -= 1;
               this.balloons[b] = null;
               this.balloonsPopped += 1;
+              this.addScore(10)
             }
             sounds.boom.play()
           }
@@ -362,7 +363,7 @@ painterGameWorld.prototype.update = function (delta) {
         //  Ice balloon physics
 
         if (this.balloons[k].currentColor === 'ice') {
-          this.health -= 1
+
           if (this.health <= 0) {
           this.removeBall = true;
           this.rows[this.balloons[k].index] -= 1;

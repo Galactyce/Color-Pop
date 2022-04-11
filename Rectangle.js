@@ -1,8 +1,8 @@
 function Rectangle(x, y, w, h) {
-  this.x = x * Canvas.scale.x;
-  this.y = y * Canvas.scale.y;
-  this.width = w * Canvas.scale.x;
-  this.height = h * Canvas.scale.y;
+  this.x = x //* Canvas.scale.x;
+  this.y = y //* Canvas.scale.y;
+  this.width = w //* Canvas.scale.x;
+  this.height = h //* Canvas.scale.y;
 }
 
 Object.defineProperty(Rectangle.prototype, "left", {

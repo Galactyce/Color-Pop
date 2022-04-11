@@ -26,7 +26,7 @@ if (this.mode === 'normal') {
   
  
   if (this.score < 600 && this.score + value >= 600) {
-    this.penaltyBalloons.push('ghost');
+   // this.penaltyBalloons.push('ghost');
   }
 
   if (this.score < 650 && this.score + value >= 650) {
@@ -172,6 +172,7 @@ if (this.mode === 'normal') {
 
       if (this.score >= 450) {
         this.balloonsPerRow = 3;
+        this.barrierCount = 2;
       }
 
       if (this.score < 700 && this.score + value >= 700) {
@@ -187,7 +188,7 @@ if (this.mode === 'normal') {
         this.balloonMinVelocity = 60;
       }
       if (this.score >= 1500) {
-        this.penaltyBalloons.push('ghost');
+        
       }
 
       if (this.score >= 2000) {
@@ -362,7 +363,7 @@ if (this.mode === 'no_color') {
     }
 
     if (this.score >= 1250) {
-      this.barrierCount = 3;
+      this.barrierCount = 2;
     }
 
     if (this.score >= 1500) {
