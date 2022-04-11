@@ -20,15 +20,15 @@
                 Game.gameWorld.freeplayModeButton.clicked = true;
                 Game.gameWorld.noColorModeButton.clicked = true;
                 Game.paused = false;
-              Game.gameWorld.started = true;
-              sounds.playSound.volume = 0.2
-              sounds.cannonShot.volume = 0.4
-              sounds.playSound.play()
-              sounds.backgroundMusicBasic.volume = 0.1;
-              Game.gameWorld.balloonsPerRow = 1
-              sounds.backgroundMusicBasic.play()
-              Game.gameWorld.difficulty = this.difficulty
-              Game.gameWorld.addScore(0)
+                Game.gameWorld.started = true;
+                sounds.playSound.volume = 0.2
+                sounds.cannonShot.volume = 0.4
+                sounds.playSound.play()
+                sounds.backgroundMusicBasic.volume = 0.6;
+                Game.gameWorld.balloonsPerRow = 1
+                sounds.backgroundMusicBasic.play()
+                Game.gameWorld.difficulty = this.difficulty
+                Game.gameWorld.addScore(0)
                 if (this.difficulty === 'apex') {
                   Game.gameWorld.balloonMinVelocity = 50
                   Game.gameWorld.lives = 1;

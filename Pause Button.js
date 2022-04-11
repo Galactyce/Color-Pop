@@ -21,5 +21,9 @@
           PauseButton.prototype.update = function() {
               if (Keyboard.keyPressed === 80) {
                       Game.paused = !Game.paused
-                  }
+                      if (Game.paused) 
+                      sounds.backgroundMusicBasic.volume = 0;
+                      if (!Game.paused)
+                      sounds.backgroundMusicBasic.volume = 0.6;
+                    }
           }
