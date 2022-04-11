@@ -35,7 +35,7 @@ Cannon.prototype.handleInput = function() {
   var adj = Mouse.position.x - this.position.x;
   this.rotation = Math.atan2(opp, adj);
   
-  if (Mouse.leftPressed || Keyboard.keyPressed === 32 && Game.gameWorld.started && !Game.paused) {
+  if (Mouse.pressed || Keyboard.keyPressed === 32 && Game.gameWorld.started && !Game.paused) {
     if (this.firstClickClicked) { 
   this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
   Game.gameWorld.balls.push(new Ball())
@@ -43,7 +43,7 @@ Cannon.prototype.handleInput = function() {
   sounds.cannonShot.play()
 }
   }
-  if (Mouse.leftPressed) this.firstClickClicked = true
+  if (Mouse.pressed) this.firstClickClicked = true
 
 }
 }

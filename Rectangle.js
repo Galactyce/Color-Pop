@@ -1,8 +1,8 @@
 function Rectangle(x, y, w, h) {
-  this.x = x;
-  this.y = y;
-  this.width = w;
-  this.height = h;
+  this.x = x * Canvas.scale.x;
+  this.y = y * Canvas.scale.y;
+  this.width = w * Canvas.scale.x;
+  this.height = h * Canvas.scale.y;
 }
 
 Object.defineProperty(Rectangle.prototype, "left", {
@@ -30,7 +30,8 @@ Rectangle.prototype.contains = function(v) {
 }
 
 Rectangle.prototype.draw = function() {
-  Canvas.drawRectangle(this.x, this.y, this.width, this.height)
+  Canvas.context.fillStyle = 'white'
+  Canvas.context.fillRect(this.x, this.y, this.width, this.height)
 }
 
 Object.defineProperty(Rectangle.prototype, "bottom", {

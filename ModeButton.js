@@ -36,11 +36,11 @@ ModeButton.prototype.draw = function() {
     this.position.x, this.position.y, sprites.extras['freeplay_mode_button'].normal.width, sprites.extras['freeplay_mode_button'].normal.height);
   }
 }
+
 }
 
 ModeButton.prototype.update = function() {
-  
-  if (this.rect.contains(Mouse.position) && Mouse.leftPressed && this.clicked === false) {
+  if (this.rect.contains(Mouse.position) && Mouse.pressed && this.clicked === false) {
    
     if (this.mode === "armored_only") {
       Game.gameWorld.balloonsPerRow = 1

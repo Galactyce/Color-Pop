@@ -11,12 +11,15 @@
           }
 
           PauseButton.prototype.draw = function() {
-              if (!Game.paused)
-              Canvas.drawImage(sprites.extras['pause_button'].normal, this.position, 0, this.origin);
-              if (Game.paused)
-              Canvas.drawImage(sprites.extras['play_button'].normal, this.position, 0, this.origin)
+            //   if (!Game.paused)
+            //   Canvas.drawImage(sprites.extras['pause_button'].normal, this.position, 0, this.origin);
+            //   if (Game.paused)
+            //   Canvas.drawImage(sprites.extras['play_button'].normal, this.position, 0, this.origin)
+            //   this.rect.draw()
           }
 
           PauseButton.prototype.update = function() {
-              if (this.rect.contains(Mouse.position) && Mouse.leftPressed) Game.paused = !Game.paused
+              if (Keyboard.keyPressed === 80) {
+                      Game.paused = !Game.paused
+                  }
           }

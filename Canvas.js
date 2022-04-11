@@ -68,7 +68,7 @@ Canvas_Singleton.prototype.resize = function () {
   Canvas.canvasOffset = offset;
 };
 
-Canvas_Singleton.prototype.drawImage = function (sprite, position, rotation, scale, origin) {
+Canvas_Singleton.prototype.drawImage = function (sprite, position, rotation, origin, scale) {
   var canvasScale = this.scale;
 
   position = typeof position !== 'undefined' ? position : new Vector2(0, 0);
@@ -87,11 +87,10 @@ Canvas_Singleton.prototype.drawImage = function (sprite, position, rotation, sca
   this.context.restore();
 };
 
-Canvas_Singleton.prototype.drawText = function (text, position, origin, color, textAlign, fontname, fontsize) {
+Canvas_Singleton.prototype.drawText = function (text, position, color, textAlign, fontname, fontsize) {
   var canvasScale = this.scale;
 
   position = typeof position !== 'undefined' ? position : new Vector2(0, 0);
-  origin = typeof origin !== 'undefined' ? origin : new Vector2(0, 0);
   color = typeof color !== 'undefined' ? color : Color.black;
   textAlign = typeof textAlign !== 'undefined' ? textAlign : "top";
   fontname = typeof fontname !== 'undefined' ? fontname : "Courier New";
@@ -99,7 +98,7 @@ Canvas_Singleton.prototype.drawText = function (text, position, origin, color, t
 
   this.context.save();
   this.context.scale(canvasScale.x, canvasScale.y);
-  this.context.translate(position.x - origin.x, position.y - origin.y);
+  this.context.translate(position.x, position.y);
   this.context.textBaseline = 'top';
   this.context.font = fontsize + " " + fontname;
   this.context.fillStyle = color.toString();

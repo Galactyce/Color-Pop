@@ -10,7 +10,7 @@
 
           PlayButton.prototype.update = function() {
               
-              if (this.rect.contains(Mouse.position) && Mouse.leftPressed && this.clicked === false) {
+              if (this.rect.contains(Mouse.position) && Mouse.pressed && this.clicked === false) {
                 Game.gameWorld.playButton.clicked = true
                 Game.gameWorld.easyButton.clicked = true;
                 Game.gameWorld.hardButton.clicked = true;
