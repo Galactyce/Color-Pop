@@ -64,6 +64,10 @@ Blimp.prototype.applyHealth = function() {
     this.maxHealth = 100;
     this.health = 100;
   }
+  if (Game.gameWorld.mode === 'tutorial') {
+    this.maxHealth = 20;
+    this.health = 20;
+  }
 }
 
 Blimp.prototype.draw = function() {

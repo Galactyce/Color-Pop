@@ -3,11 +3,12 @@ function ModeButton(mode, xPosition, yPosition) {
   this.mode = mode;
   this.rect = new Rectangle(0, 0, 0, 0);
   this.origin = new Vector2(0, 0)
-  this.clicked = false;
+  this.gameActive = false;
+
 }
 
 ModeButton.prototype.draw = function() { 
-  if (this.clicked === false) {
+  if (Game.gameWorld.started === false && this.gameActive === false) {
   if (this.mode === "armored_only") {
   Canvas.drawImage(sprites.extras['armored_only_button'].normal, this.position, 0, new Vector2(0, 0))
   Canvas.drawText("Armored Only", new Vector2(this.position.x + 20, this.position.y + 60), "black", "top", "Courier New", "45px")
@@ -35,12 +36,18 @@ ModeButton.prototype.draw = function() {
     this.rect = new Rectangle(
     this.position.x, this.position.y, sprites.extras['freeplay_mode_button'].normal.width, sprites.extras['freeplay_mode_button'].normal.height);
   }
+  if (this.mode === 'tutorial_mode') {
+    Canvas.drawImage(sprites.extras['tutorial_mode_button'].normal, this.position, 0, new Vector2(0, 0))
+    Canvas.drawText("Tutorial", new Vector2(this.position.x + 70, this.position.y + 60), "black", "top", "Courier New", "50px")
+    this.rect = new Rectangle(
+    this.position.x, this.position.y, sprites.extras['tutorial_mode_button'].normal.width, sprites.extras['tutorial_mode_button'].normal.height);
+  }
 }
 
 }
 
 ModeButton.prototype.update = function() {
-  if (this.rect.contains(Mouse.position) && Mouse.pressed && this.clicked === false) {
+  if (this.rect.contains(Mouse.position) && Mouse.pressed && this.gameActive === false) {
    
     if (this.mode === "armored_only") {
       Game.gameWorld.balloonsPerRow = 1
@@ -62,18 +69,15 @@ ModeButton.prototype.update = function() {
       Game.gameWorld.addScore(0)
     }
 
-    else {
-   
-    Game.gameWorld.difficulty = this.difficulty;
+    else if (this.mode === 'tutorial_mode') {
+      Game.gameWorld.mode = 'tutorial';
+      Game.gameWorld.tutorialStep()
+    }
+
+  for (var i=0; i < Game.gameWorld.buttons.length; i++) {
+    Game.gameWorld.buttons[i].gameActive = true;
   }
-  Game.gameWorld.playButton.clicked = true;
-  Game.gameWorld.easyButton.clicked = true;
-  Game.gameWorld.hardButton.clicked = true;
-  Game.gameWorld.apexButton.clicked = true;
-  Game.gameWorld.armoredOnlyButton.clicked = true;
-  Game.gameWorld.fasterBalloonsButton.clicked = true;
-  Game.gameWorld.noColorModeButton.clicked = true;
-  Game.gameWorld.freeplayModeButton.clicked = true;
+
 
   
   Game.paused = false
@@ -82,7 +86,7 @@ ModeButton.prototype.update = function() {
   sounds.playSound.volume = 0.2
   sounds.cannonShot.volume = 0.4
   sounds.playSound.play()
-  sounds.backgroundMusicBasic.volume = 0.1;
+  sounds.backgroundMusicBasic.volume = 0.6;
 
   sounds.backgroundMusicBasic.play()
 

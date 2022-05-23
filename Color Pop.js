@@ -68,6 +68,7 @@ Game.loadAssets = function() {
     'score_text_box': {'normal': loadImage("text_box.png")},
     'faster_balloons_button': {'normal': loadImage('faster_balloons_mode_button.png')},
     'armored_only_button': {'normal': loadImage("armored_only_mode_button.png")},
+    'tutorial_mode_button': {'normal': loadImage("tutorial_mode_button.png")},
     'freeplay_mode_button': {'normal': loadImage("freeplay_mode_button.png")},
     'no_color_mode': {'normal': loadImage('no_color_mode_button.png')},
     'easy_button': {'normal': loadImage("easy_mode_button.png")},
@@ -89,6 +90,6 @@ Game.loadAssets = function() {
   sounds.extraLife = loadSound("extra_life", false);
   sounds.gameOver = loadSound("game_over_sound", false);
   sounds.cannonShot = loadSound("cannon_shot", false)
-  }
+}
 
  

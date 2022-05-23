@@ -2,8 +2,7 @@ function Barrier() {
   this.position = new Vector2(700, -110);
   this.origin = new Vector2(0, 110);
   this.health = 10;
-  this.speed = 2
-  this.health = 10
+  this.speed = undefined
   this.setX()
   this.setSpeed()
 }
@@ -29,7 +28,7 @@ Barrier.prototype.setX = function() {
   this.position.x = 765;
   }
   if (random > 2 ) {
-  this.position.x = 965
+  this.position.x = 960
   }
 }
 
