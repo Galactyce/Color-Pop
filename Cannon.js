@@ -36,18 +36,19 @@ Cannon.prototype.handleInput = function() {
   this.rotation = Math.atan2(opp, adj);
   
   if (Mouse.pressed || Keyboard.keyPressed === 32 && Game.gameWorld.started && !Game.paused) {
-    if (this.firstClickClicked) { 
+   
   this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
   Game.gameWorld.balls.push(new Ball())
+  if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
+    Game.gameWorld.balls.push(new Ball())   // Add an extra ball 
+  }
   Game.gameWorld.ballsFired += 1;
   sounds.cannonShot.play()
-}
+
   }
-  if (Mouse.pressed) this.firstClickClicked = true
 
 }
 }
 
 Cannon.prototype.update = function() {
- 
 }

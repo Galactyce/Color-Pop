@@ -1,10 +1,9 @@
-painterGameWorld.prototype.addScore = function (value) {
+GameWorld.prototype.addScore = function (value) {
   this.score += value;
 
   this.minVelocity += 3;
 
-  if (this.mode === "normal") {
-    if (this.difficulty === "intermediate") {
+    if (this.mode === "intermediate") {
       // Normal mode
 
       if (this.score >= 100) {
@@ -55,7 +54,7 @@ painterGameWorld.prototype.addScore = function (value) {
         this.intenseBarrierCount = 1;
       }
     }
-    if (this.difficulty === "easy") {
+    if (this.mode === "easy") {
       // Easy mode
 
       if (this.score >= 150) {
@@ -87,16 +86,17 @@ painterGameWorld.prototype.addScore = function (value) {
         this.intenseBarrierCount = 1;
       }
 
-      if (this.score >= 1000) {
-        this.balloonsPerRow = 1;
+      if (this.score < 900 && this.score + value >= 900) {
+        this.specialBalloons.push("ice");
       }
 
       if (this.score < 1000 && this.score + value >= 1000) {
         this.bossCount = 1;
         this.barrierCount = 4;
+        this.balloonsPerRow = 0;
       }
     }
-    if (this.difficulty === "hard") {
+    if (this.mode === "hard") {
       // Hard mode
 
       if (this.score === 0) {
@@ -124,6 +124,10 @@ painterGameWorld.prototype.addScore = function (value) {
         this.wavyActive = true;
       }
 
+      if (this.score < 750 && this.score + value >= 750) {
+        this.specialBalloons.push("bomb");
+      }
+
       if (this.score >= 800) {
         this.barrierCount = 2;
         this.intenseBarrierCount = 1;
@@ -137,6 +141,10 @@ painterGameWorld.prototype.addScore = function (value) {
         // Also add waves to the balloons
       }
 
+      if (this.score < 950 && this.score + value >= 950) {
+        this.specialBalloons.push("ice");
+      }
+
       if (this.score >= 1200) {
         this.barrierCount = 2;
         this.intenseBarrierCount = 2;
@@ -147,14 +155,14 @@ painterGameWorld.prototype.addScore = function (value) {
       }
 
       //  Add the boss
-      if (this.score >= 2000) {
+      if (this.score >= 1750) {
         this.bossCount = 1;
         this.barrierCount = 3;
         this.intenseBarrierCount = 2;
         this.balloonsPerRow = 1;
       }
     }
-    if (this.difficulty === "apex") {
+    if (this.mode === "apex") {
       if (this.score === 0) {
         this.barrierCount = 2;
         this.balloonsPerRow = 2;
@@ -184,10 +192,10 @@ painterGameWorld.prototype.addScore = function (value) {
       }
 
       if (this.score >= 2000) {
-        this.bossCount = 2;
+        this.bossCount = 1;
       }
     }
-  }
+  
 
   if (this.mode === "only_armored") {
     // Armored only mode
@@ -240,7 +248,7 @@ painterGameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score >= 1530) {
-      this.bossCount = 0;
+      this.bossCount = 1;
     }
   }
   if (this.mode === "faster_balloons") {

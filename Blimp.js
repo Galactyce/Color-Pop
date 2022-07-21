@@ -31,30 +31,35 @@ Blimp.prototype.changeMarker = function() {
 Blimp.prototype.applyHealth = function() {
   if (Game.gameWorld.mode === "only_armored")
   this.armored = true
-  if (Game.gameWorld.difficulty === 'easy') {
+  if (Game.gameWorld.mode === 'tutorial_mode') {
+    this.maxHealth = 40;
+    this.health = 40;
+  }
+  if (Game.gameWorld.mode === 'easy') {
     this.maxHealth = 45;
-    this.health = 45;
+      this.health = 45;
+      if (this.armored) {
+        this.maxHealth *= 2;
+        this.health *= 2;
+      }
+    }
+    if (Game.gameWorld.mode === 'intermediate') {
+      this.maxHealth = 60;
+      this.health = 60;
+      if (this.armored) {
+      this.maxHealth *= 2;
+      this.health *= 2;
+    }
+  }
+  if (Game.gameWorld.mode === 'hard') {
+    this.maxHealth = 80;
+    this.health = 80
     if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
     }
   }
-  if (Game.gameWorld.difficulty === 'intermediate') {
-    this.maxHealth = 60;
-    this.health = 60;
-    if (this.armored) {
-      this.maxHealth *= 2;
-      this.health *= 2;
-    }
-  }
-  if (Game.gameWorld.difficulty === 'hard') {
-    this.maxHealth = 90;
-    this.health = 90
-    if (this.armored) {
-      this.maxHealth *= 2;
-      this.health *= 2;
-    }
-  }
+
   if (Game.gameWorld.mode === 'only_armored') {
     this.maxHealth = 120
     this.health = 120;
@@ -64,10 +69,7 @@ Blimp.prototype.applyHealth = function() {
     this.maxHealth = 100;
     this.health = 100;
   }
-  if (Game.gameWorld.mode === 'tutorial') {
-    this.maxHealth = 20;
-    this.health = 20;
-  }
+
 }
 
 Blimp.prototype.draw = function() {

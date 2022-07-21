@@ -38,7 +38,7 @@ Game_Singleton.prototype.assetLoadingLoop = function() {
   setTimeout(this.assetLoadingLoop, 1000/50);
   }
 else {
-  Game.gameWorld = new painterGameWorld();
+  Game.gameWorld = new GameWorld();
   
   console.log("Sprites loaded.")
   Game.mainLoop()

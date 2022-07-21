@@ -18,11 +18,11 @@ function Balloon(xPosition, index, health) {
   this.rightMoved = false;
   this.rainbowProbability = 0.05;
   this.specialProbability =
-    0.75 +
-    Game.gameWorld.specialBalloons.length / 200 +
+    2.75 +
+    Game.gameWorld.specialBalloons.length / 100 +
     Game.gameWorld.score / 25000;
   this.penaltyProbability =
-    0.075 +
+    0.05 +
     Game.gameWorld.penaltyBalloons.length / 200 +
     Game.gameWorld.score / 25000;
   this.calculateRandomVelocity();
@@ -81,7 +81,7 @@ Balloon.prototype.update = function (delta) {
   // 1
   if (Game.gameWorld.moving === true) {
     this.position.addTo(this.velocity.multiply(delta));
-    if (Game.gameWorld.wavyActive) {
+    if (this.wavy === true) {
       if (this.position.x >= 1100 && this.leftMoved === false) {
         this.leftMoved = true;
         this.rightMoved = false;
@@ -103,7 +103,13 @@ Balloon.prototype.chooseRandomValue = function (value) {
 };
 
 Balloon.prototype.checkSpecials = function () {
-  if (Game.gameWorld.mode === "only_armored") {
+  var randomval = this.chooseRandomValue(1);
+
+  if (randomval < 0.4 && Game.gameWorld.wavyActive === true) {
+    this.wavy = true
+  }
+
+  if (Game.gameWorld.mode === "armored_only") {
     this.armored = true;
     this.health *= 2;
   }
@@ -116,8 +122,8 @@ Balloon.prototype.checkSpecials = function () {
   }
 
   var randomval = this.chooseRandomValue();
-  if (Game.gameWorld.difficulty === "intermediate") {
-    if (randomval < this.armoredChance && Game.gameWorld.score >= 2000) {
+  if (Game.gameWorld.difficulty === "hard") {
+    if (randomval < this.armoredChance && Game.gameWorld.score >= 1150) {
       this.armored = true;
       this.health *= 2;
     }
@@ -135,7 +141,7 @@ Balloon.prototype.chooseColor = function () {
   } else if (
     randomval > 1 - this.specialProbability &&
     Game.gameWorld.specialBalloons.length > 0 &&
-    Date.now() > Game.gameWorld.lastSpecialBalloons + 60000
+    Date.now() > Game.gameWorld.lastSpecialBalloons + 30000
   ) {
     this.currentColor =
       Game.gameWorld.specialBalloons[

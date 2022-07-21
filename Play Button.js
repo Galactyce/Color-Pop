@@ -1,45 +1,48 @@
-function PlayButton(xPosition, yPosition, difficulty) {
+function PlayButton(xPosition, yPosition, mode) {
   this.position = new Vector2(xPosition, yPosition);
   this.origin = new Vector2(0, 0);
-  this.difficulty = difficulty;
+  this.mode = mode;
   this.rect = new Rectangle(0, 0, xPosition, yPosition);
-  this.gameActive = false;
+  this.scale = 1
 }
 
 PlayButton.prototype.update = function () {
+  
   if (
     this.rect.contains(Mouse.position) &&
     Mouse.pressed &&
-    this.gameActive === false
+    Game.gameWorld.gameActive === false
   ) {
-    for (var i = 0; i < Game.gameWorld.buttons.length; i++) {
-      Game.gameWorld.buttons[i].gameActive = true;
-    }
+ 
     Game.paused = false;
-    Game.gameWorld.started = true;
+    Game.gameWorld.gameActive = true;
     sounds.playSound.volume = 0.2;
     sounds.cannonShot.volume = 0.4;
     sounds.playSound.play();
     sounds.backgroundMusicBasic.volume = 0.6;
     Game.gameWorld.balloonsPerRow = 1;
     sounds.backgroundMusicBasic.play();
-    Game.gameWorld.difficulty = this.difficulty;
-    Game.gameWorld.addScore(0);
-    if (this.difficulty === "apex") {
-      Game.gameWorld.balloonMinVelocity = 50;
-      Game.gameWorld.lives = 1;
+    Game.gameWorld.mode = this.mode;
+    if (this.mode === 'tutorial_mode') {
+      Game.gameWorld.tutorialStep()
     }
-    if (this.difficulty === "easy") {
+    Game.gameWorld.addScore(0);
+
+    if (this.mode === "easy") {
       this.balloonMinVelocity = 30;
     }
-    if (this.difficulty === "hard") {
+    if (this.mode === "hard") {
+    }
+    if (this.mode === "apex") {
+      Game.gameWorld.balloonMinVelocity = 50;
+      Game.gameWorld.lives = 1;
     }
   }
 };
 
 PlayButton.prototype.draw = function () {
-  if (!Game.gameWorld.started && this.gameActive === false) {
-    if (this.difficulty === "intermediate") {
+  if (Game.gameWorld.gameActive === false) {
+    if (this.mode === "intermediate") {
       Canvas.drawImage(
         sprites.extras["intermediate_button"].normal,
         this.position,
@@ -54,6 +57,7 @@ PlayButton.prototype.draw = function () {
         "Courier New",
         "50px"
       );
+
       this.rect = new Rectangle(
         this.position.x,
         this.position.y,
@@ -62,7 +66,7 @@ PlayButton.prototype.draw = function () {
       );
     }
 
-    if (this.difficulty === "easy") {
+    if (this.mode === "easy") {
       Canvas.drawImage(
         sprites.extras["easy_button"].normal,
         this.position,
@@ -85,7 +89,7 @@ PlayButton.prototype.draw = function () {
       );
     }
 
-    if (this.difficulty === "hard") {
+    if (this.mode === "hard") {
       Canvas.drawImage(
         sprites.extras["hard_button"].normal,
         this.position,
@@ -107,7 +111,7 @@ PlayButton.prototype.draw = function () {
         sprites.extras["hard_button"].normal.height
       );
     }
-    if (this.difficulty === "apex") {
+    if (this.mode === "apex") {
       Canvas.drawImage(
         sprites.extras["apex_button"].normal,
         this.position,
@@ -129,5 +133,117 @@ PlayButton.prototype.draw = function () {
         sprites.extras["apex_button"].normal.height
       );
     }
-  }
+      if (this.mode === "armored_only") {
+        Canvas.drawImage(
+          sprites.extras["armored_only_button"].normal,
+          this.position,
+          0,
+          new Vector2(0, 0),
+        );
+        Canvas.drawText(
+          "Armored Only",
+          new Vector2(this.position.x + 20, this.position.y + 60),
+          "black",
+          "top",
+          "Courier New",
+          "45px"
+        );
+        this.rect = new Rectangle(
+          this.position.x,
+          this.position.y,
+          sprites.extras["armored_only_button"].normal.width,
+          sprites.extras["armored_only_button"].normal.height
+        );
+      }
+      if (this.mode === "faster_balloons") {
+        Canvas.drawImage(
+          sprites.extras["faster_balloons_button"].normal,
+          this.position,
+          0,
+          new Vector2(0, 0)
+        );
+        Canvas.drawText(
+          "Faster Balloons",
+          new Vector2(this.position.x + 15, this.position.y + 60),
+          "black",
+          "top",
+          "Courier New",
+          "40px"
+        );
+        this.rect = new Rectangle(
+          this.position.x,
+          this.position.y,
+          sprites.extras["faster_balloons_button"].normal.width,
+          sprites.extras["faster_balloons_button"].normal.height
+        );
+      }
+      if (this.mode === "no_color_mode") {
+        Canvas.drawImage(
+          sprites.extras["no_color_mode"].normal,
+          this.position,
+          0,
+          new Vector2(0, 0)
+        );
+        Canvas.drawText(
+          "No Color",
+          new Vector2(this.position.x + 70, this.position.y + 60),
+          "black",
+          "top",
+          "Courier New",
+          "50px"
+        );
+        this.rect = new Rectangle(
+          this.position.x,
+          this.position.y,
+          sprites.extras["no_color_mode"].normal.width,
+          sprites.extras["no_color_mode"].normal.height
+        );
+      }
+      if (this.mode === "freeplay_mode") {
+        Canvas.drawImage(
+          sprites.extras["freeplay_mode_button"].normal,
+          this.position,
+          0,
+          new Vector2(0, 0)
+        );
+        Canvas.drawText(
+          "Freeplay",
+          new Vector2(this.position.x + 70, this.position.y + 60),
+          "black",
+          "top",
+          "Courier New",
+          "50px"
+        );
+        this.rect = new Rectangle(
+          this.position.x,
+          this.position.y,
+          sprites.extras["freeplay_mode_button"].normal.width,
+          sprites.extras["freeplay_mode_button"].normal.height
+        );
+      }
+      if (this.mode === "tutorial_mode") {
+        Canvas.drawImage(
+          sprites.extras["tutorial_mode_button"].normal,
+          this.position,
+          0,
+          new Vector2(0, 0),
+          0.5
+        );
+        Canvas.drawText(
+          "Tutorial",
+          new Vector2(this.position.x + 20, this.position.y + 30),
+          "black",
+          "top",
+          "Courier New",
+          "35px"
+        );
+        this.rect = new Rectangle(
+          this.position.x,
+          this.position.y,
+          sprites.extras["tutorial_mode_button"].normal.width / 2,
+          sprites.extras["tutorial_mode_button"].normal.height / 2
+        );
+      }
+    
+  } 
 };

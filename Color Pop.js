@@ -20,7 +20,7 @@ Game.loadAssets = function() {
     'rainbow': {'normal': loadImage("rainbow_balloon.png"), "reinforced": loadImage("reinforced_rainbow_balloon.png")},
     'bomb': {'normal': loadImage("bomb_balloon.png"), 'reinforced': loadImage("bomb_balloon_reinforced.png")},
     'ice': {'normal': loadImage("ice_balloon.png"), 'reinforced': loadImage("ice_balloon_reinforced.png")},
-    'white': {'normal': loadImage("ghost_balloon.png"), 'reinforced': loadImage("ghost_balloon.png")},
+    'white': {'normal': loadImage("white_balloon.png"), 'reinforced': loadImage("white_balloon.png")},
     'golden': {'normal': loadImage("golden_balloon.png")},
     'metal': {'normal': loadImage("lead_balloon_full.png"), 'reinforced': loadImage("metal_balloon_full_reinforced.png")},
     'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png"), 'reinforced': loadImage("metal_balloon_cracked_reinforced.png")}, 
@@ -47,6 +47,7 @@ Game.loadAssets = function() {
     'red': {'normal': loadImage("ball_red.png")},
     'green': {'normal': loadImage("ball_green.png")},
     'blue': {'normal': loadImage("ball_blue.png")}
+
   }
   
   sprites.cannon_parts = {
@@ -62,22 +63,34 @@ Game.loadAssets = function() {
   }
 
   sprites.extras = {
-    'background': {'normal': loadImage("background.jpg")},
+    'background': {'home': loadImage("background.jpg"), 'shop': loadImage("shop_background.png")},
     'platform': {'normal': loadImage("platform.png")},
     'life_marker': {'normal': loadImage("heart.png")},
-    'score_text_box': {'normal': loadImage("text_box.png")},
+    'text_box': {'normal': loadImage("text_box.png")},
+    'large_text_box': {'normal': loadImage("large_text_box.png")},
     'faster_balloons_button': {'normal': loadImage('faster_balloons_mode_button.png')},
     'armored_only_button': {'normal': loadImage("armored_only_mode_button.png")},
     'tutorial_mode_button': {'normal': loadImage("tutorial_mode_button.png")},
     'freeplay_mode_button': {'normal': loadImage("freeplay_mode_button.png")},
+    'simple_button': {'normal': loadImage("simple_button.png")},
     'no_color_mode': {'normal': loadImage('no_color_mode_button.png')},
     'easy_button': {'normal': loadImage("easy_mode_button.png")},
     'intermediate_button': {'normal': loadImage('intermediate_mode_button.png')},
     'hard_button': {'normal': loadImage("hard_mode_button.png")},
     'apex_button': {'normal': loadImage("apex_mode_button.png")},
-    'pause_button': {'normal':  loadImage("basic_pause_button.png")},
-    'play_button': {'normal': loadImage('basic_play_button.png')},
-    'end_screen': {'normal': loadImage("blank_end_screen.png")}
+    'end_screen': {'normal': loadImage("blank_end_screen.png")},
+    'arrow': {'normal': loadImage('arrow.png')},
+    'power_up_slot': {'normal': loadImage("power_up_slot.png")},
+    'bomb_icon': {'normal': loadImage("bomb.png")},
+    'homing_icon': {'normal': loadImage('homing_powerup_icon.png')},
+    'snowflake': {'normal': loadImage("snowflake.png")},
+    'shop_info_bar': {'normal': loadImage("shop_info_bar.png")},
+    'double_ball_upgrade_icon': {'normal': loadImage("double_ball_upgrade_icon.png")},
+    'extra_slot_upgrade_icon': {'normal': loadImage("extra_slot_upgrade_icon.png")},
+    'empty_icon': {'normal': loadImage('empty_icon.png')},
+    'sold_sign': {'normal': loadImage("sold_sign.png")},
+    'inventory': {'normal': loadImage("inventory_slots.png")},
+    'coin': {'normal': loadImage('coin.png')}
   }
 
   sounds.playSound = loadSound("playSound_01", false)

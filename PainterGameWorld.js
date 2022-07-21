@@ -1,20 +1,18 @@
-function painterGameWorld() {
+function GameWorld() {
   this.rows = new Array(0, 0, 0); // # of balloons in a row
   this.rowPositions = new Array(700, 900, 1100);
   this.balloonsPerRow = 0; // Desired # of balloons per row
   this.barrierCount = 0;
-  this.mode = 'normal';
   this.balloonMinVelocity = 30;
   this.intenseBarrierCount = 0;
   this.lives = 5;
+  this.gameActive = false;
   this.maxBalloons = 3;
   this.win = false;
-  this.difficulty = new Array("easy", "intermediate", "hard", "apex");
-  this.started = false;
+  this.mode = new Array("easy", "intermediate", "hard", "apex");
   this.defaultBalloonHealth = 1;
   this.invincible = false;
-  this.livesPosition = 50;
-  this.score = 0;
+  this.score = 600;
   this.balloonSpawning = true;
   this.barrierSpawning = true;
   this.homingBalls = false;
@@ -36,34 +34,75 @@ function painterGameWorld() {
   this.wavyActive = false;
   this.buttons = new Array();
   this.pauseButton = new PauseButton();
-  this.easyButton = new PlayButton(460, 50, "easy");
+  this.easyButton = new PlayButton(460, 250, "easy");
   this.buttons.push(this.easyButton);
   this.playButton = new PlayButton(460, 250, "intermediate");
   this.buttons.push(this.playButton);
-  this.hardButton = new PlayButton(460, 450, "hard");
+  this.hardButton = new PlayButton(460, 250, "hard");
   this.buttons.push(this.hardButton);
-  this.apexButton = new PlayButton(20, 450, "apex");
+  this.apexButton = new PlayButton(460, 250, "apex");
   this.buttons.push(this.apexButton);
-  this.armoredOnlyButton = new ModeButton("armored_only", 20, 50);
+  this.armoredOnlyButton = new PlayButton(460, 250, "armored_only");
   this.buttons.push(this.armoredOnlyButton);
-  this.fasterBalloonsButton = new ModeButton("faster_balloons", 20, 250);
+  this.fasterBalloonsButton = new PlayButton(460, 250, "faster_balloons");
   this.buttons.push(this.fasterBalloonsButton);
-  this.noColorModeButton = new ModeButton("no_color_mode", 880, 50);
+  this.noColorModeButton = new PlayButton(460, 250, "no_color_mode");
   this.buttons.push(this.noColorModeButton);
-  this.freeplayModeButton = new ModeButton("freeplay_mode", 880, 250);
+  this.freeplayModeButton = new PlayButton(460, 250, "freeplay_mode");
   this.buttons.push(this.freeplayModeButton);
-  this.tutorialModeButton = new ModeButton("tutorial_mode", 880, 450);
-  this.buttons.push(this.tutorialModeButton);
+  this.tutorialModeButton = new PlayButton(1000, 100, "tutorial_mode");
+  this.modeToggleButton = new ModeToggleButton(550, 550);
+  this.shopButtonPosition = new Vector2(200, 550);
+  this.shopButton = new ShopButton(this.shopButtonPosition);
+  this.normalButtonString = new Array(
+    this.easyButton,
+    this.playButton,
+    this.hardButton,
+    this.apexButton
+  );
+  this.extraButtonString = new Array(
+    this.armoredOnlyButton,
+    this.fasterBalloonsButton,
+    this.noColorModeButton,
+    this.freeplayModeButton
+  );
+  this.area = "home";
+  this.inventory = new Inventory();
+  this.inventoryButton = new InventoryButton(new Vector2(1100, 550));
+  this.inventoryItems = new Array();
+  this.inventoryInfoBar = undefined
+  this.shopItems = new Array();
+  this.specialtiesEquipped = undefined;
+  this.specialtiesOwned = new Array();
+  this.scrollInteger = 0;
+  this.scrollLength = this.normalButtonString.length;
+  this.scrollButtons = new Array();
+  this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
-  this.modeButtons = new Array();
   this.balloonsPopped = 0;
   this.ballsFired = 0;
+  this.paused = false;
+  this.coins = 8;
+  this.shopInfoBox = undefined;
   this.moving = true;
+  this.scrollButtons.push(new Arrow(new Vector2(930, 335), "right", 1));
+  this.scrollButtons.push(new Arrow(new Vector2(370, 335), "left", 1));
+  this.powerUpSlots.push(new PowerSlot(new Vector2(100, 350), 1));
+  this.powerUpSlots.push(new PowerSlot(new Vector2(200, 350), 2));
+  this.powerUpSlots.push(new PowerSlot(new Vector2(300, 350), 3));
+  this.powerUpSlots.push(new PowerSlot(new Vector2(400, 350), 4));  // The extra slot upgrade
+  this.shopItems.push(
+    new ShopItem(new Vector2(300, 500), "double_ball_upgrade", 1)
+  );
+  this.shopItems.push(
+    new ShopItem(new Vector2(700, 500), "extra_slot_upgrade", 2)
+  );
 
+  this.reset();
 }
 
-painterGameWorld.prototype.drawBalloons = function () {
+GameWorld.prototype.drawBalloons = function () {
   for (var k = 0; k < this.blimps.length; k++) {
     this.blimps[k].draw();
   }
@@ -73,107 +112,119 @@ painterGameWorld.prototype.drawBalloons = function () {
   }
 };
 
-painterGameWorld.prototype.drawLives = function () {
-  for (var i = 0; i < this.lives; i++) {
-    if (this.lives > 6) {
-      this.addRowsOfLives();
-      return;
-    }
-    Canvas.drawImage(
-      sprites.extras["life_marker"].normal,
-      new Vector2(
-        i * (sprites.extras["life_marker"].normal.width + 15) + 10,
-        80
-      ),
-      0,
-      { x: 0, y: 0 }
-    ); // First row of hearts
+GameWorld.prototype.reset = function () {
+  this.rows = new Array(0, 0, 0); // # of balloons in a row
+  this.rowPositions = new Array(700, 900, 1100);
+  this.balloonsPerRow = 0; // Desired # of balloons per row
+  this.barrierCount = 0;
+  this.balloonMinVelocity = 30;
+  this.intenseBarrierCount = 0;
+  this.lives = 5;
+  this.score = 600;
+  this.gameActive = false;
+  this.wavyActive = false;
+  this.blimpColorChangeFrequency = 0;
+  this.balloonsPopped = 0;
+  this.ballsFired = 0;
+  this.paused = false;
+  this.area = "home";
+  for (var i = 0; i < this.balloons.length; i++) {
+    this.balloons[i] = null;
   }
+  this.balloons = this.balloons.filter((a) => a);
+
+  for (var i = 0; i < this.powerUpSlots.length; i++) {
+    this.powerUpSlots[i].contains = undefined;
+  }
+  this.win = false;
 };
 
-painterGameWorld.prototype.addRowsOfLives = function () {
-  if (this.lives > 12) {
-    this.addAnotherRowOfLives();
-    return;
-  }
-  for (var i = 0; i < 6; i++) {
-    Canvas.drawImage(
-      sprites.extras["life_marker"].normal,
-      new Vector2(
-        i * (sprites.extras["life_marker"].normal.width + 15) + 10,
-        80
-      ),
-      0,
-      { x: 0, y: 0 }
-    );
-  }
-  for (var i = 0; i < this.lives - 6; i++) {
-    Canvas.drawImage(
-      sprites.extras["life_marker"].normal,
-      new Vector2(
-        i * (sprites.extras["life_marker"].normal.width + 15) + 10,
-        150
-      ),
-      0,
-      { x: 0, y: 0 }
-    ); // Second row of hearts
-  }
-};
-
-painterGameWorld.prototype.addAnotherRowOfLives = function () {
-  for (var i = 0; i < 6; i++) {
-    Canvas.drawImage(
-      sprites.extras["life_marker"].normal,
-      new Vector2(
-        i * (sprites.extras["life_marker"].normal.width + 15) + 10,
-        80
-      ),
-      0,
-      { x: 0, y: 0 }
-    );
-  }
-  for (var i = 0; i < 6; i++) {
-    Canvas.drawImage(
-      sprites.extras["life_marker"].normal,
-      new Vector2(
-        i * (sprites.extras["life_marker"].normal.width + 15) + 10,
-        150
-      ),
-      0,
-      { x: 0, y: 0 }
-    );
-  }
-  for (var i = 0; i < this.lives - 12; i++) {
-    Canvas.drawImage(
-      sprites.extras["life_marker"].normal,
-      new Vector2(
-        i * (sprites.extras["life_marker"].normal.width + 15) + 10,
-        220
-      ),
-      0,
-      { x: 0, y: 0 }
-    ); // Third row of hearts
-  }
-};
-
-painterGameWorld.prototype.draw = function () {
-  Canvas.context.fillStyle = "white";
-  Canvas.context.fillRect(0, 0, 1500, 800); // For fullscreen mode
-  Canvas.drawImage(
-    sprites.extras["background"].normal,
-    new Vector2(0, 0),
-    0,
-    new Vector2(0, 0)
-  );
-
-  if (this.started === false) {
-    for (var i = 0; i < this.buttons.length; i++) {
-      // draw the buttons
-      this.buttons[i].draw();
+GameWorld.prototype.draw = function () {
+  if (!this.inventory.open) {
+    // Dont draw the background if the inventory is open
+    if (this.area === "home") {
+      Canvas.drawImage(
+        sprites.extras["background"].home,
+        new Vector2(0, 0),
+        0,
+        new Vector2(0, 0)
+      );
     }
   }
+  if (this.area === "shop") {
+    Canvas.drawImage(
+      sprites.extras["background"].shop,
+      new Vector2(0, 0),
+      0,
+      new Vector2(0, 0),
+      0.7
+    );
 
-  if (this.started === false) return;
+    for (var i = 0; i < this.shopItems.length; i++) {
+      this.shopItems[i].draw();
+    }
+
+    if (this.inventory.open === true) {
+      this.inventory.draw();
+    }
+
+    Canvas.drawImage(
+      sprites.extras["coin"].normal,
+      new Vector2(50, 50),
+      0,
+      new Vector2(0, 0),
+      2
+    );
+
+    Canvas.drawText(
+      this.coins,
+      new Vector2(150, 50),
+      "black",
+      "center",
+      "Courier New",
+      "100px"
+    );
+
+    if (this.shopInfoBox !== undefined) {
+      this.shopInfoBox.draw();
+    }
+    this.shopButton.draw();
+  }
+
+  if (this.area === "home" ) {
+    if (this.gameActive === false) {
+      if (!this.inventory.open) {
+      this.tutorialModeButton.draw();
+      this.modeToggleButton.draw();
+      this.inventoryButton.draw();
+      this.shopButton.draw();
+    
+
+    for (var i = 0; i < this.scrollButtons.length; i++) {
+      this.scrollButtons[i].draw();
+    }
+
+    if (this.gameActive === false && this.modeToggleButton.mode === "normal") {
+      this.normalButtonString[this.scrollInteger].draw();
+    }
+    if (this.gameActive === false && this.modeToggleButton.mode === "extras") {
+      this.extraButtonString[this.scrollInteger].draw();
+    }
+  }
+}
+    if (this.inventory.open) {
+      this.inventory.draw();
+      for (var i = 0; i<this.inventoryItems.length; i++) {
+        this.inventoryItems[i].draw()
+      }
+      
+    if (this.inventoryInfoBar !== undefined) {
+      this.inventoryInfoBar.draw();
+    }
+    }
+  }
+
+  if (this.gameActive === false) return;
   Canvas.drawImage(
     sprites.extras["platform"].normal,
     new Vector2(-30, 650),
@@ -181,12 +232,17 @@ painterGameWorld.prototype.draw = function () {
     new Vector2(0, 0)
   ); // Draw the platform
 
-  Canvas.drawImage(
-    sprites.extras["score_text_box"].normal,
-    { x: 70, y: 40 },
-    0,
-    { x: 50, y: 20 }
-  ); // Score text box
+  for (var i = 0; i < 3; i++) {
+    this.powerUpSlots[i].draw();
+  }
+  if (this.specialtiesEquipped === 'extra_slot_upgrade') {
+    this.powerUpSlots[3].draw()
+  }
+
+  Canvas.drawImage(sprites.extras["text_box"].normal, { x: 70, y: 40 }, 0, {
+    x: 50,
+    y: 20,
+  }); // Score text box
 
   Canvas.drawText(
     "Score: " + this.score,
@@ -196,27 +252,45 @@ painterGameWorld.prototype.draw = function () {
     "Courier New",
     "25px"
   );
+  Canvas.drawImage(sprites.extras["text_box"].normal, { x: 70, y: 100 }, 0, {
+    x: 50,
+    y: 20,
+  }); // Lives text box
 
-  // this.drawUpdateLog();
+  Canvas.drawText(
+    "Lives: " + this.lives,
+    new Vector2(130, 93),
+    "white",
+    "center",
+    "Courier New",
+    "25px"
+  );
+
   for (var i = 0; i < this.blimps.length; i++) {
     if (this.blimps.length > 0) {
+      Canvas.drawImage(
+        sprites.extras["large_text_box"].normal,
+        new Vector2(-20, 143),
+        0,
+        new Vector2(0, 0)
+      );
       Canvas.drawText(
         "Blimp's color weakness:",
-        new Vector2(10, 350),
-        "Black",
+        new Vector2(10, 150),
+        "white",
         "top",
         "Courier New",
         "30px"
       );
+
       Canvas.drawImage(
         sprites.blimp[this.blimps[i].markerColor].normal,
-        new Vector2(80, 380),
+        new Vector2(150, 200),
         0,
         new Vector2(0, 0)
       );
     }
   }
-  this.drawGuides()
 
   this.drawBalloons();
   this.cannon.draw();
@@ -233,23 +307,24 @@ painterGameWorld.prototype.draw = function () {
     this.intenseBarriers[i].draw();
   }
 
-  this.drawLives();
   this.playWinScreen();
+  this.drawGuides();
 };
 
-painterGameWorld.prototype.handleInput = function (delta) {
-  if (Game.paused === false) {
+GameWorld.prototype.handleInput = function (delta) {
+  if (!this.paused && this.gameActive) {
     if (this.lives <= 0) return;
     this.cannon.handleInput(delta); // Rotate cannon + change cannon color
   }
 };
 
-painterGameWorld.prototype.resetInputs = function () {
+GameWorld.prototype.resetInputs = function () {
   Keyboard.reset();
 };
 
-painterGameWorld.prototype.playWinScreen = function () {
+GameWorld.prototype.playWinScreen = function () {
   if (this.win) {
+
     Canvas.drawImage(
       sprites.extras["end_screen"].normal,
       { x: 350, y: 100 },
@@ -291,29 +366,81 @@ painterGameWorld.prototype.playWinScreen = function () {
   }
 };
 
-painterGameWorld.prototype.update = function (delta) {
-  if (this.win === true) {
-    if (Keyboard.keyDown === 32) window.location.reload();
+GameWorld.prototype.update = function (delta) {
+  this.modeToggleButton.update();
+  this.tutorialModeButton.update();
+  for (var i = 0; i < this.scrollButtons.length; i++) {
+    this.scrollButtons[i].update();
+  }
+  if (this.gameActive === false) {
+    if (!this.inventory.open) {
+     if (this.area === "home") {
+      if (Keyboard.keyPressed === 39) {
+        this.scrollInteger++;
+        if (this.scrollInteger > this.scrollLength - 1) {
+          this.scrollInteger = 0;
+        }
+      }
+
+      if (Keyboard.keyPressed === 37) {
+        this.scrollInteger--;
+        if (this.scrollInteger < 0) {
+          this.scrollInteger = this.scrollLength - 1;
+        }
+      }
+
+      if (
+        this.gameActive === false &&
+        this.modeToggleButton.mode === "normal"
+      ) {
+        this.normalButtonString[this.scrollInteger].update();
+      }
+      if (
+        this.gameActive === false &&
+        this.modeToggleButton.mode === "extras"
+      ) {
+        this.extraButtonString[this.scrollInteger].update();
+      }
+    }
+    if (this.area === "shop") {
+      for (var i = 0; i < this.shopItems.length; i++) {
+        this.shopItems[i].update();
+      }
+    }
+
+    this.shopButton.update();
+    this.inventoryButton.update();
   }
 
-  this.pauseButton.update();
-  if (this.started === false) {
-    for (var i = 0; i < this.buttons.length; i++) {
-      this.buttons[i].update();
+  if (this.inventory.open && Keyboard.keyPressed === 27) {
+    this.inventory.open = false
+  }
+  if (this.inventory.open) {
+    for (var i = 0; i<this.inventoryItems.length; i++) {
+      this.inventoryItems[i].update()
     }
   }
+  }
 
+  if (Keyboard.keyPressed === 32 && this.lives <= 0) this.reset();
+  if (Keyboard.keyPressed === 80) this.paused = !this.paused
 
-
+  if (!this.paused) {
+  for (var i = 0; i < 3; i++) {
+    this.powerUpSlots[i].update();
+  }
+  if (this.specialtiesEquipped === 'extra_slot_upgrade') {
+    this.powerUpSlots[3].update()
+  }
 
   if (this.mode === "no_color") {
     this.balloonMinVelocity = 50; // Set no color mode speed to a static pace of 50
-  } else if (this.difficulty === "hard" || this.difficulty === "apex") {
-    this.blimpColorChangeFrequency = 0.7;
-  } else if (this.difficulty === "easy") {
-    this.blimpColorChangeFrequency = 0.2;
+  } else if (this.mode === "hard" || this.mode === "apex") {
+    this.blimpColorChangeFrequency = 0.3;
+  } else if (this.mode === "easy") {
+    this.blimpColorChangeFrequency = 0.1;
   } else {
-    this.blimpColorChangeFrequency = 0.4;
+    this.blimpColorChangeFrequency = 0.2;
   }
 
   for (var i = this.blimps.length; i < this.bossCount; i++) {
@@ -322,12 +449,12 @@ painterGameWorld.prototype.update = function (delta) {
 
   for (var i = 0; i < this.rows.length; i++) {
     if (this.balloonSpawning === true) {
-    if (this.rows[i] < this.balloonsPerRow) {
-      this.balloons.push(
-        new Balloon(this.rowPositions[i], i, this.defaultBalloonHealth)
-      ); // Draw balloons
-      this.rows[i] += 1;
-    }
+      if (this.rows[i] < this.balloonsPerRow) {
+        this.balloons.push(
+          new Balloon(this.rowPositions[i], i, this.defaultBalloonHealth)
+        ); // Draw balloons
+        this.rows[i] += 1;
+      }
     }
   }
 
@@ -335,18 +462,15 @@ painterGameWorld.prototype.update = function (delta) {
     this.homingBalls = false;
   }
 
-  if (Date.now() > this.freezeTimer + 15000) {
+  if (Date.now() > this.freezeTimer + 8000) {
     this.moving = true;
   }
 
   for (var i = this.barriers.length; i < this.barrierCount; i++) {
     // Create barriers
     if (this.barrierSpawning === true) {
-    this.barriers.push(new Barrier());
-    if (this.barriers.length > this.barrierCount) {
-      this.barriers.pull();
+      this.barriers.push(new Barrier());
     }
-  }
   }
 
   for (var i = this.intenseBarriers.length; i < this.intenseBarrierCount; i++) {
@@ -375,71 +499,86 @@ painterGameWorld.prototype.update = function (delta) {
 
           if (this.balloons[k].health <= 0) {
             this.rows[this.balloons[k].index] -= 1;
-            this.lives += this.balloons[k].popHeartValue;
-            this.score += this.balloons[k].popPointValue;
-            sounds.extraLife.play();
-            this.balloonsPopped += 1;
             this.balloons[k] = null;
             this.balloons = this.balloons.filter((a) => a);
+            this.lives += 1;
+            this.addScore(10);
             this.tutorialStep();
+
+            sounds.extraLife.play();
+            this.balloonsPopped += 1;
             removeBall = true;
           }
           break;
         }
 
         // Bomb balloon physics
-
-        if (this.balloons[k].currentColor === "bomb") {
+        else if (this.balloons[k].currentColor === "bomb") {
           this.balloons[k].health -= 1;
           removeBall = true;
           if (this.balloons[k].health <= 0) {
+            this.addScore(10);
+            this.tutorialStep();
+
+            this.rows[this.balloons[k].index] -= 1;
+            this.balloons[k] = null;
+            this.balloons = this.balloons.filter((a) => a);
             this.balloonsPopped += 1;
-            for (var b = 0; b < this.balloons.length; b++) {
-              this.rows[this.balloons[b].index] -= 1;
-              this.balloons[b] = null;
-              this.balloonsPopped += 1;
-              this.addScore(10);
+            for (var i = 0; i < this.powerUpSlots.length; i++) {
+              if (this.powerUpSlots[i].contains === undefined) {
+                this.powerUpSlots[i].contains = "bomb";
+                return;
+              }
             }
-            sounds.boom.play();
-            this.tutorialStep()
           }
           break;
         }
 
         // Homing power-up balloon physics
-
-        if (this.balloons[k].currentColor === "homing") {
+        else if (this.balloons[k].currentColor === "homing") {
           this.balloons[k].health -= 1;
           removeBall = true;
           if (this.balloons[k].health <= 0) {
-            this.homingBalls = true;
+            this.rows[this.balloons[k].index] -= 1;
+            this.balloons[k] = null;
+            this.balloons = this.balloons.filter((a) => a);
+            this.tutorialStep();
+
+            for (var i = 0; i < this.powerUpSlots.length; i++) {
+              if (this.powerUpSlots[i].contains === undefined) {
+                this.powerUpSlots[i].contains = "homing";
+                break;
+              }
+            }
+
             this.balloonsPopped += 1;
-            this.addScore(10)
-            this.homingPowerUpStart = Date.now();
+            this.addScore(10);
           }
         }
 
         //  Ice balloon physics
-
-        if (this.balloons[k].currentColor === "ice") {
-          if (!this.invincible)
+        else if (this.balloons[k].currentColor === "ice") {
           this.balloons[k].health -= 1;
+          removeBall = true;
           if (this.balloons[k].health <= 0) {
-            this.removeBall = true;
-            this.moving = false;
             this.rows[this.balloons[k].index] -= 1;
             this.balloons[k] = null;
+            this.tutorialStep();
+
+            for (var i = 0; i < this.powerUpSlots.length; i++) {
+              if (this.powerUpSlots[i].contains === undefined) {
+                this.powerUpSlots[i].contains = "freeze";
+                break;
+              }
+            }
             this.balloonsPopped += 1;
-            this.freezeTimer = Date.now();
             this.addScore(10);
-            removeBall = true;
             break;
           }
         }
 
         // Metal balloon Physics
-
-        if (
+        else if (
           this.balloons[k].currentColor === "metal" ||
           this.balloons[k].currentColor === "metal_cracked" ||
           this.balloons[k].currentColor === "metal_damaged"
@@ -467,7 +606,7 @@ painterGameWorld.prototype.update = function (delta) {
         // Blimp physics
 
         // Normal physics
-        if (
+        else if (
           this.balls[i].currentColor === this.balloons[k].currentColor ||
           this.balloons[k].currentColor === "white"
         ) {
@@ -479,13 +618,13 @@ painterGameWorld.prototype.update = function (delta) {
             this.balloonsPopped += 1;
             sounds.popEffect.play();
             this.addScore(this.balloons[k].popPointValue);
+            this.tutorialStep();
           }
         }
 
         //  Check if a balloon ran out of health
 
         if (this.balloons[k].health <= 0) {
-          this.tutorialStep()
           this.rows[this.balloons[k].index] -= 1;
           this.balloons[k] = null;
           this.balloonMinVelocity += 0.3;
@@ -556,10 +695,12 @@ painterGameWorld.prototype.update = function (delta) {
             this.blimps = this.blimps.filter((a) => a);
             this.bossCount -= 1;
             this.balloonsPopped += 1;
+            this.tutorialStep();
 
             this.balloonsPerRow = 0;
             Game.paused = true;
             this.win = true;
+
             break;
           }
         }
@@ -586,15 +727,13 @@ painterGameWorld.prototype.update = function (delta) {
   // Check if balloon fell off screen
   for (var k = 0; k < this.balloons.length; k++) {
     if (this.balloons[k].position.y > 800) {
-      if (this.mode !== 'tutorial') {
-      this.rows[this.balloons[k].index] -= 1;
-      this.balloons[k] = null;
-
-      this.lives -= 1;
-      sounds.hitSound.play();
-      }
-      else if (this.mode === 'tutorial') {
-        this.balloons[k].position.y = -100
+      if (this.mode !== "tutorial_mode") {
+        this.rows[this.balloons[k].index] -= 1;
+        this.balloons[k] = null;
+        this.lives -= 1;
+        sounds.hitSound.play();
+      } else if (this.mode === "tutorial_mode") {
+        this.balloons[k].position.y = -100;
       }
     }
   }
@@ -623,7 +762,8 @@ painterGameWorld.prototype.update = function (delta) {
     sounds.gameOver.play();
     sounds.backgroundMusicBasic.volume = 0;
   }
-  if (Game.paused === true || this.started === false || this.lives <= 0) return;
+  if (Game.paused === true || this.gameActive === false || this.lives <= 0)
+    return;
 
   if (Game.paused) {
     sounds.backgroundMusicBasic.volume = 0;
@@ -635,7 +775,6 @@ painterGameWorld.prototype.update = function (delta) {
     this.balls[i].update(delta);
   }
 
-  for (var i = 0; i < this.balls.length; i++) {}
   // Update cannon
 
   this.cannon.update(delta);
@@ -653,7 +792,7 @@ painterGameWorld.prototype.update = function (delta) {
   // Update balloons
 
   for (var i = 0; i < this.balloons.length; i++) {
-    if (Date.now() > this.freezeTimer + 5000) {
+    if (this.moving === true) {
       this.balloons[i].update(delta);
     }
   }
@@ -664,7 +803,8 @@ painterGameWorld.prototype.update = function (delta) {
     }
   }
 }
+};
 
-painterGameWorld.prototype.isOutsideWorld = function (position) {
+GameWorld.prototype.isOutsideWorld = function (position) {
   return position.x < 0 || position.x > 1300 || position.y > 700;
 };
