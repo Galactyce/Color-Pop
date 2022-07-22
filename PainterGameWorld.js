@@ -77,7 +77,7 @@ function GameWorld() {
   this.scrollInteger = 0;
   this.scrollLength = this.normalButtonString.length;
   this.dataString = {
-    'specialtiesOwned' : new Array()
+    'specialtiesOwned' : undefined
   }
   this.scrollButtons = new Array();
   this.powerUpSlots = new Array();
@@ -452,12 +452,11 @@ GameWorld.prototype.updateCookies = function() {
   var line = '';
 
   for (var i=0; i<this.specialtiesOwned.length; i++) {
-    this.dataString['specialtiesOwned'][i] = 'item' + [i] + "=" + this.specialtiesOwned[i];
-      line += this.dataString['specialtiesOwned'][i] + ';'
+    line += 'item' + [i] + "=" + this.specialtiesOwned[i] + ';';
   }
   console.log(line)
-  document.cookie += line ;
-  console.log(document.cookie)
+  this.dataString['specialtiesOwned'] = line ;
+  document.cookie = this.dataString['specialtiesOwned'] + 'expires=1000000;path=/'
 }
 
 GameWorld.prototype.update = function (delta) {
