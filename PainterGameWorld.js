@@ -133,7 +133,7 @@ GameWorld.prototype.checkCookies = function() {
   console.log(document.cookie);
   for (var i = 0; i<ccookie.length; i++) {
     console.log(ccookie[i])
-    for (var k=0; k<this.dataString['specialtiesOwned'].lengtha; k++) {
+    for (var k=0; k<this.dataString['specialtiesOwned'].length; k++) {
    if (ccookie[i] = this.dataString['specialtiesOwned'][k]) {
       var item = this.dataString['specialtiesOwned'][k].split('=')
       console.log(k)
