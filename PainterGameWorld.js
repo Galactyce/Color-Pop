@@ -134,7 +134,6 @@ GameWorld.prototype.checkCookies = function() {
     for (var k=0; k<this.dataString['specialtiesOwned'].length; k++) {
    if (ccookie[i] = this.dataString['specialtiesOwned'][k]) {
       var item = this.dataString['specialtiesOwned'][k].split('=')
-      console.log(this.dataString['specialtiesOwned'][k])
       this.specialtiesOwned.push(item[1])
       alert(this.specialtiesOwned[k])
       this.specialtiesOwned[k].bought = true
@@ -453,6 +452,7 @@ GameWorld.prototype.updateCookies = function() {
   var line = '';
 
   for (var i=0; i<this.specialtiesOwned.length; i++) {
+    console.log(this.specialtiesOwned[i])
     this.dataString['specialtiesOwned'][i] = 'item' + [i] + "=" + this.specialtiesOwned[i];
       line += this.dataString['specialtiesOwned'][i] + ';'
   }
