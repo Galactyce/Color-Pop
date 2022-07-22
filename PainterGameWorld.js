@@ -86,7 +86,6 @@ function GameWorld() {
   this.reward = 0;
   this.shopInfoBox = undefined;
   this.moving = true;
-  this.dataString = {'itemsOwned': this.specialtiesOwned, 'itemEquipped': this.specialtiesEquipped};
   this.scrollButtons.push(new Arrow(new Vector2(930, 335), "right", 1));
   this.scrollButtons.push(new Arrow(new Vector2(370, 335), "left", 1));
   this.powerUpSlots.push(new PowerSlot(new Vector2(100, 350), 1));
@@ -113,6 +112,7 @@ function GameWorld() {
     var name = cname[1]
   }
   else {
+
     var name = prompt('Enter your name')
     var d = new Date()
     d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
@@ -429,7 +429,18 @@ GameWorld.prototype.playWinScreen = function () {
   }
 };
 
+GameWorld.prototype.updateCookies = function() {
+  console.log("ds")
+  for (var i=0; i<this.specialtiesOwned.length; i++) {
+    alert()
+    var cookie = document.cookie
+    cookie = 'item' + [i] + "=" + this.specialtiesOwned[i]
+    console.log(cookie)
+  }
+}
+
 GameWorld.prototype.update = function (delta) {
+  this.updateCookies()
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
   for (var i = 0; i < this.scrollButtons.length; i++) {
