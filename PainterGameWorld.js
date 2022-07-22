@@ -484,8 +484,10 @@ GameWorld.prototype.update = function (delta) {
     var cookie = document.cookie.split(';');
     for (var i=0; i<cookie.length; i++) {
       var name = cookie[i].split('=');
+      console.log(name[0] + '=')
       document.cookie = name[0] + '='
     }
+    this.specialtiesOwned = new Array()
     console.log(document.cookie);
   }
   if (Keyboard.keyPressed === 65) this.coins += 2;
