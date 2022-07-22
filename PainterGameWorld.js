@@ -121,7 +121,7 @@ function GameWorld() {
     var d = new Date()
     d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
    document.cookie = "name=" + name +";expires=" + d.toUTCString() + ";path=/";
-    console.log(document.cookie)
+    console.log(document.cookie.trim())
   }
 
   alert("Hello " + name + '!');
