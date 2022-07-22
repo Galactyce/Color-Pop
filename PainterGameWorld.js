@@ -109,22 +109,22 @@ function GameWorld() {
     new ShopItem(new Vector2(400, 250), "barrier_buster_upgrade", 2)
   );
  this.reset();
-  var cookie = document.cookie
-  console.log(cookie)
-  if (cookie != '') { 
-    var cname = document.cookie.split("=")
-    var name = cname[1]
-  }
-  else {
+  // var cookie = document.cookie
+  // console.log(cookie)
+  // if (cookie != '') { 
+  //   var cname = document.cookie.split("=")
+  //   var name = cname[1]
+  // }
+  // else {
 
-    var name = prompt('Enter your name')
-    var d = new Date()
-    d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
-   document.cookie = "name=" + name +"; expires=" + d.toUTCString() + "; path=/";
-    console.log(document.cookie)
-  }
+  //   var name = prompt('Enter your name')
+  //   var d = new Date()
+  //   d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
+  //  document.cookie = "name=" + name +"; expires=" + d.toUTCString() + "; path=/";
+  //   console.log(document.cookie)
+  // }
 
-  alert("Hello " + name + '!')
+  // alert("Hello " + name + '!')
   this.checkCookies()
 }
 
