@@ -142,7 +142,9 @@ GameWorld.prototype.checkCookies = function() {
       }
     }
     var cname = ccookie[i].split('=')
+    alert(cname[0])
     if (cname[0] == ' coins') {
+      alert(cname[1])
       this.coins = cname[1];
     }
   }
