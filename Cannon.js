@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function Cannon() {
   this.currentColor = 'red'
   this.barrel = sprites.cannon_parts['barrel'].normal
@@ -52,59 +51,4 @@ Cannon.prototype.handleInput = function() {
 }
 
 Cannon.prototype.update = function() {
-=======
-function Cannon() {
-  this.currentColor = 'red'
-  this.barrel = sprites.cannon_parts['barrel'].normal
-  this.position = new Vector2(220, 550);
-  this.origin = new Vector2(0, 20);
-  this.velocity = new Vector2(0, 0)
-  this.firstClickClicked = false  // Detect if the click was for the menu screen
-}
-
-
-
-
-
-Cannon.prototype.draw = function() {
-  Canvas.drawImage(this.barrel, this.position, this.rotation, this.origin);
-  Canvas.drawImage(sprites.cannon_parts[this.currentColor].normal, new Vector2(this.position.x - 120, this.position.y - 50), 0, {x: 0, y: 0});
-}
-
-Cannon.prototype.ballPosition = function() {
-  var opp = Math.sin(this.rotation) * this.barrel.width ;
-  var adj = Math.cos(this.rotation) * this.barrel.width;
-  return new Vector2(this.position.x + adj, this.position.y + opp);
-}
-
-Cannon.prototype.handleInput = function() {
-  if (!Game.paused) {
-  if (Keyboard.keyDown === 66) 
-  this.currentColor = 'blue'
-  else if (Keyboard.keyDown === 71) 
-  this.currentColor = 'green'
-  else if (Keyboard.keyDown === 82) 
-  this.currentColor = 'red'
-  
-  var opp = Mouse.position.y - this.position.y;
-  var adj = Mouse.position.x - this.position.x;
-  this.rotation = Math.atan2(opp, adj);
-  
-  if (Mouse.pressed || Keyboard.keyPressed === 32 && Game.gameWorld.started && !Game.paused) {
-   
-  this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2)
-  Game.gameWorld.balls.push(new Ball())
-  if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
-    Game.gameWorld.balls.push(new Ball())   // Add an extra ball 
-  }
-  Game.gameWorld.ballsFired += 1;
-  sounds.cannonShot.play()
-
-  }
-
-}
-}
-
-Cannon.prototype.update = function() {
->>>>>>> 863a993b0347c4cc94ad9a20ce065d9d497c6913
 }
