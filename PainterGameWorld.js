@@ -137,7 +137,6 @@ GameWorld.prototype.checkCookies = function() {
     }
   }
   for (var i=0; i<this.dataString['specialtiesOwned'].length; i++) {
-    alert()
   this.specialtiesOwned.push(this.dataString['specialtiesOwned'][i])
   }
 }
