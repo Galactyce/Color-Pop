@@ -468,6 +468,7 @@ GameWorld.prototype.update = function (delta) {
     alert()
     document.cookie = 'expires=' + Date.now()
    }
+   if (Keyboard.keyPressed === 65) this.coins += 2;
   this.updateCookies()
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
