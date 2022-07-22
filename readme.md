@@ -1,6 +1,3 @@
-# Color-Pop
-An arcade game about popping balloons :)
+Link to game
 
-
-https://htmlpreview.gethub.io/?https://github.com/Galactyce/Color-Pop/blob/master/index.html
-
+https://htmlpreview.github.io/?https://raw.githubusercontent.com/Galactyce/Color-Pop/master/index.html
