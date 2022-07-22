@@ -92,4 +92,9 @@ ShopItem.prototype.update = function () {
       }
     }
   }
+  for (var i=0; i<Game.gameWorld.specialtiesOwned.length; i++) {
+    if (Game.gameWorld.specialtiesOwned[i] === this.item) {
+      this.bought = true
+    }
+  }
 };

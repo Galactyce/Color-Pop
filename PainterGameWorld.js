@@ -134,7 +134,8 @@ GameWorld.prototype.checkCookies = function() {
     for (var k=0; k<this.dataString['specialtiesOwned'].length; k++) {
    if (ccookie[i] = this.dataString['specialtiesOwned'][k]) {
       var item = this.dataString['specialtiesOwned'][k].split('=')
-      this.specialtiesOwned.push(item[1])
+      this.specialtiesOwned.push(item[1]);
+      this.inventoryItems.push(item[i]);
       alert(this.specialtiesOwned[k])
       this.specialtiesOwned[k].bought = true
 
@@ -452,21 +453,21 @@ GameWorld.prototype.updateCookies = function() {
   var line = '';
 
   for (var i=0; i<this.specialtiesOwned.length; i++) {
-    console.log(this.specialtiesOwned.length)
+    console.log(this.specialtiesOwned.length);
     this.dataString['specialtiesOwned'][i] = 'item' + [i] + "=" + this.specialtiesOwned[i];
-    console.log(this.dataString['specialtiesOwned'][i])
+    console.log(this.dataString['specialtiesOwned'][i]);
       line += this.dataString['specialtiesOwned'][i] + ';'
   }
   cookie = line + "expires=1000000; path=/";
-  document.cookie = cookie
+  document.cookie = cookie;
   console.log(document.cookie)
 
 }
 
 GameWorld.prototype.update = function (delta) {
-  if (Keyboard.keyPressed === 32) {
-    this.checkCookies()
-  }
+  // if (Keyboard.keyPressed === 32) {
+  //   this.checkCookies()
+  // }
   this.updateCookies()
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
