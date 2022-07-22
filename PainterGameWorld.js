@@ -456,8 +456,8 @@ GameWorld.prototype.updateCookies = function() {
   }
   console.log(line)
   this.dataString['specialtiesOwned'] = line ;
-  document.cookie = this.dataString['specialtiesOwned'] + 'expires=1000000;path=/';
-  console.log(document.cookie)
+  cookie = this.dataString['specialtiesOwned'] + 'expires=1000000;path=/';
+  console.log(cookie)
 }
 
 GameWorld.prototype.update = function (delta) {
