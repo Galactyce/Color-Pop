@@ -133,8 +133,8 @@ GameWorld.prototype.checkCookies = function() {
   console.log(ccookie)
   for (var i = 0; i<ccookie.length; i++) {
     for (var k=0; k<this.shopItems.length; k++) {
-      console.log("ccookie: " + ccookie[i] + ', ' + this.shopItems[k].item)
-   if (ccookie[i] === this.dataString['specialtiesOwned'][k]) {
+      console.log("ccookie: " + ccookie[i] + ', ' + 'item'+ k + '=' + this.shopItems[k].item + this.shopItems[k].item)
+   if (ccookie[i] === 'item'+ k + '=' + this.shopItems[k].item) {
       var item = this.dataString['specialtiesOwned'][k].split('=')
       this.specialtiesOwned.push(item[1]);
       this.inventoryItems.push(item[1]);
