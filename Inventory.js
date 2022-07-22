@@ -141,6 +141,7 @@ function InventoryItem(item) {
   this.origin = new Vector2(0, 0)
   this.rect = undefined
   this.identify();
+  alert(this.item)
 }
 
 InventoryItem.prototype.identify = function() {
