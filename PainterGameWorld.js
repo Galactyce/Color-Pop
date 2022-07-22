@@ -468,15 +468,10 @@ GameWorld.prototype.updateCookies = function() {
   for (var i=0; i<this.specialtiesOwned.length; i++) {
     document.cookie = ' item' + [i] + "=" + this.specialtiesOwned[i] + ';';
   }
-  var ccookie = document.cookie.split(';')
-  for (var i=0; i<ccookie.length; i++) {
-    var line = ccookie[i].split('=')
-    if (line[0] == 'coins') {
-      alert()
-      document.cookie = line[0] + '=' + this.coins;
-    }
+    document.cookie = 'coins=' + this.coins;
   }
-}
+  
+
 
 GameWorld.prototype.update = function (delta) {
 
