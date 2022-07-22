@@ -125,7 +125,7 @@ function GameWorld() {
   }
 
   alert("Hello " + name + '!');
-  document.cookie = 'name=Eli'
+  document.cookie = 'name='
   this.checkCookies()
 }
 
@@ -140,8 +140,7 @@ GameWorld.prototype.checkCookies = function() {
       this.specialtiesOwned.push(this.shopItems[k].item);
       this.inventoryItems.push(this.shopItems[k].item);
       alert(this.shopItems[k].item)
-      this.specialtiesOwned[k].bought = true
-      break
+      this.shopItems[k].bought = true
     }
    }
   }
