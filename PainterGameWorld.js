@@ -141,6 +141,10 @@ GameWorld.prototype.checkCookies = function() {
         this.shopItems[k].bought = true
       }
     }
+    var cname = ccookie[i].split('=')
+    if (cname[0] == ' coins') {
+      this.coins = cname[1];
+    }
   }
 }
 
@@ -452,7 +456,7 @@ GameWorld.prototype.updateCookies = function() {
   for (var i=0; i<this.specialtiesOwned.length; i++) {
     document.cookie = 'item' + [i] + "=" + this.specialtiesOwned[i] + ';';
   }
-    document.cookie = 'coins=' + this.coins + ';'
+    document.cookie = 'coins=' + (this.coins) + ';'
   console.log(document.cookie)
 
 }
