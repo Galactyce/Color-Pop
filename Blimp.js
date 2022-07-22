@@ -53,8 +53,8 @@ Blimp.prototype.applyHealth = function() {
     }
   }
   if (Game.gameWorld.mode === 'hard') {
-    this.maxHealth = 10;
-    this.health = 10
+    this.maxHealth = 70;
+    this.health = 70
     if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;

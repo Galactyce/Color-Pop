@@ -393,7 +393,7 @@ GameWorld.prototype.giveCoins = function() {
   if (this.mode === 'armored_only') this.reward = 3;
   if (this.mode === 'faster_balloons') this.reward   = 5;
   if (this.mode === 'no_color_mode') this.reward = 3;
-  this.coin += this.reward;
+  this.coins += this.reward;
 }
 
 GameWorld.prototype.handleInput = function (delta) {
