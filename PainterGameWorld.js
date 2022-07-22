@@ -110,6 +110,7 @@ function GameWorld() {
   );
  this.reset();
   var cookie = document.cookie
+  cookie = ''
   console.log(cookie)
   if (cookie != '') { 
     var cname = document.cookie.split("=")
