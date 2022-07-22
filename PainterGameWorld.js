@@ -449,15 +449,9 @@ GameWorld.prototype.playWinScreen = function () {
 };
 
 GameWorld.prototype.updateCookies = function() {
-  var line = '';
-
   for (var i=0; i<this.specialtiesOwned.length; i++) {
-    line += 'item' + [i] + "=" + this.specialtiesOwned[i] + ';';
+    document.cookie = 'item' + [i] + "=" + this.specialtiesOwned[i] + ';';
   }
-  console.log(line)
-  this.dataString['specialtiesOwned'] = line ;
-  cookie = this.dataString['specialtiesOwned'] + 'expires=1000000;path=/';
-  document.cookie = cookie;
   console.log(document.cookie)
 
 }
