@@ -129,7 +129,7 @@ function GameWorld() {
 }
 
 GameWorld.prototype.checkCookies = function() {
-  var cookie = document.cookie
+  var cookie = document.cookie.split(';')
   console.log(cookie)
   for (var i = 0; i<cookie.length; i++) {
     for (var k=0; k<this.shopItems.length; k++) {    
@@ -451,8 +451,7 @@ GameWorld.prototype.updateCookies = function() {
       line += this.dataString['specialtiesOwned'][k] + ';' 
     }
     document.cookie = line + "expires=10000; path=/";
-    console.log(line + "expires=10000; path=/")
-    console.log(document.cookie)
+    // console.log(line + "expires=10000; path=/")
   }
 }
 
