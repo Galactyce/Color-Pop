@@ -86,8 +86,8 @@ function GameWorld() {
   this.balloonsPopped = 0;
   this.ballsFired = 0;
   this.paused = false;
-  this.coins = 20;
   this.reward = 0;
+  this.coins = 0;
   this.shopInfoBox = undefined;
   this.moving = true;
   this.scrollButtons.push(new Arrow(new Vector2(930, 335), "right", 1));
@@ -466,7 +466,7 @@ GameWorld.prototype.updateCookies = function() {
 GameWorld.prototype.update = function (delta) {
    if (Keyboard.keyPressed === 32) {
     alert()
-    document.cookie = ''
+    document.cookie = 'expires=' + Date.now()
    }
   this.updateCookies()
   this.modeToggleButton.update();
