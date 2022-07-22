@@ -136,7 +136,7 @@ GameWorld.prototype.checkCookies = function() {
     for (var k=0; k<this.shopItems.length; k++) {
    if (ccookie[i] = this.dataString['specialtiesOwned'][k]) {
       var item = this.dataString['specialtiesOwned'][k].split('=')
-      console.log(item)
+      console.log(k)
       this.specialtiesOwned.push(item[1])
       this.specialtiesOwned[k].bought = true
 
