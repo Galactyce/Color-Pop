@@ -132,7 +132,7 @@ function GameWorld() {
 GameWorld.prototype.checkCookies = function() {
 
   var ccookie = document.cookie.split(';');
-  document.cookie = 'coins=0'
+  document.cookie = 'coins=10a'
   var line = ''
 //   for (var i=0; i<ccookie.length; i++) {
 //    line += ccookie[i];
