@@ -456,6 +456,7 @@ GameWorld.prototype.updateCookies = function() {
   for (var i=0; i<this.specialtiesOwned.length; i++) {
     this.dataString['specialtiesOwned'][i] = 'item' + [i] + "=" + this.specialtiesOwned[i];
       line += this.dataString['specialtiesOwned'][i] + ';'
+      alert(this.specialtiesOwned[i])
   }
   cookie = line + "expires=1000000; path=/";
   document.cookie = cookie;
