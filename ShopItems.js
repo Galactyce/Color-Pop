@@ -87,7 +87,6 @@ ShopItem.prototype.update = function () {
           }
           Game.gameWorld.coins -= this.cost;
           this.bought = true;
-          Game.gameWorld.updateCookies()
           Game.gameWorld.shopInfoBox = undefined;
         }
       }
