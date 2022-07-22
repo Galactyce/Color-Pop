@@ -112,7 +112,7 @@ function GameWorld() {
   var cookie = document.cookie
   console.log(cookie)
   if (cookie != '') { 
-    var cname = document.cookie.split("=", ';')
+    var cname = document.cookie.split("=")
     var name = cname[1]
   }
   else {
@@ -121,7 +121,7 @@ function GameWorld() {
     var d = new Date()
     d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
    document.cookie = "name=" + name +"; expires=" + d.toUTCString() + "; path=/";
-    console.log(cookie)
+    console.log(document.cookie)
   }
 
   alert("Hello " + name + '!')
@@ -457,8 +457,8 @@ GameWorld.prototype.updateCookies = function() {
     console.log(this.dataString['specialtiesOwned'][i])
       line += this.dataString['specialtiesOwned'][i] + ';'
   }
-  document.cookie = line + "expires=1000000; path=/";
-
+  cookie = line + "expires=1000000; path=/";
+  document.cookie = cookie
   console.log(document.cookie)
 
 }
