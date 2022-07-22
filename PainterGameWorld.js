@@ -472,6 +472,7 @@ GameWorld.prototype.updateCookies = function() {
   for (var i=0; i<ccookie.length; i++) {
     var line = ccookie[i].split('=')
     if (line[0] == 'coins') {
+      alert()
       ccookie[i] = line[0] + '=' + this.coins;
     }
   }
