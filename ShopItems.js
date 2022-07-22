@@ -57,7 +57,7 @@ ShopItem.prototype.identify = function () {
       this.sprite.height
     );
   }
-  if (this.origin.x === 0) window.location.reload()
+  //if (this.origin.x === 0) window.location.reload()
 };
 ShopItem.prototype.draw = function () {
   if (this.bought === false) {
