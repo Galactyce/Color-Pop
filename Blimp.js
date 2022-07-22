@@ -7,6 +7,7 @@ function Blimp() {
   this.health = undefined;
   this.maxHealth = undefined;
   this.markerColor = undefined;
+  this.slowCooldown = Date.now();
   this.applyHealth()
   this.changeMarker()
 }
@@ -52,8 +53,8 @@ Blimp.prototype.applyHealth = function() {
     }
   }
   if (Game.gameWorld.mode === 'hard') {
-    this.maxHealth = 80;
-    this.health = 80
+    this.maxHealth = 10;
+    this.health = 10
     if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
@@ -84,6 +85,13 @@ Blimp.prototype.draw = function() {
 }
 
 Blimp.prototype.update = function(delta) {
+  if (Date.now() >= this.slowCooldown + 1000) {
+    if (Game.gameWorld.mode === 'armored_only') 
+    this.velocity.y = 10;
+    else {
+      this.velocity.y = 20;
+    }
+  }
   this.position.addTo(this.velocity.multiply(delta));
   if (this.health <= this.maxHealth * 0.80)
   this.healthState = 'hit1';

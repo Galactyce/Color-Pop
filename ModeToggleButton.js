@@ -33,7 +33,6 @@ ModeToggleButton.prototype.draw = function() {
 
 ModeToggleButton.prototype.update = function() {
   if (this.rect.contains(Mouse.position) && Mouse.pressed) {
-    alert()
     if (this.mode === 'normal') {
       this.mode = 'extras'
       Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;

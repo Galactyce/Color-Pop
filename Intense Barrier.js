@@ -1,6 +1,7 @@
 function BarrierIntense() {
   this.position = new Vector2(500, -300);
-  this.origin = new Vector2(0, 150)
+  this.origin = new Vector2(0, 150);
+  this.health = 15;
   this.speed = 2
   this.setX()
 }

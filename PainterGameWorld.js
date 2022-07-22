@@ -12,7 +12,7 @@ function GameWorld() {
   this.mode = new Array("easy", "intermediate", "hard", "apex");
   this.defaultBalloonHealth = 1;
   this.invincible = false;
-  this.score = 600;
+  this.score = 0;
   this.balloonSpawning = true;
   this.barrierSpawning = true;
   this.homingBalls = false;
@@ -50,7 +50,7 @@ function GameWorld() {
   this.buttons.push(this.noColorModeButton);
   this.freeplayModeButton = new PlayButton(460, 250, "freeplay_mode");
   this.buttons.push(this.freeplayModeButton);
-  this.tutorialModeButton = new PlayButton(1000, 100, "tutorial_mode");
+  this.tutorialModeButton = new PlayButton(1000, 300, "tutorial_mode");
   this.modeToggleButton = new ModeToggleButton(550, 550);
   this.shopButtonPosition = new Vector2(200, 550);
   this.shopButton = new ShopButton(this.shopButtonPosition);
@@ -83,9 +83,11 @@ function GameWorld() {
   this.balloonsPopped = 0;
   this.ballsFired = 0;
   this.paused = false;
-  this.coins = 8;
+  this.coins = 20;
+  this.reward = 0;
   this.shopInfoBox = undefined;
   this.moving = true;
+  this.dataString = {'itemsOwned': this.specialtiesOwned, 'itemEquipped': this.specialtiesEquipped};
   this.scrollButtons.push(new Arrow(new Vector2(930, 335), "right", 1));
   this.scrollButtons.push(new Arrow(new Vector2(370, 335), "left", 1));
   this.powerUpSlots.push(new PowerSlot(new Vector2(100, 350), 1));
@@ -98,8 +100,30 @@ function GameWorld() {
   this.shopItems.push(
     new ShopItem(new Vector2(700, 500), "extra_slot_upgrade", 2)
   );
+  this.shopItems.push(
+    new ShopItem(new Vector2(900, 500), "blimp_slower_upgrade", 2)
+  );
+  this.shopItems.push(
+    new ShopItem(new Vector2(400, 250), "barrier_buster_upgrade", 2)
+  );
+ // this.reset();
+  let cookie = decodeURIComponent(document.cookie)
+  console.log(cookie)
+  if (cookie != '') { 
+    var cname = document.cookie.split("=")
+    var name = cname[1]
+  }
+  else {
+    var name = prompt('Enter your name')
+    var d = new Date()
+    d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
+   document.cookie = "name=" + name +"; expires=" + d.toUTCString() + "; path=/";
+    //console.log(cookie)
+  }
 
-  this.reset();
+  alert("Hello " + name + '!')
+
+
 }
 
 GameWorld.prototype.drawBalloons = function () {
@@ -120,7 +144,7 @@ GameWorld.prototype.reset = function () {
   this.balloonMinVelocity = 30;
   this.intenseBarrierCount = 0;
   this.lives = 5;
-  this.score = 600;
+  this.score = 0;
   this.gameActive = false;
   this.wavyActive = false;
   this.blimpColorChangeFrequency = 0;
@@ -178,9 +202,9 @@ GameWorld.prototype.draw = function () {
 
     Canvas.drawText(
       this.coins,
-      new Vector2(150, 50),
+      new Vector2(120, 50),
       "black",
-      "center",
+      "left",
       "Courier New",
       "100px"
     );
@@ -221,6 +245,23 @@ GameWorld.prototype.draw = function () {
     if (this.inventoryInfoBar !== undefined) {
       this.inventoryInfoBar.draw();
     }
+    Canvas.drawText(
+      "Cancel: ",
+      new Vector2(130, 633),
+      "black",
+      "center",
+      "Courier New",
+      "25px"
+    );
+    Canvas.drawImage(sprites.extras['simple_button'].normal, new Vector2(180, 625), 0, new Vector2(0, 0), 0.2)
+    Canvas.drawText(
+      "Esc",
+      new Vector2(200, 633),
+      "black",
+      "left",
+      "Courier New",
+      "25px"
+    );
     }
   }
 
@@ -311,6 +352,17 @@ GameWorld.prototype.draw = function () {
   this.drawGuides();
 };
 
+GameWorld.prototype.giveCoins = function() {
+  if (this.mode === 'easy') this.reward = 1;
+  if (this.mode === 'intermediate') this.reward = 2;
+  if (this.mode === 'hard') this.reward = 3;
+  if (this.mode === 'apex') this.reward = 4;
+  if (this.mode === 'armored_only') this.reward = 3;
+  if (this.mode === 'faster_balloons') this.reward   = 5;
+  if (this.mode === 'no_color_mode') this.reward = 3;
+  this.coin += this.reward;
+}
+
 GameWorld.prototype.handleInput = function (delta) {
   if (!this.paused && this.gameActive) {
     if (this.lives <= 0) return;
@@ -363,6 +415,18 @@ GameWorld.prototype.playWinScreen = function () {
       "Comic Sans",
       "50px"
     );
+    Canvas.drawText(
+      "+" + this.reward,
+      new Vector2(370, 430),
+      "black",
+      "top",
+      "Comic Sans",
+      "50px"
+    );
+    Canvas.drawImage(
+      sprites.extras['coin'].normal,
+      new Vector2(430, 430)
+    )
   }
 };
 
@@ -422,7 +486,11 @@ GameWorld.prototype.update = function (delta) {
   }
   }
 
-  if (Keyboard.keyPressed === 32 && this.lives <= 0) this.reset();
+  if (Keyboard.keyPressed === 32)  {
+    if (this.lives <= 0 || this.win === true) {
+      this.reset();
+    }
+  }
   if (Keyboard.keyPressed === 80) this.paused = !this.paused
 
   if (!this.paused) {
@@ -647,11 +715,13 @@ GameWorld.prototype.update = function (delta) {
         this.balls[i].position.y >= this.barriers[j].position.y - 110
       ) {
         removeBall = true;
-        this.barriers[j].health -= 1;
         sounds.bump.play();
+        if (this.specialtiesEquipped === 'barrier_buster_upgrade') {
+        this.barriers[j].health -= 1;
         if (this.barriers[j].health <= 0) {
           this.barriers[i] = null;
         }
+      }
         break;
       }
     }
@@ -666,6 +736,12 @@ GameWorld.prototype.update = function (delta) {
       ) {
         removeBall = true;
         sounds.bump.play();
+        if (this.specialtiesEquipped === 'barrier_buster_upgrade') {
+          this.intenseBarriers[l].health -= 1;
+          if (this.intenseBarriers[l].health <= 0) {
+            this.intenseBarriers[l] = null;
+          }
+        }
         break;
       }
     }
@@ -686,7 +762,15 @@ GameWorld.prototype.update = function (delta) {
           this.balls[i].currentColor === this.blimps[z].markerColor ||
           this.mode === "no_color"
         ) {
+          if (this.specialtiesEquipped === 'blimp_slower_upgrade' &&
+           Date.now() >= this.blimps[z].slowCooldown + 1000) {
+            this.blimps[z].velocity.y *= 0.6
+            this.blimps[z].slowCooldown = Date.now()
+          }
+          if (this.specialtiesEquipped !== 'double_ball_upgrade')
           this.blimps[z].health -= 1;
+          if (this.specialtiesEquipped === 'double_ball_upgrade')
+          this.blimps[z].health -= 0.6;
           this.balls[i].hitBlimp = true;
           if (Math.random() < this.blimpColorChangeFrequency)
             this.blimps[z].changeMarker();
@@ -699,6 +783,7 @@ GameWorld.prototype.update = function (delta) {
 
             this.balloonsPerRow = 0;
             Game.paused = true;
+            this.giveCoins();
             this.win = true;
 
             break;
@@ -765,7 +850,7 @@ GameWorld.prototype.update = function (delta) {
   if (Game.paused === true || this.gameActive === false || this.lives <= 0)
     return;
 
-  if (Game.paused) {
+  if (this.paused) {
     sounds.backgroundMusicBasic.volume = 0;
   }
 
