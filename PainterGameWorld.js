@@ -132,6 +132,7 @@ function GameWorld() {
 GameWorld.prototype.checkCookies = function() {
 
   var ccookie = document.cookie.split(';');
+  document.cookie = 'coins=0'
   var line = ''
 //   for (var i=0; i<ccookie.length; i++) {
 //    line += ccookie[i];
@@ -142,7 +143,6 @@ GameWorld.prototype.checkCookies = function() {
     for (var k=0; k<this.shopItems.length; k++) {
       console.log("ccookie: " + ccookie[i].trim() + ', ' + ' item'+ k + '=' + this.shopItems[k].item)
       if (ccookie[i] == ' item'+ k + '=' + this.shopItems[k].item) {
-        alert(ccookie[i])
         this.specialtiesOwned.push(this.shopItems[k].item);
         this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
         this.shopItems[k].bought = true
@@ -471,15 +471,14 @@ GameWorld.prototype.updateCookies = function() {
   for (var i=0; i<ccookie.length; i++) {
     var line = ccookie[i].split('=')
     if (line[0] == 'coins') {
+      alert()
       ccookie[i] = line[0] + '=' + this.coins;
     }
   }
 }
 
 GameWorld.prototype.update = function (delta) {
-   if (Keyboard.keyPressed === 32) {
-   
-    }
+
 
    if (Keyboard.keyPressed === 65) this.coins += 2;
   this.updateCookies()
