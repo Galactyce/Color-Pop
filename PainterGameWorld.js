@@ -75,6 +75,9 @@ function GameWorld() {
   this.specialtiesOwned = new Array();
   this.scrollInteger = 0;
   this.scrollLength = this.normalButtonString.length;
+  this.dataString = {
+    'specialtiesOwned' : new Array()
+  }
   this.scrollButtons = new Array();
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
@@ -105,24 +108,39 @@ function GameWorld() {
     new ShopItem(new Vector2(400, 250), "barrier_buster_upgrade", 2)
   );
  // this.reset();
+  // var cookie = document.cookie
+  // console.log(cookie)
+  // if (cookie != '') { 
+  //   var cname = document.cookie.split("=")
+  //   var name = cname[1]
+  // }
+  // else {
+
+  //   var name = prompt('Enter your name')
+  //   var d = new Date()
+  //   d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
+  //  document.cookie = "name=" + name +"; expires=" + d.toUTCString() + "; path=/";
+  //   console.log(cookie)
+  // }
+
+  // alert("Hello " + name + '!')
+
+  this.checkCookies()
+}
+
+GameWorld.prototype.checkCookies = function() {
   var cookie = document.cookie
   console.log(cookie)
-  if (cookie != '') { 
-    var cname = document.cookie.split("=")
-    var name = cname[1]
+  for (var i = 0; i<cookie.length; i++) {
+    for (var k=0; k<this.shopItems.length; k++) {
+    if (cookie[k] = 'item' + i +'=' + this.shopItems[k].item)
+    alert('item' + i +'=' + this.shopItems[k].item)
+    }
   }
-  else {
-
-    var name = prompt('Enter your name')
-    var d = new Date()
-    d.setTime(d.getTime() + 5 * 24 * 60 * 60 * 1000)
-   document.cookie = "name=" + name +"; expires=" + d.toUTCString() + "; path=/";
-    console.log(cookie)
+  for (var i=0; i<this.dataString['specialtiesOwned'].length; i++) {
+    alert()
+  this.specialtiesOwned.push(this.dataString['specialtiesOwned'][i])
   }
-
-  alert("Hello " + name + '!')
-
-  alert()
 }
 
 GameWorld.prototype.drawBalloons = function () {
@@ -430,16 +448,23 @@ GameWorld.prototype.playWinScreen = function () {
 };
 
 GameWorld.prototype.updateCookies = function() {
-  console.log("ds")
   for (var i=0; i<this.specialtiesOwned.length; i++) {
-    alert()
+    var line = '';
+    this.dataString['specialtiesOwned'][i] = 'item' + [i] + "=" + this.specialtiesOwned[i];
+    for (var k=0; k<this.dataString['specialtiesOwned'].length; k++) {
+      line += this.dataString['specialtiesOwned'][k] + ';' 
+    }
+    document.cookie = line + "expires=10000; path=/";
     var cookie = document.cookie
-    cookie = 'item' + [i] + "=" + this.specialtiesOwned[i]
+    console.log(line + "expires=10000; path=/")
     console.log(cookie)
   }
 }
 
 GameWorld.prototype.update = function (delta) {
+  if (Keyboard.keyPressed === 32) {
+    this.checkCookies()
+  }
   this.updateCookies()
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
