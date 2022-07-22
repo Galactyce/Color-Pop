@@ -136,6 +136,7 @@ GameWorld.prototype.checkCookies = function() {
       var item = this.dataString['specialtiesOwned'][k].split('=')
       console.log(this.dataString['specialtiesOwned'][k])
       this.specialtiesOwned.push(item[1])
+      alert(this.specialtiesOwned[k])
       this.specialtiesOwned[k].bought = true
 
       break
