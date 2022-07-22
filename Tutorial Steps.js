@@ -1,5 +1,5 @@
-painterGameWorld.prototype.tutorialStep = function () {
-  if (this.mode === 'tutorial') {
+GameWorld.prototype.tutorialStep = function () {
+  if (this.mode === 'tutorial_mode') {
   this.balloonSpawning = false;
   this.barrierSpawning = false;
   if (this.score === 0) {
@@ -8,6 +8,7 @@ painterGameWorld.prototype.tutorialStep = function () {
     this.balloons.push(balloon);
   }
   if (this.score === 10) {
+    
     var balloon = new Balloon(900, 2, 1);
     balloon.currentColor = "green";
     this.balloons.push(balloon);
@@ -62,8 +63,15 @@ painterGameWorld.prototype.tutorialStep = function () {
     var balloon = new Balloon(900, 1, 1);
     balloon.currentColor = "homing";
     this.balloons.push(balloon);
+    balloon = new Balloon(900, 2, 1);
+    balloon.currentColor = "green";
+    this.balloons.push(balloon);
   }
-  if (this.score === 290) {
+  if (this.score === 300) {
+    var balloon = new Balloon(700, 1, 1);
+    balloon.currentColor = "ice";
+    this.balloons.push(balloon);
+
     for (var i = 0; i < 6; i++) {
       var colors = new Array("red", "green", "blue");
       var rand1 = Math.floor(Math.random() * 3);
@@ -72,26 +80,22 @@ painterGameWorld.prototype.tutorialStep = function () {
       balloon.currentColor = colors[rand2];
       this.balloons.push(balloon);
     }
-
-    var balloon = new Balloon(700, 1, 1);
-    balloon.currentColor = "ice";
-    this.balloons.push(balloon);
   }
   
 
-  if (this.score === 360) {
+  if (this.score === 370) {
     this.rows = new Array(0, 0, 0);
   }
 
-  if (this.score >= 360) {
+  if (this.score >= 370) {
     var balloon = null;
     this.moving = true;
     this.balloonSpawning = true;
     this.balloonsPerRow = 1;
   }
-  if (this.score === 500) {
-    Game.paused = true;
-    this.win = true;
+  if (this.score >= 500) {
+    this.bossCount = 1;
+
   }
 }
 };
