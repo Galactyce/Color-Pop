@@ -151,6 +151,7 @@ GameWorld.prototype.checkCookies = function() {
       }
     }
     var cname = ccookie[i].split('=')
+    console.log(cname)
     if (cname[0] == 'coins') {
       alert(cname[1])
       this.coins = cname[1];
