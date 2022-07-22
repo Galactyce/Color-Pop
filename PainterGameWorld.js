@@ -148,13 +148,14 @@ GameWorld.prototype.checkCookies = function() {
         this.shopItems[k].bought = true
       }
     }
+    var cname = ccookie[i].split('=')
+    if (cname[0] == 'coins') {
+      alert(cname[1])
+      this.coins = cname[1];
+    }
+  }
 
-  }
-  var cname = ccookie[i].split('=')
-  if (cname[0] == 'coins') {
-    alert(cname[1])
-    this.coins = cname[1];
-  }
+
 }
 
 GameWorld.prototype.drawBalloons = function () {
