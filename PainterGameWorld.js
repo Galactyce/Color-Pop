@@ -136,6 +136,8 @@ GameWorld.prototype.checkCookies = function() {
     console.log(ccookie[i])
     for (var k=0; k<this.specialtiesOwned.length; k++) {
    if (ccookie[i] = this.dataString['specialtiesOwned'][k]) {
+    
+    alert()
       var item = this.dataString['specialtiesOwned'][k].split('=')
       this.specialtiesOwned.push(item[1])
       alert(item[1])
@@ -456,7 +458,7 @@ GameWorld.prototype.updateCookies = function() {
     this.dataString['specialtiesOwned'][i] = 'item' + [i] + "=" + this.specialtiesOwned[i];
       line += this.dataString['specialtiesOwned'][i] + ';'
   }
-  document.cookie = line + "expires=10000; path=/";
+  document.cookie = line + "expires=1000000; path=/";
 
   console.log(line + "expires=10000; path=/")
 
