@@ -122,7 +122,7 @@ function GameWorld() {
 
   alert("Hello " + name + '!')
 
-
+  alert()
 }
 
 GameWorld.prototype.drawBalloons = function () {
