@@ -132,15 +132,13 @@ GameWorld.prototype.checkCookies = function() {
   var cookie = document.cookie
   console.log(cookie)
   for (var i = 0; i<cookie.length; i++) {
-    for (var k=0; k<this.shopItems.length; k++) {
-    if (cookie[k] = 'item' + i +'=' + this.shopItems[k].item)
-    }
+    for (var k=0; k<this.shopItems.length; k++) {    
   }
   for (var i=0; i<this.dataString['specialtiesOwned'].length; i++) {
   this.specialtiesOwned.push(this.dataString['specialtiesOwned'][i])
   }
 }
-
+}
 GameWorld.prototype.drawBalloons = function () {
   for (var k = 0; k < this.blimps.length; k++) {
     this.blimps[k].draw();
