@@ -464,7 +464,7 @@ GameWorld.prototype.updateCookies = function() {
 
 GameWorld.prototype.update = function (delta) {
    if (Keyboard.keyPressed === 32) {
-    document.cookie = 'expires=0'
+    document.cookie += ';max-age=0'
     this.specialtiesOwned = new Array()
    }
    if (Keyboard.keyPressed === 65) this.coins += 2;
