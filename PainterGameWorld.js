@@ -1,3 +1,4 @@
+
 function GameWorld() {
   this.rows = new Array(0, 0, 0); // # of balloons in a row
   this.rowPositions = new Array(700, 900, 1100);
@@ -124,21 +125,26 @@ function GameWorld() {
   // }
 
   // alert("Hello " + name + '!')
-
+    this.updateCookies()
   this.checkCookies()
 }
 
 GameWorld.prototype.checkCookies = function() {
-  var cookie = document.cookie.split(';')
-  console.log(cookie)
-  for (var i = 0; i<cookie.length; i++) {
-    for (var k=0; k<this.shopItems.length; k++) {    
+  var cookie = document.cookie;
+  var ccookie = cookie.split(';')
+  console.log(ccookie)
+  for (var i = 0; i<ccookie.length; i++) {
+    for (var k=0; k<this.specialtiesOwned.length; k++) {
+   if (ccookie[i] = this.dataString['specialtiesOwned'][k]) {
+      var item = this.dataString['specialtiesOwned'][k].split('=')
+      this.specialtiesOwned.push(item[1])
+      alert(item[1])
+      break
+    }
+   }
   }
-  for (var i=0; i<this.dataString['specialtiesOwned'].length; i++) {
-  this.specialtiesOwned.push(this.dataString['specialtiesOwned'][i])
   }
-}
-}
+
 GameWorld.prototype.drawBalloons = function () {
   for (var k = 0; k < this.blimps.length; k++) {
     this.blimps[k].draw();
@@ -444,15 +450,16 @@ GameWorld.prototype.playWinScreen = function () {
 };
 
 GameWorld.prototype.updateCookies = function() {
+  var line = '';
+
   for (var i=0; i<this.specialtiesOwned.length; i++) {
-    var line = '';
     this.dataString['specialtiesOwned'][i] = 'item' + [i] + "=" + this.specialtiesOwned[i];
-    for (var k=0; k<this.dataString['specialtiesOwned'].length; k++) {
-      line += this.dataString['specialtiesOwned'][k] + ';' 
-    }
-    document.cookie = line + "expires=10000; path=/";
-    // console.log(line + "expires=10000; path=/")
+      line += this.dataString['specialtiesOwned'][i] + ';'
   }
+  document.cookie = line + "expires=10000; path=/";
+
+  console.log(line + "expires=10000; path=/")
+
 }
 
 GameWorld.prototype.update = function (delta) {
