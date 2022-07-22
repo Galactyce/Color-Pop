@@ -110,7 +110,6 @@ function GameWorld() {
   );
  this.reset();
   var cookie = document.cookie
-  cookie = ''
   console.log(cookie)
   if (cookie != '') { 
     var cname = document.cookie.split("=")
@@ -137,7 +136,7 @@ GameWorld.prototype.checkCookies = function() {
     for (var k=0; k<this.shopItems.length; k++) {
       alert()
       console.log("ccookie: " + ccookie[i].trim() + ', ' + 'item'+ k + '=' + this.shopItems[k].item)
-   if (ccookie[i].trim() == ' item'+ k + '=' + this.shopItems[k].item) {
+   if (ccookie[i].trim() == 'item'+ k + '=' + this.shopItems[k].item) {
       this.specialtiesOwned.push(this.shopItems[k].item);
       this.inventoryItems.push(this.shopItems[k].item);
       alert(this.shopItems[k].item)
