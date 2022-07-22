@@ -464,9 +464,9 @@ GameWorld.prototype.updateCookies = function() {
 }
 
 GameWorld.prototype.update = function (delta) {
-  // if (Keyboard.keyPressed === 32) {
-  //   this.checkCookies()
-  // }
+   if (Keyboard.keyPressed === 32) {
+    document.cookie = ''
+   }
   this.updateCookies()
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
