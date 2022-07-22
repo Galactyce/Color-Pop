@@ -460,7 +460,7 @@ GameWorld.prototype.updateCookies = function() {
   }
   document.cookie = line + "expires=1000000; path=/";
 
-  console.log(line + "expires=10000; path=/")
+  console.log(document.cookie)
 
 }
 
