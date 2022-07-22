@@ -142,7 +142,6 @@ GameWorld.prototype.checkCookies = function() {
       }
     }
     var cname = ccookie[i].split('=')
-    alert(cname[0])
     if (cname[0] == 'coins') {
       alert(cname[1])
       this.coins = cname[1];
@@ -465,8 +464,8 @@ GameWorld.prototype.updateCookies = function() {
 
 GameWorld.prototype.update = function (delta) {
    if (Keyboard.keyPressed === 32) {
-    alert()
-    document.cookie = 'expires=' + Date.now()
+    document.cookie = 'expires=0'
+    this.specialtiesOwned = new Array()
    }
    if (Keyboard.keyPressed === 65) this.coins += 2;
   this.updateCookies()
