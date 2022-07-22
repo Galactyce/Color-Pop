@@ -139,7 +139,7 @@ GameWorld.prototype.checkCookies = function() {
       if (ccookie[i] == ' item'+ k + '=' + this.shopItems[k].item) {
         alert('lkj')
         this.specialtiesOwned.push(this.shopItems[k].item);
-        this.inventoryItems.push(this.shopItems[k].item);
+        this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
         this.shopItems[k].bought = true
       }
     }
