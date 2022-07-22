@@ -466,11 +466,14 @@ GameWorld.prototype.updateCookies = function() {
 GameWorld.prototype.update = function (delta) {
    if (Keyboard.keyPressed === 32) {
     var ccookie = document.cookie.split(';');
+    var line = ''
     for (var i=0; i<ccookie.length; i++) {
-      var item = ccookie.split('=')
-      document.cookie = item[0] + '=""'
-    }
+     line += ccookie[i];
+     var item = line.split('=')
+    document.cookie = item[0] + '=""'
    }
+    }
+
    if (Keyboard.keyPressed === 65) this.coins += 2;
   this.updateCookies()
   this.modeToggleButton.update();
