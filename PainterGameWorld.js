@@ -136,7 +136,7 @@ GameWorld.prototype.checkCookies = function() {
     for (var k=0; k<this.shopItems.length; k++) {
       alert()
       console.log("ccookie: " + ccookie[i] + ', ' + 'item'+ k + '=' + this.shopItems[k].item)
-   if (ccookie[i] == 'item'+ k + '=' + this.shopItems[k].item) {
+   if (ccookie[i] == ' item'+ k + '=' + this.shopItems[k].item) {
       this.specialtiesOwned.push(this.shopItems[k].item);
       this.inventoryItems.push(this.shopItems[k].item);
       alert(this.shopItems[k].item)
