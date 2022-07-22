@@ -129,9 +129,8 @@ function GameWorld() {
 }
 
 GameWorld.prototype.checkCookies = function() {
-  var cookie = document.cookie;
-  var ccookie = cookie.split(';')
-  console.log(ccookie)
+  var ccookie = document.cookie.split(';')
+  console.log(document.cookie)
   for (var i = 0; i<ccookie.length; i++) {
     console.log(ccookie[i])
     for (var k=0; k<this.specialtiesOwned.length; k++) {
