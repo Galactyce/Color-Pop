@@ -153,7 +153,7 @@ GameWorld.prototype.checkCookies = function() {
       }
     }
     if (cname[0] == ' specialtyEquipped') {
-      if (cname[1] !== '"') {
+      if (cname[1] !== '""') {
       this.specialtiesEquipped = cname[1];
       }
     }
