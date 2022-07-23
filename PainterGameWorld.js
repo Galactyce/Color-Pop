@@ -151,9 +151,7 @@ GameWorld.prototype.checkCookies = function() {
       }
     }
     var cname = ccookie[i].split('=')
-    console.log(cname)
     if (cname[0] == ' specialtyEquipped') {
-      alert(cname[1])
       this.specialtiesEquipped = cname[1];
     }
   }
@@ -469,7 +467,6 @@ GameWorld.prototype.updateCookies = function() {
   for (var i=0; i<this.specialtiesOwned.length; i++) {
     document.cookie = ' item' + [i] + "=" + this.specialtiesOwned[i] + ';';
   }
-  console.log(document.cookie)
   }
   
 
