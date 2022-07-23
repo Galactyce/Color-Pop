@@ -55,6 +55,13 @@ Cannon.prototype.handleInput = function () {
         var opp = this.spl.y - this.position.y;
         var adj = this.spl.x - this.position.x;
       this.rotation = Math.atan2(opp, adj);
+    var opp = Mouse.position.y - this.position.y;
+    var adj = Mouse.position.x - this.position.x;
+  }
+  else {
+    if (Touch.touches.length > 0) {
+    var opp = Touch.getPosition(0).y - this.position.y;
+    var adj = Touch.getPosition(0).x - this.position.x;
     }
     if (!Touch.isTouchDevice() && Mouse.pressed && Game.gameWorld.started) {
       this.shoot();
@@ -67,6 +74,6 @@ Cannon.prototype.handleInput = function () {
       this.shoot();
     }
   }
-};
-
-Cannon.prototype.update = function () {};
+}
+}
+Cannon.prototype.update = function () {}
