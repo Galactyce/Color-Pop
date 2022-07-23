@@ -23,7 +23,6 @@ Game_Singleton.prototype.mainLoop = function () {
     Game.gameWorld.draw();
   }
   if (Touch.isTouchDevice) {
-    alert()
     Touch.checkInputs()
   }
   else {
