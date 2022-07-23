@@ -48,7 +48,6 @@ Cannon.prototype.handleInput = function () {
 
     var opp = Mouse.position.y - this.position.y;
     var adj = Mouse.position.x - this.position.x;
-    this.rotation = Math.atan2(opp, adj);
   }
   else {
     if (Touch.touches.length > 0) {
