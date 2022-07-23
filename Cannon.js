@@ -5,6 +5,7 @@ function Cannon() {
   this.origin = new Vector2(0, 20);
   this.velocity = new Vector2(0, 0);
   this.firstClickClicked = false; // Detect if the click was for the menu screen
+  this.rotation = 0;
 }
 
 Cannon.prototype.draw = function () {
