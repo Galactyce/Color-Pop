@@ -121,7 +121,7 @@ function GameWorld() {
     var name = prompt('Enter your name')
     var d = new Date()
     d.setTime(d.getTime() + 5 * 365 * 24 * 60 * 60 * 1000)
-   document.cookie = "name=" + name +";expires=" + d.toUTCString() + ";path=/";
+  //  document.cookie = "name=" + name +";expires=" + d.toUTCString() + ";path=/";
     console.log(document.cookie.trim())
   }
 
