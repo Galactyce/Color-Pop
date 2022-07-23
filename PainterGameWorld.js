@@ -51,7 +51,7 @@ function GameWorld() {
   this.freeplayModeButton = new PlayButton(460, 250, "freeplay_mode");
   this.buttons.push(this.freeplayModeButton);
   this.tutorialModeButton = new PlayButton(1000, 300, "tutorial_mode");
-  this.modeToggleButton = new ModeToggleButton(550, 550);
+  this.modeToggleButton = new ModeToggleButton(100, 200);
   this.shopButtonPosition = new Vector2(200, 550);
   this.shopButton = new ShopButton(this.shopButtonPosition);
   this.normalButtonString = new Array(
@@ -150,7 +150,7 @@ GameWorld.prototype.checkCookies = function() {
         this.shopItems[k].bought = true
       }
     }
-    var cname = ccookie[i].split('=')
+    var cname = ccookie[i].split('=');
     if (cname[0] == ' specialtyEquipped') {
       this.specialtiesEquipped = cname[1];
     }
