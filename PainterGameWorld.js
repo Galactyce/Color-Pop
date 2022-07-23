@@ -469,6 +469,7 @@ GameWorld.prototype.updateCookies = function() {
     document.cookie = ' item' + [i] + "=" + this.specialtiesOwned[i] + ';';
   }
   document.cookie = 'specialtyEquipped=' + this.specialtiesEquipped;
+  console.log(document.cookie)
   }
   
 
