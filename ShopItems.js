@@ -86,16 +86,16 @@ ShopItem.prototype.update = function () {
             Game.gameWorld.specialtiesEquipped = this.item; // Equip it automatically
           }
           Game.gameWorld.coins -= this.cost;
-          Game.gameWorld.updateCookies()
+          Game.gameWorld.updateCookies();
           this.bought = true;
           Game.gameWorld.shopInfoBox = undefined;
         }
       }
     }
   }
-  for (var i=0; i<Game.gameWorld.specialtiesOwned.length; i++) {
+  for (var i = 0; i < Game.gameWorld.specialtiesOwned.length; i++) {
     if (Game.gameWorld.specialtiesOwned[i] === this.item) {
-      this.bought = true
+      this.bought = true;
     }
   }
 };

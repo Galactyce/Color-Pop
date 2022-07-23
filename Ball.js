@@ -15,8 +15,10 @@ function Ball() {
 Ball.prototype.reset = function () {
   this.position = Game.gameWorld.cannon.ballPosition().subtractBy(this.origin);
   this.velocity = Mouse.position.subtract(this.position).multiplyBy(1);
-  if (Game.gameWorld.specialtiesEquipped === 'double_ball_upgrade') {
-    this.velocity = Mouse.position.subtract(this.position).multiplyBy(Math.random() * 0.3 + 0.8);
+  if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
+    this.velocity = Mouse.position
+      .subtract(this.position)
+      .multiplyBy(Math.random() * 0.3 + 0.8);
   }
 };
 
@@ -38,18 +40,14 @@ Ball.prototype.update = function (delta) {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(0.8);
   }
 
-
-  if (Game.gameWorld.specialtiesEquipped !== 'double_ball') {
-  this.velocity.x *= 0.99;
-  this.velocity.y += 6;
-  }
-  else if (Game.gameWorld.specialtiesEquipped === 'double_ball'){
+  if (Game.gameWorld.specialtiesEquipped !== "double_ball") {
+    this.velocity.x *= 0.99;
+    this.velocity.y += 6;
+  } else if (Game.gameWorld.specialtiesEquipped === "double_ball") {
     this.velocity.x *= 0.99;
     this.velocity.y += 6;
   }
   this.position.addTo(this.velocity.multiply(delta));
-
-
 
   if (Game.gameWorld.isOutsideWorld(this.position)) {
     this.active = false;
@@ -57,7 +55,4 @@ Ball.prototype.update = function (delta) {
   }
 };
 
-
-Ball.prototype.handleInput = function () {
-
-};
+Ball.prototype.handleInput = function () {};

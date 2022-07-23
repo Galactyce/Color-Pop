@@ -106,7 +106,7 @@ Balloon.prototype.checkSpecials = function () {
   var randomval = this.chooseRandomValue(1);
 
   if (randomval < 0.4 && Game.gameWorld.wavyActive === true) {
-    this.wavy = true
+    this.wavy = true;
   }
 
   if (Game.gameWorld.mode === "armored_only") {
@@ -117,7 +117,7 @@ Balloon.prototype.checkSpecials = function () {
     this.velocity.y *= 2;
   }
 
-  if (Game.gameWorld.mode === 'tutorial' && this.score >= 360) {
+  if (Game.gameWorld.mode === "tutorial" && this.score >= 360) {
     this.rainbowProbability = 0;
   }
 

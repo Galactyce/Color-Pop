@@ -1,3 +1,0 @@
-function CookieSetter(dataString) {
-
-}
