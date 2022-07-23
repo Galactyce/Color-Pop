@@ -117,6 +117,7 @@ InventoryButton.prototype.draw = function() {
     this.rect = new Rectangle(this.position.x - this.origin.x, this.position.y - this.origin.y, 
     this.sprite.width, this.sprite.height);
   }
+  
   if (Game.gameWorld.specialtiesEquipped === 'blimp_slower_upgrade') {
     this.sprite = sprites.extras['blimp_slower_upgrade_icon'].normal
     this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2)
