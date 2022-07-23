@@ -33,10 +33,7 @@ Cannon.prototype.handleInput = function () {
     var adj = Mouse.position.x - this.position.x;
     this.rotation = Math.atan2(opp, adj);
 
-    if (
-      Mouse.pressed ||
-      (Keyboard.keyPressed === 32 && Game.gameWorld.started && !Game.paused)
-    ) {
+    if (Mouse.pressed && Game.gameWorld.started && !Game.paused) {
       this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
       Game.gameWorld.balls.push(new Ball());
       if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {

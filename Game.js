@@ -22,8 +22,14 @@ Game_Singleton.prototype.mainLoop = function () {
     Canvas.clear();
     Game.gameWorld.draw();
   }
-  Mouse.checkInputs();
-  Mouse.reset();
+  if (Touch.isTouchDevice) {
+    alert()
+    Touch.checkInputs()
+  }
+  else {
+    Mouse.checkInputs();
+    Mouse.reset();
+  }
   window.setTimeout(Game.mainLoop, 1000 / 60);
 };
 
