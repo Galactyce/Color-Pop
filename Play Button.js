@@ -37,7 +37,6 @@ PlayButton.prototype.update = function () {
   if (Touch.isTouchDevice && Touch.containsTouch(this.rect) &&
   Game.gameWorld.gameActive === false 
   ) {
-    alert()
     this.start()
   }
   else if (
