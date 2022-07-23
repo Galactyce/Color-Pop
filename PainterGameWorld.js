@@ -405,6 +405,7 @@ GameWorld.prototype.giveCoins = function() {
   if (this.mode === 'faster_balloons') this.reward   = 5;
   if (this.mode === 'no_color_mode') this.reward = 3;
   this.coins += this.reward;
+  this.updateCookies()
 }
 
 GameWorld.prototype.handleInput = function (delta) {
@@ -497,7 +498,6 @@ GameWorld.prototype.update = function (delta) {
     document.cookie = line + ';expires=0; path=/'
     document.location.reload()
   }
-  this.updateCookies()
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
   for (var i = 0; i < this.scrollButtons.length; i++) {
