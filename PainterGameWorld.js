@@ -160,9 +160,9 @@ GameWorld.prototype.checkCookies = function() {
       var int=parseInt(cname[1]);
       console.log(int)
       this.coins = int;
-      if (int === '""') {
-        this.coins = 0;
-      }
+      // if (int === '""') {
+      //   this.coins = 0;
+      // }
     }
   }
 
