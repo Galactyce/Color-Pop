@@ -1,7 +1,7 @@
 function Touch() {
   this.touches = [];
   this.touchPresses = [];
-  this.lastPositions = []
+  this.touching = false;
 }
 
 Touch.prototype.checkInputs = function () {
@@ -56,16 +56,17 @@ Touch.prototype.containsTouchPress = function(rect) {
 
 function handleTouchStart(evt) {
   evt.preventDefault();
+  this.touching = true;
   var touches = evt.changedTouches;
   for (var i=0; i<touches.length; i++) {
     Touch.touches.push(touches[i]);
     Touch.touchPresses.push(touches[i])
-    Touch.lastPositions.push(new Vector2(Touch.getPosition(i)))
   }
 }
 
 function handleTouchEnd(evt) {
   evt.preventDefault();
+  this.touching = false
   var touches = evt.changedTouches;
   for (var i=0; i<touches.length; i++) {
     var id=Touch.getTouchIndexById(touches[i].identifier);
