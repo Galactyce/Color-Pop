@@ -23,7 +23,8 @@ Game_Singleton.prototype.mainLoop = function () {
     Game.gameWorld.draw();
   }
   if (Touch.isTouchDevice) {
-    Touch.checkInputs()
+    Touch.checkInputs();
+    Touch.reset()
   }
   else {
     Mouse.checkInputs();

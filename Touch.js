@@ -1,6 +1,7 @@
 function Touch() {
   this.touches = [];
   this.touchPresses = [];
+  
 }
 
 Touch.prototype.checkInputs = function () {
@@ -13,7 +14,7 @@ Touch.prototype.checkInputs = function () {
 
 Object.defineProperty(Touch.prototype, 'isTouchDevice', {
   get: function() {
-    return ('ontouchstart' in window) || (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ||
+    return ('ontouchstart' in window) ||
     (navigator.maxTouchPoints > 0)
   }
 })
@@ -23,6 +24,12 @@ Touch.prototype.getTouchIndexById = function(id) {
     if (this.touches[i].identifier === id) return i;
   }
   return -1;
+}
+
+Touch.prototype.reset = function() {
+  for (var i=0; i<this.touchPresses.length; i++) {
+    this.touchPresses.splice(i, 1)
+  }
 }
 
 Touch.prototype.getPosition = function(index) {

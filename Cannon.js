@@ -23,6 +23,21 @@ Cannon.prototype.ballPosition = function () {
   return new Vector2(this.position.x + adj, this.position.y + opp);
 };
 
+Cannon.prototype.shoot = function() {
+  if (Touch.isTouchDevice) {
+    this.velocity = Touch.getPosition(0).subtract(this.position).multiplyBy(1.2);
+      }
+      else {
+    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
+      }
+    Game.gameWorld.balls.push(new Ball());
+    if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
+      Game.gameWorld.balls.push(new Ball()); // Add an extra ball
+    }
+    Game.gameWorld.ballsFired += 1;
+    sounds.cannonShot.play();
+}
+
 Cannon.prototype.handleInput = function () {
   if (!Game.paused) {
     if (Keyboard.keyDown === 66) this.currentColor = "blue";
@@ -33,14 +48,11 @@ Cannon.prototype.handleInput = function () {
     var adj = Mouse.position.x - this.position.x;
     this.rotation = Math.atan2(opp, adj);
 
-    if (Mouse.pressed && Game.gameWorld.started && !Game.paused) {
-      this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
-      Game.gameWorld.balls.push(new Ball());
-      if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
-        Game.gameWorld.balls.push(new Ball()); // Add an extra ball
-      }
-      Game.gameWorld.ballsFired += 1;
-      sounds.cannonShot.play();
+    if (Mouse.pressed && Game.gameWorld.started) {
+      this.shoot()        
+    }
+    else if (Touch.isTouchDevice && Touch.touches.length > 0 && Game.gameWorld.started) {
+      this.shoot()
     }
   }
 };

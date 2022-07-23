@@ -6,35 +6,45 @@ function PlayButton(xPosition, yPosition, mode) {
   this.scale = 1;
 }
 
+PlayButton.prototype.start = function() {
+  Game.paused = false;
+  Game.gameWorld.started = true
+  Game.gameWorld.gameActive = true;
+  sounds.playSound.volume = 0.2;
+  sounds.cannonShot.volume = 0.4;
+  sounds.playSound.play();
+  sounds.backgroundMusicBasic.volume = 0.6;
+  Game.gameWorld.balloonsPerRow = 1;
+  sounds.backgroundMusicBasic.play();
+  Game.gameWorld.mode = this.mode;
+  if (this.mode === "tutorial_mode") {
+    Game.gameWorld.tutorialStep();
+  }
+  Game.gameWorld.addScore(0);
+
+  if (this.mode === "easy") {
+    this.balloonMinVelocity = 30;
+  }
+  if (this.mode === "hard") {
+  }
+  if (this.mode === "apex") {
+    Game.gameWorld.balloonMinVelocity = 50;
+    Game.gameWorld.lives = 1;
+  }
+}
+
 PlayButton.prototype.update = function () {
-  if (
-    this.rect.contains(Mouse.position) || Touch.containsTouch(this.rect) &&
-    Mouse.pressed &&
+  if (Touch.isTouchDevice && Touch.containsTouch(this.rect) &&
+  Game.gameWorld.gameActive === false 
+  ) {
+    this.start()
+  }
+  else if (
+    this.rect.contains(Mouse.position) &&
+    Mouse.pressed && 
     Game.gameWorld.gameActive === false 
   ) {
-    Game.paused = false;
-    Game.gameWorld.gameActive = true;
-    sounds.playSound.volume = 0.2;
-    sounds.cannonShot.volume = 0.4;
-    sounds.playSound.play();
-    sounds.backgroundMusicBasic.volume = 0.6;
-    Game.gameWorld.balloonsPerRow = 1;
-    sounds.backgroundMusicBasic.play();
-    Game.gameWorld.mode = this.mode;
-    if (this.mode === "tutorial_mode") {
-      Game.gameWorld.tutorialStep();
-    }
-    Game.gameWorld.addScore(0);
-
-    if (this.mode === "easy") {
-      this.balloonMinVelocity = 30;
-    }
-    if (this.mode === "hard") {
-    }
-    if (this.mode === "apex") {
-      Game.gameWorld.balloonMinVelocity = 50;
-      Game.gameWorld.lives = 1;
-    }
+   this.start()
   }
 };
 
