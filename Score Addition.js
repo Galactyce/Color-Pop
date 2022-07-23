@@ -365,17 +365,14 @@ GameWorld.prototype.addScore = function (value) {
       this.balloonsPerRow = 2;
     }
 
-    if (this.score >= 1570) {
-      // Make sure it only sends one blimp
-      this.bossCount = 0;
-    }
-
     if (this.score >= 1700) {
       this.balloonsPerRow = 3;
     }
-
     if (this.score >= 2000) {
-      this.intenseBarrierCount = 3;
+      this.bossCount = 1;
+    }
+    if (this.score >= 3300) {
+      this.bossCount = 1;
     }
   }
 };

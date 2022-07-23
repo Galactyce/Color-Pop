@@ -70,7 +70,10 @@ Blimp.prototype.applyHealth = function() {
     this.maxHealth = 100;
     this.health = 100;
   }
-
+  if (Game.gameWorld.mode === 'freeplay_mode') {
+    this.maxHealth = 60;
+    this.health = 60;
+  }
 }
 
 Blimp.prototype.draw = function() {
