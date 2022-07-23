@@ -63,3 +63,4 @@ function handleTouchMove() {
 
 }
 
+var Touch = new Touch()
