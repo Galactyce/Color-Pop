@@ -51,9 +51,9 @@ Cannon.prototype.handleInput = function () {
     this.rotation = Math.atan2(opp, adj);
   }
   else {
-    // var opp = Touch.getPosition(Touch.touches[0]).y - this.position.y;
-    // var adj = Touch.getPosition(Touch.touches[0]).x - this.position.x;
-    // this.rotation = Math.atan2(opp, adj);
+    var opp = Touch.getPosition(0).y - this.position.y;
+    var adj = Touch.getPosition(0).x - this.position.x;
+    this.rotation = Math.atan2(opp, adj);
   }
     if (Mouse.pressed && Game.gameWorld.started) {
       this.shoot()        
