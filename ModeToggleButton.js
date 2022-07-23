@@ -38,6 +38,7 @@ ModeToggleButton.prototype.update = function () {
     this.sprite.height / 2
   );
 
+  if (!Touch.isTouchDevice) {
   if (this.rect.contains(Mouse.position) && Mouse.pressed) {
     if (this.mode === "normal") {
       this.mode = "extras";
@@ -49,4 +50,18 @@ ModeToggleButton.prototype.update = function () {
       Game.gameWorld.scrollInteger = 0;
     }
   }
+}
+else {
+  if (Touch.containsTouchPress(this.rect)) {
+    if (this.mode === "normal") {
+      this.mode = "extras";
+      Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
+      Game.gameWorld.scrollInteger = 0;
+    } else if (this.mode === "extras") {
+      this.mode = "normal";
+      Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
+      Game.gameWorld.scrollInteger = 0;
+    }
+  }
+}
 };

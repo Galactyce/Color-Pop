@@ -47,6 +47,13 @@ Touch.prototype.containsTouch = function(rect) {
   return false;
 }
 
+Touch.prototype.containsTouchPress = function(rect) {
+  for (var i=0; i<this.touchPresses.length; i++) {
+    if (rect.contains(this.getPosition(i))) return true;
+  }
+  return false;
+}
+
 function handleTouchStart(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;

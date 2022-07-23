@@ -34,7 +34,7 @@ PlayButton.prototype.start = function() {
 }
 
 PlayButton.prototype.update = function () {
-  if (Touch.isTouchDevice && Touch.containsTouch(this.rect) &&
+  if (Touch.isTouchDevice && Touch.containsTouchPress(this.rect) &&
   Game.gameWorld.gameActive === false 
   ) {
     this.start()
