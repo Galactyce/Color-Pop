@@ -489,6 +489,7 @@ GameWorld.prototype.update = function (delta) {
       line += spl[0] + '=' + slp[1] + ';'
     }
     document.cookie = line;
+    document.location.reload()
   }
   this.updateCookies()
   this.modeToggleButton.update();
