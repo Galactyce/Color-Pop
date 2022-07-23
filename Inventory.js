@@ -117,7 +117,7 @@ InventoryButton.prototype.draw = function() {
     this.rect = new Rectangle(this.position.x - this.origin.x, this.position.y - this.origin.y, 
     this.sprite.width, this.sprite.height);
   }
-  
+
   if (Game.gameWorld.specialtiesEquipped === 'blimp_slower_upgrade') {
     this.sprite = sprites.extras['blimp_slower_upgrade_icon'].normal
     this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2)
@@ -132,6 +132,9 @@ InventoryButton.prototype.draw = function() {
   }
   if (Game.gameWorld.specialtiesEquipped === 'undefined' || Game.gameWorld.specialtiesEquipped === 'undefined') {
     this.sprite = sprites.extras['empty_icon'].normal;
+    this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2)
+    this.rect = new Rectangle(this.position.x - this.origin.x, this.position.y - this.origin.y, 
+    this.sprite.width, this.sprite.height);
   }
  
   Canvas.drawImage(this.sprite, this.position, 0, this.origin)
