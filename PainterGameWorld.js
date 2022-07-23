@@ -488,6 +488,7 @@ GameWorld.prototype.update = function (delta) {
       spl[1] = ''
       line += spl[0] + '=' + spl[1] + ';'
     }
+    console.log(line)
     document.cookie = line;
     document.location.reload()
   }
