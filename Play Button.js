@@ -8,9 +8,9 @@ function PlayButton(xPosition, yPosition, mode) {
 
 PlayButton.prototype.update = function () {
   if (
-    this.rect.contains(Mouse.position) &&
+    this.rect.contains(Mouse.position) || Touch.containsTouch(this.rect) &&
     Mouse.pressed &&
-    Game.gameWorld.gameActive === false
+    Game.gameWorld.gameActive === false 
   ) {
     Game.paused = false;
     Game.gameWorld.gameActive = true;
