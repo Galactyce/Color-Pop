@@ -14,7 +14,7 @@ function Ball() {
 
 Ball.prototype.reset = function () {
   this.position = Game.gameWorld.cannon.ballPosition().subtractBy(this.origin);
-  this.velocity = Mouse.position.subtract(this.position).multiplyBy(0.8);
+  this.velocity = Mouse.position.subtract(this.position).multiplyBy(1);
   if (Game.gameWorld.specialtiesEquipped === 'double_ball_upgrade') {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(Math.random() * 0.3 + 0.8);
   }
