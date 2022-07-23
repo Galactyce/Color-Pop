@@ -53,8 +53,8 @@ Cannon.prototype.handleInput = function () {
       this.rotation = Math.atan2(opp, adj);
     } else if (Touch.isTouchDevice) {
       if (Touch.touches.length > 0) {
-        var opp = spl.y - this.position.y;
-        var adj = spl.x - this.position.x;
+        var opp = this.spl.y - this.position.y;
+        var adj = this.spl.x - this.position.x;
       }
       this.rotation = Math.atan2(opp, adj);
     }
