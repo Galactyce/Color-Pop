@@ -80,12 +80,13 @@ GameWorld.prototype.tutorialStep = function () {
       balloon.currentColor = colors[rand2];
       this.balloons.push(balloon);
     }
-    this.balloonsPerRow = 1;
+    this.balloonsPerRow = 0;
     this.rows = new Array(0, 0, 0)
   }
   
 
   if (this.score === 370) {
+    this.balloonsPerRow = 1;
     this.rows = new Array(0, 0, 0);
   }
 
