@@ -200,6 +200,7 @@ InventoryItem.prototype.update = function() {
      Game.gameWorld.inventoryInfoBar = new InventoryInfoBar(this.item)
      if (Mouse.pressed) {
         Game.gameWorld.specialtiesEquipped = this.item
+        document.cookie = 'specialtyEquipped=' + this.item
      }
     }
 }
