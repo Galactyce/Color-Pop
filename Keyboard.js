@@ -8,7 +8,6 @@ Keyboard.reset = function () {
 };
 
 handleKeyDown = function (evt) {
-  evt.preventDefault();
   if (Keyboard.keyDown !== evt.keyCode) Keyboard.keyPressed = evt.keyCode;
   Keyboard.keyDown = evt.keyCode;
 };
