@@ -2,7 +2,6 @@ function ModeToggleButton(xPosition, yPosition) {
   this.sprite = sprites.extras['simple_button'].normal;
   this.position = new Vector2(xPosition, yPosition);
   this.origin = new Vector2(0, 0);
-  this.rect = new Rectangle(xPosition, yPosition, this.sprite.width / 2, this.sprite.height / 2);
   this.mode = 'normal';
 }
 
@@ -32,6 +31,8 @@ ModeToggleButton.prototype.draw = function() {
 } 
 
 ModeToggleButton.prototype.update = function() {
+  this.rect = new Rectangle(this.position.x, this.position.y, this.sprite.width / 2, this.sprite.height / 2);
+
   if (this.rect.contains(Mouse.position) && Mouse.pressed) {
     if (this.mode === 'normal') {
       this.mode = 'extras'

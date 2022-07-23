@@ -51,7 +51,7 @@ function GameWorld() {
   this.freeplayModeButton = new PlayButton(460, 250, "freeplay_mode");
   this.buttons.push(this.freeplayModeButton);
   this.tutorialModeButton = new PlayButton(1000, 300, "tutorial_mode");
-  this.modeToggleButton = new ModeToggleButton(100, 200);
+  this.modeToggleButton = new ModeToggleButton(100, 300);
   this.shopButtonPosition = new Vector2(200, 550);
   this.shopButton = new ShopButton(this.shopButtonPosition);
   this.normalButtonString = new Array(
@@ -89,6 +89,7 @@ function GameWorld() {
   this.reward = 0;
   this.coins = 0;
   this.shopInfoBox = undefined;
+  this.modeInfoBox = new ModeDescription();
   this.moving = true;
   this.scrollButtons.push(new Arrow(new Vector2(930, 335), "right", 1));
   this.scrollButtons.push(new Arrow(new Vector2(370, 335), "left", 1));
@@ -255,7 +256,7 @@ GameWorld.prototype.draw = function () {
       this.modeToggleButton.draw();
       this.inventoryButton.draw();
       this.shopButton.draw();
-    
+      this.modeInfoBox.draw()
 
     for (var i = 0; i < this.scrollButtons.length; i++) {
       this.scrollButtons[i].draw();
@@ -511,12 +512,14 @@ GameWorld.prototype.update = function (delta) {
         this.gameActive === false &&
         this.modeToggleButton.mode === "normal"
       ) {
+        this.modeInfoBox.mode = this.normalButtonString[this.scrollInteger].mode
         this.normalButtonString[this.scrollInteger].update();
       }
       if (
         this.gameActive === false &&
         this.modeToggleButton.mode === "extras"
       ) {
+        this.modeInfoBox.mode = this.extraButtonString[this.scrollInteger].mode
         this.extraButtonString[this.scrollInteger].update();
       }
     }
