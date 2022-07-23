@@ -134,7 +134,7 @@ Balloon.prototype.chooseColor = function () {
   var randomval = this.chooseRandomValue(1);
   if (Game.gameWorld.difficulty === "easy") this.rainbowProbability = 0.1;
 
-  if (Game.gameWorld.mode === "no_color") {
+  if (Game.gameWorld.mode === "no_color_mode") {
     this.currentColor = "white";
   } else if (randomval < this.rainbowProbability) {
     this.currentColor = "rainbow";
