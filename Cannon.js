@@ -51,7 +51,7 @@ Cannon.prototype.handleInput = function () {
     if (Mouse.pressed && Game.gameWorld.started) {
       this.shoot()        
     }
-    else if (Touch.isTouchDevice && Touch.touches.length > 0 && Game.gameWorld.started) {
+    else if (Touch.isTouchDevice && Touch.touchPresses.length > 0 && Game.gameWorld.started) {
       this.shoot()
     }
   }
