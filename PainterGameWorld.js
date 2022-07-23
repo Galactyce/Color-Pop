@@ -490,7 +490,6 @@ GameWorld.prototype.update = function (delta) {
     }
     console.log(line)
     document.cookie = line;
-    document.location.reload()
   }
   this.updateCookies()
   this.modeToggleButton.update();
