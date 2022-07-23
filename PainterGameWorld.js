@@ -486,20 +486,6 @@ GameWorld.prototype.updateCookies = function() {
 
 GameWorld.prototype.update = function (delta) {
   if (Keyboard.keyPressed === 65) this.coins += 2;
-  if (Keyboard.keyPressed === 113) {
-    this.specialtiesOwned = new Array()
-    var ccookie = document.cookie.split(';')
-    var line = ''
-    alert()
-    for (var i=0; i<ccookie.length; i++) {
-      var spl = ccookie[i].split('=');
-      console.log(spl[0] + '=""')
-      line += spl[0] + '=' + ';'
-    }
-    console.log('line: ' + line )
-    document.cookie = "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    console.log(document.cookie)
-  }
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
   for (var i = 0; i < this.scrollButtons.length; i++) {
