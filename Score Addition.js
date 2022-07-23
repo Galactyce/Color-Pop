@@ -289,12 +289,12 @@ GameWorld.prototype.addScore = function (value) {
   if (this.mode === "no_color_mode") {
     this.balloonsPerRow = 4;
     if (this.score >= 200) {
-      this.barrierCount = 2;
+      this.barrierCount = 6;
     }
 
     if (this.score >= 700) {
-      this.barrierCount = 3;
-      this.intenseBarrierCount = 1;
+      this.barrierCount = 7;
+      this.intenseBarrierCount = 3;
     }
 
     if (this.score < 800 && this.score + value >= 800) {
@@ -306,7 +306,7 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score >= 1450) {
-      this.intenseBarrierCount = 2;
+      this.intenseBarrierCount = 4;
     }
 
     if (this.score >= 1750) {
