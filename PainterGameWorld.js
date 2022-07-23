@@ -489,6 +489,7 @@ GameWorld.prototype.update = function (delta) {
   if (Keyboard.keyPressed === 113) {
     var ccookie = document.cookie.split(';')
     var line = ''
+    alert()
     for (var i=0; i<ccookie.length; i++) {
       var spl = ccookie[i].split('=');
       line += spl[0] + '=' + '"";'
