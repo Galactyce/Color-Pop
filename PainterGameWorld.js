@@ -126,8 +126,8 @@ function GameWorld() {
   }
 
   // alert("Hello " + name + '!');
-  this.updateCookies()
   this.checkCookies()
+
 }
 
 GameWorld.prototype.checkCookies = function() {
@@ -143,11 +143,7 @@ GameWorld.prototype.checkCookies = function() {
 //  }
   for (var i = 0; i<ccookie.length; i++) {
     var cname = ccookie[i].split('=');
-    if (cname[0] == ' coins') {
-      var int=parseInt(cname[1]);
-      console.log(int)
-      this.coins = int;
-    }
+
     for (var k=0; k<this.shopItems.length; k++) {
       // console.log("ccookie:" + ccookie[i].trim() + ',' + 'item'+ k + '=' + this.shopItems[k].item)
       if (ccookie[i].trim() == 'item'+ k + '=' + this.shopItems[k].item) {
@@ -159,7 +155,11 @@ GameWorld.prototype.checkCookies = function() {
     if (cname[0] == ' specialtyEquipped') {
       this.specialtiesEquipped = cname[1];
     }
-
+    if (cname[0] == ' coins') {
+      var int=parseInt(cname[1]);
+      console.log(int)
+      this.coins = int;
+    }
   }
 
 
