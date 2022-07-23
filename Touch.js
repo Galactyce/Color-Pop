@@ -1,7 +1,7 @@
 function Touch() {
   this.touches = [];
   this.touchPresses = [];
-
+  this.lastPositions = []
 }
 
 Touch.prototype.checkInputs = function () {
@@ -60,6 +60,7 @@ function handleTouchStart(evt) {
   for (var i=0; i<touches.length; i++) {
     Touch.touches.push(touches[i]);
     Touch.touchPresses.push(touches[i])
+    Touch.lastPositions.push(new Vector2(Touch.getPosition(i)))
   }
 }
 
