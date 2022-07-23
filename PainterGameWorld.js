@@ -143,12 +143,9 @@ GameWorld.prototype.checkCookies = function() {
 //  }
   for (var i = 0; i<ccookie.length; i++) {
     var cname = ccookie[i].split('=');
-
     if (cname[0] == ' coins') {
-      var str=cname[1];
-      int=str.match('/(\d+)/')
-      alert(int[0])
-      this.coins = int[0];
+      var int=cname[1].parseInt();
+      this.coins = int;
     }
     for (var k=0; k<this.shopItems.length; k++) {
       // console.log("ccookie:" + ccookie[i].trim() + ',' + 'item'+ k + '=' + this.shopItems[k].item)
