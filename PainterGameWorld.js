@@ -153,7 +153,7 @@ GameWorld.prototype.checkCookies = function() {
     var cname = ccookie[i].split('=')
     console.log(cname)
     if (cname[0] == ' coins') {
-      alert(cname[1])
+      // alert(cname[1])
       this.coins = cname[1];
     }
   }
@@ -476,16 +476,16 @@ GameWorld.prototype.updateCookies = function() {
 
 GameWorld.prototype.update = function (delta) {
 
-  if (Keyboard.keyPressed === 32) {
-    var cookie = document.cookie.split(';');
-    for (var i=0; i<cookie.length; i++) {
-      var name = cookie[i].split('=');
-      console.log(name[0] + '=')
-      document.cookie = name[0] + '='
-    }
-    this.specialtiesOwned = new Array()
-    window.location.reload()
-  }
+  // if (Keyboard.keyPressed === 32) {
+  //   var cookie = document.cookie.split(';');
+  //   for (var i=0; i<cookie.length; i++) {
+  //     var name = cookie[i].split('=');
+  //     console.log(name[0] + '=')
+  //     document.cookie = name[0] + '='
+  //   }
+  //   this.specialtiesOwned = new Array()
+  //   window.location.reload()
+  // }
   if (Keyboard.keyPressed === 65) this.coins += 2;
   this.updateCookies()
   this.modeToggleButton.update();
