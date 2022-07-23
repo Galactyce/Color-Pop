@@ -499,7 +499,6 @@ GameWorld.prototype.update = function (delta) {
     console.log('line: ' + line )
     document.cookie = '; expires=0'
     console.log(document.cookie)
-    document.location.reload()
   }
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
