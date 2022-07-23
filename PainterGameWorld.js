@@ -494,10 +494,10 @@ GameWorld.prototype.update = function (delta) {
     for (var i=0; i<ccookie.length; i++) {
       var spl = ccookie[i].split('=');
       console.log(spl[0] + '=""')
-      line += spl[0] + '=' + '"";'
+      line += spl[0] + '=' + ';'
     }
     console.log('line: ' + line )
-    document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC'
+    document.cookie = 'expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
     console.log(document.cookie)
   }
   this.modeToggleButton.update();
