@@ -480,6 +480,16 @@ GameWorld.prototype.updateCookies = function() {
 
 GameWorld.prototype.update = function (delta) {
   if (Keyboard.keyPressed === 65) this.coins += 2;
+  if (Keyboard.keyPressed === 113) {
+    var ccookie = document.cookie.split(';')
+    var line = ''
+    for (var i=0; i<ccookie.length; i++) {
+      var spl = ccookie[i].split('=')
+      spl[1] = ''
+      line += spl[0] + '=' + slp[1] + ';'
+    }
+    document.cookie = line;
+  }
   this.updateCookies()
   this.modeToggleButton.update();
   this.tutorialModeButton.update();
