@@ -13,7 +13,8 @@ Touch.prototype.checkInputs = function () {
 
 Object.defineProperty(Touch.prototype, 'isTouchDevice', {
   get: function() {
-    return ('ontouchstart' in window) || (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    return ('ontouchstart' in window) || (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ||
+    (navigator.maxTouchPoints > 0)
   }
 })
 
