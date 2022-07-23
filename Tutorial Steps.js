@@ -76,10 +76,12 @@ GameWorld.prototype.tutorialStep = function () {
       var colors = new Array("red", "green", "blue");
       var rand1 = Math.floor(Math.random() * 3);
       var rand2 = Math.floor(Math.random() * 3);
-      var balloon = new Balloon(this.rowPositions[rand1], rand1, 1, 1);
+      var balloon = new Balloon(this.rowPositions[rand1], rand1, 1);
       balloon.currentColor = colors[rand2];
       this.balloons.push(balloon);
     }
+    this.balloonsPerRow = 1;
+    this.rows = new Array(0, 0, 0)
   }
   
 
