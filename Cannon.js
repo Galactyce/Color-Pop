@@ -40,6 +40,7 @@ Cannon.prototype.shoot = function() {
 
 Cannon.prototype.handleInput = function () {
   if (!Game.paused) {
+    if (!Touch.isTouchDevice) {
     if (Keyboard.keyDown === 66) this.currentColor = "blue";
     else if (Keyboard.keyDown === 71) this.currentColor = "green";
     else if (Keyboard.keyDown === 82) this.currentColor = "red";
@@ -47,7 +48,12 @@ Cannon.prototype.handleInput = function () {
     var opp = Mouse.position.y - this.position.y;
     var adj = Mouse.position.x - this.position.x;
     this.rotation = Math.atan2(opp, adj);
-
+  }
+  else {
+    var opp = Touch.getPosition(Touch.touches[0]).y - this.position.y;
+    var adj = Touch.getPosition(Touch.touches[0]).x - this.position.x;
+    this.rotation = Math.atan2(opp, adj);
+  }
     if (Mouse.pressed && Game.gameWorld.started) {
       this.shoot()        
     }
