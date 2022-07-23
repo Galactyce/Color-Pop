@@ -495,7 +495,7 @@ GameWorld.prototype.update = function (delta) {
       var spl = ccookie[i].split('=');
       line += spl[0] + '=' + '"";'
     }
-    document.cookie = line + ';expires=0; path=/'
+    document.cookie = line + 'expires=0; path=/'
     document.location.reload()
   }
   this.modeToggleButton.update();
