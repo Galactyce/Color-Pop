@@ -486,7 +486,7 @@ GameWorld.prototype.update = function (delta) {
     for (var i=0; i<ccookie.length; i++) {
       var spl = ccookie[i].split('=')
       spl[1] = ''
-      line += spl[0] + '=' + slp[1] + ';'
+      line += spl[0] + '=' + spl[1] + ';'
     }
     document.cookie = line;
     document.location.reload()
