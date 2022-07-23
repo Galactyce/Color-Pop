@@ -144,7 +144,7 @@ GameWorld.prototype.checkCookies = function() {
   for (var i = 0; i<ccookie.length; i++) {
     var cname = ccookie[i].split('=');
     if (cname[0] == ' coins') {
-      var int=cname[1].parseInt();
+      var int=parseInt(cname[1]);
       this.coins = int;
     }
     for (var k=0; k<this.shopItems.length; k++) {
