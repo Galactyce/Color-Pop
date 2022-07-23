@@ -160,7 +160,7 @@ GameWorld.prototype.checkCookies = function() {
       var int=parseInt(cname[1]);
       console.log(int)
       this.coins = int;
-      if (int === "") {
+      if (int === '""') {
         this.coins = 0;
       }
     }
@@ -496,8 +496,8 @@ GameWorld.prototype.update = function (delta) {
       console.log(spl[0] + '=""')
       line += spl[0] + '=' + '"";'
     }
-    console.log('line: ' + line)
-    document.cookie = line 
+    console.log('line: ' + line )
+    document.cookie = '; expires=0'
     console.log(document.cookie)
     document.location.reload()
   }
