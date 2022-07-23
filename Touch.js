@@ -74,7 +74,7 @@ function handleTouchEnd(evt) {
 }
 
 function handleTouchMove() {
-
+  evt.preventDefault()
 }
 
 var Touch = new Touch()
