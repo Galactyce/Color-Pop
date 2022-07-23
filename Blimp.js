@@ -13,7 +13,7 @@ function Blimp() {
 }
 
 Blimp.prototype.changeMarker = function() {
-  if (Game.gameWorld.mode !== 'no_color') {
+  if (Game.gameWorld.mode !== 'no_color_mode') {
   var randomval = Math.floor(Math.random() * 3);
 
   if (randomval === 0) 
@@ -24,7 +24,7 @@ Blimp.prototype.changeMarker = function() {
   this.markerColor = 'blue';
   }
 
-  if (Game.gameWorld.mode === 'no_color') {
+  if (Game.gameWorld.mode === 'no_color_mode') {
     this.markerColor = 'white'
   }
 }
@@ -66,7 +66,7 @@ Blimp.prototype.applyHealth = function() {
     this.health = 120;
     this.velocity.y = 10
   }
-  if (Game.gameWorld.mode === 'no_color') {
+  if (Game.gameWorld.mode === 'no_color_mode') {
     this.maxHealth = 100;
     this.health = 100;
   }
