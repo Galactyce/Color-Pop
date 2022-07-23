@@ -152,11 +152,11 @@ GameWorld.prototype.checkCookies = function() {
         this.shopItems[k].bought = true
       }
     }
-    if (cname[0] == ' specialtyEquipped') {
+    if (cname[0].trim() == 'specialtyEquipped') {
       this.specialtiesEquipped = cname[1];
       
     }
-    if (cname[0] == ' coins') {
+    if (cname[0].trim() == 'coins') {
       var int=parseInt(cname[1]);
       console.log(int)
       this.coins = int;
