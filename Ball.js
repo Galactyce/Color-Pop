@@ -41,7 +41,7 @@ Ball.prototype.update = function (delta) {
   this.position.addTo(this.velocity.multiply(delta));
 
   if (Game.gameWorld.homingBalls === true) {
-    this.velocity = Mouse.position.subtract(this.position).multiplyBy(0.8);
+    //this.velocity = Mouse.position.subtract(this.position).multiplyBy(0.8);
   }
 
   if (Game.gameWorld.specialtiesEquipped !== "double_ball") {
