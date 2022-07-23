@@ -155,6 +155,11 @@ GameWorld.prototype.checkCookies = function() {
     if (cname[0] == ' specialtyEquipped') {
       this.specialtiesEquipped = cname[1];
     }
+    if (cname[0] == 'coins') {
+      var str=cname[1];
+      int=str.match('/(\d+)/')
+      this.coins = int[0];
+    }
   }
 
 
@@ -468,22 +473,12 @@ GameWorld.prototype.updateCookies = function() {
   for (var i=0; i<this.specialtiesOwned.length; i++) {
     document.cookie = ' item' + [i] + "=" + this.specialtiesOwned[i] + ';';
   }
+  document.cookie = 'coins=' + this.coins; 
   }
   
 
 
 GameWorld.prototype.update = function (delta) {
-
-  // if (Keyboard.keyPressed === 32) {
-  //   var cookie = document.cookie.split(';');
-  //   for (var i=0; i<cookie.length; i++) {
-  //     var name = cookie[i].split('=');
-  //     console.log(name[0] + '=')
-  //     document.cookie = name[0] + '='
-  //   }
-  //   this.specialtiesOwned = new Array()
-  //   window.location.reload()
-  // }
   if (Keyboard.keyPressed === 65) this.coins += 2;
   this.updateCookies()
   this.modeToggleButton.update();
