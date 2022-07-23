@@ -314,7 +314,7 @@ GameWorld.prototype.addScore = function (value) {
     }
   }
 
-  if (this.mode === "freeplay") {
+  if (this.mode === "freeplay_mode") {
     this.balloonsPerRow = 1;
 
     if (this.score >= 100) {
