@@ -6,6 +6,7 @@ function Cannon() {
   this.velocity = new Vector2(0, 0);
   this.firstClickClicked = false; // Detect if the click was for the menu screen
   this.rotation = 0;
+  this.spl = new Vector2(0, 0)
 }
 
 Cannon.prototype.draw = function () {
@@ -52,8 +53,8 @@ Cannon.prototype.handleInput = function () {
       this.rotation = Math.atan2(opp, adj);
     } else if (Touch.isTouchDevice) {
       if (Touch.touches.length > 0) {
-        var opp = Touch.getPosition(0).y - this.position.y;
-        var adj = Touch.getPosition(0).x - this.position.x;
+        var opp = spl.y - this.position.y;
+        var adj = spl.x - this.position.x;
       }
       this.rotation = Math.atan2(opp, adj);
     }
@@ -64,6 +65,7 @@ Cannon.prototype.handleInput = function () {
       Touch.touchPresses.length > 0 &&
       Game.gameWorld.started
     ) {
+      this.spl = Touch.getPosition(0)
       this.shoot();
     }
   }
