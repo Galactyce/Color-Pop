@@ -286,7 +286,7 @@ GameWorld.prototype.addScore = function (value) {
     }
   }
 
-  if (this.mode === "no_color") {
+  if (this.mode === "no_color_mode") {
     if (this.score >= 200) {
       this.barrierCount = 2;
     }

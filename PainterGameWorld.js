@@ -558,7 +558,7 @@ GameWorld.prototype.update = function (delta) {
     this.powerUpSlots[3].update()
   }
 
-  if (this.mode === "no_color") {
+  if (this.mode === "no_color_mode") {
     this.balloonMinVelocity = 50; // Set no color mode speed to a static pace of 50
   } else if (this.mode === "hard" || this.mode === "apex") {
     this.blimpColorChangeFrequency = 0.3;
@@ -754,7 +754,7 @@ GameWorld.prototype.update = function (delta) {
           this.balloons[k] = null;
           this.balloonMinVelocity += 0.3;
           this.balloons = this.balloons.filter((a) => a);
-          if (this.mode === "no_color") break;
+          if (this.mode === "no_color_mode") break;
         } else if (
           this.balls[i].currentColor !== this.balloons[k].currentColor
         ) {
@@ -817,7 +817,7 @@ GameWorld.prototype.update = function (delta) {
       ) {
         if (
           this.balls[i].currentColor === this.blimps[z].markerColor ||
-          this.mode === "no_color"
+          this.mode === "no_color_mode"
         ) {
           if (this.specialtiesEquipped === 'blimp_slower_upgrade' &&
            Date.now() >= this.blimps[z].slowCooldown + 1000) {
