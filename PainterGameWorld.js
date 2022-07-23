@@ -158,6 +158,7 @@ GameWorld.prototype.checkCookies = function() {
     if (cname[0] == 'coins') {
       var str=cname[1];
       int=str.match('/(\d+)/')
+      alert(int[0])
       this.coins = int[0];
     }
   }
