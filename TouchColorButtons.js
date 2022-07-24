@@ -7,7 +7,7 @@ function ColorButton(color, position) {
 }
 
 ColorButton.prototype.define = function() {
-    this.sprite = sprites.extras['color_button'] + this.color
+    this.sprite = sprites.extras['color_button'] + this.color;
   }
 
 ColorButton.prototype.draw = function() {
@@ -15,6 +15,6 @@ ColorButton.prototype.draw = function() {
 }
 
 ColorButton.prototype.update = function() {
-  
+
 }
 
