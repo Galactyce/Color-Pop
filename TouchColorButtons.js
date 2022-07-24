@@ -15,8 +15,8 @@ ColorButton.prototype.define = function() {
   else if (this.color === 'blue')
     this.sprite = sprites.extras['color_button'].blue;
     this.rect = new Rectangle(
-      position.x,
-      position.y,
+      this.position.x,
+      this.position.y,
       this.sprite.width * 0.5,
       this.sprite.height * 0.5
     );
