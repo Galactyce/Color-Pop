@@ -39,7 +39,7 @@ PowerSlot.prototype.draw = function () {
 };
 
 PowerSlot.prototype.update = function () {
-  if (!Touch.isTouchDevice()) { 
+  if (!Touch.isTouchDevice) { 
   if (this.index === 1 && Keyboard.keyPressed === 49) {
     // Key 1
     this.activate();
@@ -57,7 +57,7 @@ PowerSlot.prototype.update = function () {
     this.activate();
   }
 }
-if (Touch.isTouchDevice()) {
+if (Touch.isTouchDevice) {
   if (Touch.containsTouchPress(this.rect)) {
     this.activate()
   }
