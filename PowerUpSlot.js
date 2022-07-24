@@ -40,7 +40,7 @@ PowerSlot.prototype.draw = function () {
 };
 
 PowerSlot.prototype.update = function () {
-  this.rect = new Rectangle(position.x - this.sprite.width / 2, position.y - this.sprite.height / 2, this.sprite.width, this.sprite.height);
+  this.rect = new Rectangle(this.position.x - this.sprite.width / 2, this.position.y - this.sprite.height / 2, this.sprite.width, this.sprite.height);
 
   if (!Touch.isTouchDevice) { 
   if (this.index === 1 && Keyboard.keyPressed === 49) {
