@@ -2,13 +2,13 @@ function PowerSlot(position, index) {
   this.sprite = sprites.extras["power_up_slot"].normal;
   this.position = position;
   this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
-  this.contains = 'bomb';
+  this.contains = undefined;
+  this.rect = new Rectangle(position.x - this.sprite.width / 2, position.y - this.sprite.height / 2, this.sprite.width, this.sprite.height);
   this.index = index;
 }
 
 PowerSlot.prototype.draw = function () {
   this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
-  this.rect = new Rectangle(this.position.x - this.sprite.width / 2, this.position.y - this.sprite.height / 2, this.sprite.width, this.sprite.height);
 
   Canvas.drawImage(this.sprite, this.position, 0, this.origin);
   if (this.contains === "bomb") {
@@ -36,6 +36,7 @@ PowerSlot.prototype.draw = function () {
       1.3
     );
   }
+
 };
 
 PowerSlot.prototype.update = function () {
