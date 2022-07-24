@@ -72,3 +72,4 @@ ShopButton.prototype.update = function () {
     }
   }
 };
+

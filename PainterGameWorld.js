@@ -68,6 +68,7 @@ function GameWorld() {
   this.area = "home";
   this.inventory = new Inventory();
   this.inventoryButton = new InventoryButton(new Vector2(1100, 550));
+  this.inventoryExitButton = new InventoryExitButton(new Vector2(1100, 550))
   this.inventoryItems = new Array();
   this.inventoryInfoBar = undefined;
   this.shopItems = new Array();
@@ -274,6 +275,8 @@ GameWorld.prototype.draw = function () {
       if (this.inventoryInfoBar !== undefined) {
         this.inventoryInfoBar.draw();
       }
+
+      if (!Touch.isTouchDevice) {
       Canvas.drawText(
         "Cancel: ",
         new Vector2(130, 633),
@@ -297,6 +300,11 @@ GameWorld.prototype.draw = function () {
         "Courier New",
         "25px"
       );
+      }
+
+      if (Touch.isTouchDevice) {
+        this.inventoryExitButton.draw();
+      }
     }
   }
 
@@ -534,10 +542,18 @@ GameWorld.prototype.update = function (delta) {
       for (var i = 0; i < this.inventoryItems.length; i++) {
         this.inventoryItems[i].update();
       }
+      if (Touch.isTouchDevice) { 
+        this.inventoryExitButton.update()
+      }
     }
   }
 
-  if (Keyboard.keyPressed === 32) {
+  if (Keyboard.keyPressed === 32 && Touch.isTouchDevice) {
+    if (this.lives <= 0 || this.win === true) {
+      this.reset();
+    }
+  }
+  if (Touch.isTouchDevice && Touch.touchPresses.length > 0) {
     if (this.lives <= 0 || this.win === true) {
       this.reset();
     }
