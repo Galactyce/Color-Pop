@@ -82,7 +82,7 @@ GameWorld.prototype.drawGuides = function () {
     }
     if (this.score === 280) {
       Canvas.drawText(
-        "Homing balloons make balls follow",
+        "Targets allow you just click",
         new Vector2(50, 230),
         "black",
         "top",
@@ -90,7 +90,7 @@ GameWorld.prototype.drawGuides = function () {
         "35px"
       );
       Canvas.drawText(
-        "your cursor.",
+        "the balloons.",
         new Vector2(50, 260),
         "black",
         "top",
@@ -99,7 +99,7 @@ GameWorld.prototype.drawGuides = function () {
       );
     }
 
-    if (this.score === 290) {
+    if (this.score === 300) {
       Canvas.drawText(
         "Getting chilly...",
         new Vector2(50, 230),
@@ -110,7 +110,7 @@ GameWorld.prototype.drawGuides = function () {
       );
     }
 
-    if (this.score === 360) {
+    if (this.score === 350) {
       Canvas.drawText(
         "Try to get a score of 500 :)",
         new Vector2(50, 230),
@@ -222,8 +222,27 @@ GameWorld.prototype.drawGuides = function () {
           "35px"
         );
       }
-  
+
       if (this.score === 280) {
+        Canvas.drawText(
+          "Targets allow you to just tap",
+          new Vector2(50, 230),
+          "black",
+          "top",
+          "Comic Sans",
+          "35px"
+        );
+        Canvas.drawText(
+          "the balloons.",
+          new Vector2(50, 260),
+          "black",
+          "top",
+          "Comic Sans",
+          "35px"
+        );
+      }
+   
+      if (this.score === 300) {
         Canvas.drawText(
           "Getting chilly...",
           new Vector2(50, 230),

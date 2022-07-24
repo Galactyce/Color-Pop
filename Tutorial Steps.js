@@ -58,7 +58,7 @@ GameWorld.prototype.tutorialStep = function () {
     }
     if (this.score === 280) {
       var balloon = new Balloon(900, 1, 1);
-      balloon.currentColor = "homing";
+      balloon.currentColor = "target";
       this.balloons.push(balloon);
       balloon = new Balloon(900, 2, 1);
       balloon.currentColor = "green";
@@ -69,7 +69,7 @@ GameWorld.prototype.tutorialStep = function () {
       balloon.currentColor = "ice";
       this.balloons.push(balloon);
 
-      for (var i = 0; i < 6; i++) {
+      for (var i = 0; i < 4; i++) {
         var colors = new Array("red", "green", "blue");
         var rand1 = Math.floor(Math.random() * 3);
         var rand2 = Math.floor(Math.random() * 3);
