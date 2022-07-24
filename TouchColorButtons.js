@@ -3,6 +3,12 @@ function ColorButton(color, position) {
   this.position = position;
   this.origin = new Vector2(0, 0);
   this.scale = 0.5;
+  this.rect = new Rectangle(
+    position.x,
+    position.y,
+    this.sprite.width * 0.5,
+    this.sprite.height * 0.5
+  );
   this.define();
 }
 
