@@ -133,7 +133,7 @@ Balloon.prototype.update = function (delta) {
         for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
           if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
             Game.gameWorld.powerUpSlots[i].contains = "bomb";
-            return;
+            break;
           }
         
       }
@@ -145,6 +145,7 @@ Balloon.prototype.update = function (delta) {
       for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
         if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
           Game.gameWorld.powerUpSlots[i].contains = "target";
+          break
         }
       }
 
@@ -158,6 +159,7 @@ Balloon.prototype.update = function (delta) {
           for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
             if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
               Game.gameWorld.powerUpSlots[i].contains = "freeze";
+              break
             }
           }
           Game.gameWorld.balloonsPopped += 1;
