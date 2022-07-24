@@ -88,7 +88,7 @@ function GameWorld() {
   this.ballsFired = 0;
   this.paused = false;
   this.reward = 0;
-  this.coins = 100;
+  this.coins = 0;
   this.shopInfoBox = undefined;
   this.modeInfoBox = new ModeDescription();
   this.moving = true;
