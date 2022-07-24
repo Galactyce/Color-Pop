@@ -41,6 +41,8 @@ Cannon.prototype.shoot = function() {
 }
 
 Cannon.prototype.handleInput = function () {
+  if (!Game.gameWorld.targeting) {
+
   if (!Game.paused && Game.gameWorld.gameActive) {
     if (!Touch.isTouchDevice) {
     if (Keyboard.keyDown === 66) this.currentColor = "blue";
@@ -56,7 +58,6 @@ Cannon.prototype.handleInput = function () {
 
   }
   this.rotation = Math.atan2(opp, adj);
-if (!Game.gameWorld.targeting) {
     if (Mouse.pressed && Game.gameWorld.started) {
       this.shoot()        
     }

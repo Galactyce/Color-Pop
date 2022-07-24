@@ -38,7 +38,6 @@ PlayButton.prototype.update = function () {
   Game.gameWorld.gameActive === false 
   ) {
     this.start()
-    alert(this.mode)
   }
   else if (
     this.rect.contains(Mouse.position) &&
