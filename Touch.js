@@ -31,6 +31,8 @@ Touch.prototype.reset = function() {
   for (var i=0; i<this.touchPresses.length; i++) {
     this.touchPresses.splice(i, 1)
   }
+  this.touchingRect = false;
+
 }
 
 Touch.prototype.getPosition = function(index) {
@@ -64,7 +66,6 @@ Touch.prototype.containsTouchPress = function(rect) {
 function handleTouchStart(evt) {
   evt.preventDefault();
   this.touching = true;
-  this.touchingRect = false;
   var touches = evt.changedTouches;
   for (var i=0; i<touches.length; i++) {
     Touch.touches.push(touches[i]);
