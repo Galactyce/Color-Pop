@@ -181,7 +181,7 @@ GameWorld.prototype.reset = function () {
   this.balloons = this.balloons.filter((a) => a);
 
   for (var i = 0; i < this.powerUpSlots.length; i++) {
-    this.powerUpSlots[i].contains = undefined;
+    this.powerUpSlots[i].contains = 'bomb';
   }
   this.win = false;
 };
