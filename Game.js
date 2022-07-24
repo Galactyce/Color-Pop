@@ -14,7 +14,12 @@ Game_Singleton.prototype.start = function () {
 
 Game_Singleton.prototype.mainLoop = function () {
   var delta = 1 / 50;
-
+  if (Touch.isTouchDevice) {
+    Touch.checkInputs();
+  }
+  else {
+    Mouse.checkInputs();
+  }
   if (!this.paused) {
     Game.gameWorld.update(delta);
     Game.gameWorld.handleInput(delta);
@@ -22,14 +27,10 @@ Game_Singleton.prototype.mainLoop = function () {
     Canvas.clear();
     Game.gameWorld.draw();
   }
-  if (Touch.isTouchDevice) {
-    Touch.checkInputs();
-    Touch.reset()
-  }
-  else {
-    Mouse.checkInputs();
-    Mouse.reset();
-  }
+  Mouse.reset();
+  Touch.reset()
+
+  
   window.setTimeout(Game.mainLoop, 1000 / 60);
 };
 

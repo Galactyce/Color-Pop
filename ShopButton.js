@@ -43,16 +43,33 @@ ShopButton.prototype.update = function () {
     this.sprite.height * 0.5
   );
 
-  if (this.rect.contains(Mouse.position) && Mouse.pressed) {
-    if (Game.gameWorld.area === "shop") {
-      Game.gameWorld.area = "home";
-      this.position = new Vector2(200, 550);
-      return;
+  if (!Touch.isTouchDevice) {
+    if (this.rect.contains(Mouse.position) && Mouse.pressed) {
+      if (Game.gameWorld.area === "shop") {
+        Game.gameWorld.area = "home";
+        this.position = new Vector2(200, 550);
+        return;
+      }
+      if (Game.gameWorld.area === "home") {
+        Game.gameWorld.area = "shop";
+        this.position = new Vector2(200, 650);
+        return;
+      }
     }
-    if (Game.gameWorld.area === "home") {
-      Game.gameWorld.area = "shop";
-      this.position = new Vector2(200, 650);
-      return;
+  }
+  else {
+    if (Touch.containsTouchPress(this.rect)) {
+      if (Game.gameWorld.area === "shop") {
+        Game.gameWorld.area = "home";
+        this.position = new Vector2(200, 550);
+        return;
+      }
+      if (Game.gameWorld.area === "home") {
+        Game.gameWorld.area = "shop";
+        this.position = new Vector2(200, 650);
+        return;
+      }
     }
   }
 };
+

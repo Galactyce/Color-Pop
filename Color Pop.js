@@ -25,7 +25,7 @@ Game.loadAssets = function() {
     'metal': {'normal': loadImage("lead_balloon_full.png"), 'reinforced': loadImage("metal_balloon_full_reinforced.png")},
     'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png"), 'reinforced': loadImage("metal_balloon_cracked_reinforced.png")}, 
     'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png"), 'reinforced': loadImage("metal_balloon_damaged_reinforced.png")},
-    'homing': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png")}
+    'target': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png")}
   };
 
 
@@ -80,6 +80,7 @@ Game.loadAssets = function() {
     'apex_button': {'normal': loadImage("apex_mode_button.png")},
     'end_screen': {'normal': loadImage("blank_end_screen.png")},
     'arrow': {'normal': loadImage('arrow.png')},
+    'color_button': {'red': loadImage('color_button_red.png'), 'green': loadImage('color_button_green.png'), 'blue': loadImage('color_button_blue.png')},
     'power_up_slot': {'normal': loadImage("power_up_slot.png")},
     'bomb_icon': {'normal': loadImage("bomb.png")},
     'homing_icon': {'normal': loadImage('homing_powerup_icon.png')},

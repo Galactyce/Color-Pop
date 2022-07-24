@@ -3,6 +3,7 @@ function PowerSlot(position, index) {
   this.position = position;
   this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
   this.contains = undefined;
+  this.rect = new Rectangle(position.x - this.sprite.width / 2, position.y - this.sprite.height / 2, this.sprite.width, this.sprite.height);
   this.index = index;
 }
 
@@ -18,7 +19,7 @@ PowerSlot.prototype.draw = function () {
       new Vector2(20, 20)
     );
   }
-  if (this.contains === "homing") {
+  if (this.contains === "target") {
     Canvas.drawImage(
       sprites.extras["homing_icon"].normal,
       new Vector2(this.position.x - 2.5, this.position.y - 2.5),
@@ -35,9 +36,13 @@ PowerSlot.prototype.draw = function () {
       1.3
     );
   }
+
 };
 
 PowerSlot.prototype.update = function () {
+  this.rect = new Rectangle(this.position.x - this.sprite.width / 2, this.position.y - this.sprite.height / 2, this.sprite.width, this.sprite.height);
+
+  if (!Touch.isTouchDevice) { 
   if (this.index === 1 && Keyboard.keyPressed === 49) {
     // Key 1
     this.activate();
@@ -51,9 +56,15 @@ PowerSlot.prototype.update = function () {
     this.activate();
   }
   if (this.index === 4 && Keyboard.keyPressed === 52) {
-    // Key 3
+    // Key 4
     this.activate();
   }
+}
+if (Touch.isTouchDevice) {
+  if (Touch.containsTouchPress(this.rect)) {
+    this.activate()
+  }
+}
 };
 
 PowerSlot.prototype.activate = function () {
@@ -66,9 +77,9 @@ PowerSlot.prototype.activate = function () {
     Game.gameWorld.balloons = Game.gameWorld.balloons.filter((a) => a);
     sounds.boom.play();
     Game.gameWorld.tutorialStep();
-  } else if (this.contains === "homing") {
-    Game.gameWorld.homingBalls = true;
-    Game.gameWorld.homingPowerUpStart = Date.now();
+  } else if (this.contains === "target") {
+    Game.gameWorld.targeting = true;
+    Game.gameWorld.targetPowerUpStart = Date.now();
     Game.gameWorld.tutorialStep();
   } else if (this.contains === "freeze") {
     Game.gameWorld.moving = false;

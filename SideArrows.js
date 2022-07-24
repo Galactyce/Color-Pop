@@ -55,7 +55,7 @@ Arrow.prototype.update = function () {
 
   if (Game.gameWorld.gameActive === false) {
     this.manageScaling();
-
+    if (!Touch.isTouchDevice) {
     if (this.rect.contains(Mouse.position) && Mouse.pressed) {
       if (this.orientation === "left") {
         Game.gameWorld.scrollInteger -= 1;
@@ -70,6 +70,23 @@ Arrow.prototype.update = function () {
         }
       }
     }
+  }
+  else {
+    if (Touch.containsTouchPress(this.rect)) {
+      if (this.orientation === "left") {
+        Game.gameWorld.scrollInteger -= 1;
+        if (Game.gameWorld.scrollInteger < 0) {
+          Game.gameWorld.scrollInteger = Game.gameWorld.scrollLength - 1;
+        }
+      }
+      if (this.orientation === "right") {
+        Game.gameWorld.scrollInteger += 1;
+        if (Game.gameWorld.scrollInteger > Game.gameWorld.scrollLength - 1) {
+          Game.gameWorld.scrollInteger = 0;
+        }
+      }
+  }
+}
   }
 };
 

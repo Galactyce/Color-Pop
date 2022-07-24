@@ -23,7 +23,7 @@ Ball.prototype.reset = function () {
       .multiplyBy(Math.random() * 0.3 + 0.8);
   }
   }  
-  else {
+  else if (Touch.isTouchDevice) {
   this.velocity = Game.gameWorld.cannon.velocity;
   if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
     this.velocity = Touch.getPosition(0)
@@ -45,18 +45,9 @@ Ball.prototype.draw = function () {
 
 Ball.prototype.update = function (delta) {
   if (this.active === false) return;
-  this.position.addTo(this.velocity.multiply(delta));
-
-  if (Game.gameWorld.homingBalls === true) {
-    //this.velocity = Mouse.position.subtract(this.position).multiplyBy(0.8);
-  }
-
-
     this.velocity.x *= 0.99;
     this.velocity.y += 6;
-  
-  this.position.addTo(this.velocity.multiply(delta));
-
+    this.position.addTo(this.velocity.multiply(delta));
   if (Game.gameWorld.isOutsideWorld(this.position)) {
     this.active = false;
     return;

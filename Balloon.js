@@ -20,7 +20,7 @@ function Balloon(xPosition, index, health) {
   this.specialProbability =
     2.75 +
     Game.gameWorld.specialBalloons.length / 100 +
-    Game.gameWorld.score / 25000;
+    Game.gameWorld.score / 3500;
   this.penaltyProbability =
     0.05 +
     Game.gameWorld.penaltyBalloons.length / 200 +
@@ -95,6 +95,78 @@ Balloon.prototype.update = function (delta) {
       this.position.x += this.moveDir;
     }
   }
+  this.rect = new Rectangle(
+    this.position.x - this.origin.x,
+    this.position.y - this.origin.y,
+    sprites.balloons[this.currentColor].normal.width,
+    sprites.balloons[this.currentColor].normal.height
+  )
+
+  if (Game.gameWorld.targeting) {
+    if (!Touch.isTouchDevice) {
+      if (this.rect.contains(Mouse.position) && Mouse.pressed) {
+        this.health -= 1;
+    }
+  }
+    if (Touch.isTouchDevice) {
+      if (Touch.containsTouchPress(this.rect)) {
+        this.health -= 1;
+      } 
+    }
+    if (this.health <= 0) {
+
+      
+      if (this.currentColor === 'rainbow') {
+        
+        Game.gameWorld.lives += 1;
+        Game.gameWorld.addScore(10); 
+        Game.gameWorld.tutorialStep();
+
+        sounds.extraLife.play();
+
+      
+    }
+      if (this.currentColor === 'bomb') {
+        Game.gameWorld.gameWorld.addScore(10);
+        this.tutorialStep();
+
+        for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
+          if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
+            Game.gameWorld.powerUpSlots[i].contains = "bomb";
+            break;
+          }
+        
+      }
+    }
+    if (this.currentColor === 'target') {
+   
+      Game.gameWorld.tutorialStep();
+
+      for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
+        if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
+          Game.gameWorld.powerUpSlots[i].contains = "target";
+          break
+        }
+      }
+
+      Game.gameWorld.balloonsPopped += 1;
+      Game.gameWorld.addScore(10);
+    }
+    if (this.currentColor === 'ice') {
+    
+      Game.gameWorld.tutorialStep();
+
+          for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
+            if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
+              Game.gameWorld.powerUpSlots[i].contains = "freeze";
+              break
+            }
+          }
+          Game.gameWorld.balloonsPopped += 1;
+          Game.gameWorld.addScore(10);
+    }
+  }
+}
 };
 // 1
 
@@ -168,7 +240,7 @@ Balloon.prototype.chooseColor = function () {
       Game.gameWorld.mode === "freeplay"
     ) {
       if (Game.gameWorld.score >= 1000 && Math.random() < 0.1) this.wavy = true;
-      if (Game.gameWorld.score >= 1250 && Math.random() < 0.03)
+      if (Game.gameWorld.score >= 1250 && Math.random() < 0.05)
         this.armored = true;
     }
     if (Game.gameWorld.difficulty === "apex") {
@@ -176,4 +248,5 @@ Balloon.prototype.chooseColor = function () {
         this.armored = true;
     }
   }
+ 
 };

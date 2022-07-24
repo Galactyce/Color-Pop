@@ -27,10 +27,9 @@ Cannon.prototype.ballPosition = function () {
 
 Cannon.prototype.shoot = function () {
   if (Touch.isTouchDevice) {
-    this.velocity = Touch.getPosition(0)
-      .subtract(this.position)
-      .multiplyBy(1.2);
-  } else {
+    this.velocity = Touch.getPosition(0).subtract(this.position).multiplyBy(1.1);
+      }
+      else {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
   }
   Game.gameWorld.balls.push(new Ball());
@@ -42,7 +41,9 @@ Cannon.prototype.shoot = function () {
 };
 
 Cannon.prototype.handleInput = function () {
-  if (!Game.paused) {
+  if (!Game.gameWorld.targeting) {
+
+  if (!Game.paused && Game.gameWorld.gameActive) {
     if (!Touch.isTouchDevice) {
       if (Keyboard.keyDown === 66) this.currentColor = "blue";
       if (Keyboard.keyDown === 71) this.currentColor = "green";
@@ -58,22 +59,28 @@ Cannon.prototype.handleInput = function () {
     var opp = Mouse.position.y - this.position.y;
     var adj = Mouse.position.x - this.position.x;
   }
-  else {
-    if (Touch.touches.length > 0) {
-    var opp = Touch.getPosition(0).y - this.position.y;
-    var adj = Touch.getPosition(0).x - this.position.x;
-    }
-    if (!Touch.isTouchDevice() && Mouse.pressed && Game.gameWorld.started) {
-      this.shoot();
-    } else if (
-      Touch.isTouchDevice &&
-      Touch.touchPresses.length > 0 &&
-      Game.gameWorld.started
-    ) {
-      this.spl = Touch.getPosition(0)
-      this.shoot();
+  else if (Touch.isTouchDevice ) {
+    if (!Touch.touchingRect) {
+    var opp = this.spl.y - this.position.y;
+    var adj = this.spl.x - this.position.x;
     }
   }
+  this.rotation = Math.atan2(opp, adj);
+    
+    if (Touch.isTouchDevice && Touch.touchPresses.length > 0 && Game.gameWorld.started) {
+      if (Touch.touchingRect === false) {
+      this.spl = Touch.getPosition(0)
+      var opp = this.spl.y - this.position.y;
+      var adj = this.spl.x - this.position.x;
+      this.rotation = Math.atan2(opp, adj);
+      this.shoot()
+      }
+  }
+  if (!Touch.isTouchDevice && Mouse.pressed && Game.gameWorld.started) {
+    this.shoot()        
+  }
+  }
 }
-}
-Cannon.prototype.update = function () {}
+};
+
+Cannon.prototype.update = function () {};
