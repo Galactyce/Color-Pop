@@ -115,18 +115,6 @@ function GameWorld() {
   this.reset();
   var cookie = document.cookie;
   console.log(cookie);
-  // if (cookie != "") {
-  //   var cname = document.cookie.split("=");
-  //   var name = cname[1];
-  // } else {
-  //   var name = prompt("Enter your name");
-  //   var d = new Date();
-  //   d.setTime(d.getTime() + 5 * 365 * 24 * 60 * 60 * 1000);
-  //   //  document.cookie = "name=" + name +";expires=" + d.toUTCString() + ";path=/";
-  //   console.log(document.cookie.trim());
-  // }
-
-  // alert("Hello " + name + '!');
   this.checkCookies();
 }
 
@@ -135,11 +123,7 @@ GameWorld.prototype.checkCookies = function () {
   ccookie.sort((a, b) => a - b);
   console.log(ccookie);
   var line = "";
-  //   for (var i=0; i<ccookie.length; i++) {
-  //    line += ccookie[i];
-  //    var item = line.split('=')
-  //   document.cookie = item[0] + '=' + undefined
-  //  }
+
   for (var i = 0; i < ccookie.length; i++) {
     var cname = ccookie[i].split("=");
 
@@ -196,9 +180,9 @@ GameWorld.prototype.reset = function () {
   }
   this.balloons = this.balloons.filter((a) => a);
 
-  // for (var i = 0; i < this.powerUpSlots.length; i++) {
-  //   this.powerUpSlots[i].contains = undefined;
-  // }
+  for (var i = 0; i < this.powerUpSlots.length; i++) {
+    this.powerUpSlots[i].contains = undefined;
+  }
   this.win = false;
 };
 
