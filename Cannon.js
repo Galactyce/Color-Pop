@@ -59,7 +59,7 @@ Cannon.prototype.handleInput = function () {
     
   }
   this.rotation = Math.atan2(opp, adj);
-    if (Mouse.pressed && Game.gameWorld.started) {
+    if (!Touch.isTouchDevice && Mouse.pressed && Game.gameWorld.started) {
       this.shoot()        
     }
     else if (Touch.isTouchDevice && Touch.touchPresses.length > 0 && Game.gameWorld.started) {
