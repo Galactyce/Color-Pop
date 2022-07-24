@@ -386,6 +386,7 @@ GameWorld.prototype.draw = function () {
   this.cannon.draw();
 
   if (Touch.isTouchDevice) {
+    alert()
     for (var i = 0; i < this.colorButtons.length; i++) {
       this.colorButtons[i].draw();
     }
