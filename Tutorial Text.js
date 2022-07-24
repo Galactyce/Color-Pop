@@ -182,7 +182,7 @@ GameWorld.prototype.drawGuides = function () {
           "35px"
         );
       }
-      if (this.score === 50) {
+      if (this.score === 40) {
         Canvas.drawText(
           "Rainbows give you lives!",
           new Vector2(50, 230),
@@ -192,7 +192,7 @@ GameWorld.prototype.drawGuides = function () {
           "35px"
         );
       }
-      if (this.score === 60) {
+      if (this.score === 50) {
         Canvas.drawText(
           "Black balloons give you bombs.",
           new Vector2(50, 230),
@@ -202,7 +202,7 @@ GameWorld.prototype.drawGuides = function () {
           "35px"
         );
       }
-      if (this.score === 60) {
+      if (this.score === 50) {
         Canvas.drawText(
           "Tap the bomb icon to blow it up!",
           new Vector2(50, 260),
@@ -212,7 +212,7 @@ GameWorld.prototype.drawGuides = function () {
           "35px"
         );
       }
-      if (this.score === 270) {
+      if (this.score === 260) {
         Canvas.drawText(
           "Barriers can stop a ball in there tracks...",
           new Vector2(50, 230),
@@ -223,7 +223,7 @@ GameWorld.prototype.drawGuides = function () {
         );
       }
 
-      if (this.score === 290) {
+      if (this.score === 280) {
         Canvas.drawText(
           "Targets allow you to just tap",
           new Vector2(50, 230),
@@ -242,7 +242,7 @@ GameWorld.prototype.drawGuides = function () {
         );
       }
    
-      if (this.score === 310) {
+      if (this.score === 300) {
         Canvas.drawText(
           "Getting chilly...",
           new Vector2(50, 230),
@@ -253,7 +253,7 @@ GameWorld.prototype.drawGuides = function () {
         );
       }
   
-      if (this.score === 360) {
+      if (this.score === 350) {
         Canvas.drawText(
           "Try to get a score of 500 :)",
           new Vector2(50, 230),
