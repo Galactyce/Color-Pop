@@ -7,14 +7,20 @@ function ColorButton(color, position) {
 }
 
 ColorButton.prototype.define = function() {
-    this.sprite = sprites.extras['color_button'].red
-  }
+  if (this.color === 'red')
+    this.sprite = sprites.extras['color_button'].red;
+  else if (this.color === 'green') 
+    this.sprite = sprites.extras['color_button'].green;
+  else if (this.color === 'blue')
+    this.sprite = sprites.extras['color_button'].blue;
+}
+  
 
 ColorButton.prototype.draw = function() {
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, this.scale);
 }
 
 ColorButton.prototype.update = function() {
-
+  
 }
 
