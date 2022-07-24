@@ -12,11 +12,13 @@ function Balloon(xPosition, index, health) {
   this.origin = new Vector2(60, 60);
   this.wavy = false;
   this.moveDir = -2;
+  this.popped = false;
   this.armored = false;
   this.armoredChance = 0.15;
   this.leftMoved = false;
   this.rightMoved = false;
   this.rainbowProbability = 0.05;
+  this.popTime = undefined;
   this.specialProbability =
     2.75 +
     Game.gameWorld.specialBalloons.length / 100 +
@@ -47,6 +49,7 @@ Balloon.prototype.moveToTop = function () {
 };
 
 Balloon.prototype.draw = function () {
+  if (!this.popped) {
   if (!this.armored)
     Canvas.drawImage(
       sprites.balloons[this.currentColor].normal,
@@ -70,6 +73,16 @@ Balloon.prototype.draw = function () {
         this.origin
       );
     }
+  }
+ 
+  }
+  else if (this.popped && this.popTime + 100 >= Date.now() ) {
+    Canvas.drawImage(
+      sprites.balloons[this.currentColor].popped,
+      this.position,
+      0,
+      this.origin
+    );
   }
 };
 

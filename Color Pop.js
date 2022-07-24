@@ -17,15 +17,15 @@ Game.loadAssets = function() {
     'red': {'normal': loadImage("balloon_red.png"), 'popped': loadImage("red_pop_effect.png"), 'reinforced': loadImage("balloon_red_reinforced.png")},
     'green': {'normal': loadImage("balloon_green.png"), 'popped': loadImage("green_pop_effect.png"), 'reinforced': loadImage("balloon_green_reinforced.png")},
     'blue': {'normal': loadImage("balloon_blue.png"), 'popped': loadImage("blue_pop_effect.png"), 'reinforced': loadImage("balloon_blue_reinforced.png")},
-    'rainbow': {'normal': loadImage("rainbow_balloon.png"), "reinforced": loadImage("reinforced_rainbow_balloon.png")},
-    'bomb': {'normal': loadImage("bomb_balloon.png"), 'reinforced': loadImage("bomb_balloon_reinforced.png")},
-    'ice': {'normal': loadImage("ice_balloon.png"), 'reinforced': loadImage("ice_balloon_reinforced.png")},
-    'white': {'normal': loadImage("white_balloon.png"), 'reinforced': loadImage("white_balloon.png")},
+    'rainbow': {'normal': loadImage("rainbow_balloon.png"), "reinforced": loadImage("reinforced_rainbow_balloon.png"), 'popped': loadImage('rainbow_pop_effect.png')},
+    'bomb': {'normal': loadImage("bomb_balloon.png"), 'reinforced': loadImage("bomb_balloon_reinforced.png"), 'popped': loadImage("black_pop_effect.png")},
+    'ice': {'normal': loadImage("ice_balloon.png"), 'reinforced': loadImage("ice_balloon_reinforced.png"), 'popped': loadImage("ice_pop_effect.png")},
+    'white': {'normal': loadImage("white_balloon.png"), 'reinforced': loadImage("white_balloon.png"), 'popped': loadImage('white_pop_effect.png')},
     'golden': {'normal': loadImage("golden_balloon.png")},
-    'metal': {'normal': loadImage("lead_balloon_full.png"), 'reinforced': loadImage("metal_balloon_full_reinforced.png")},
+    'metal': {'normal': loadImage("lead_balloon_full.png"), 'reinforced': loadImage("metal_balloon_full_reinforced.png"), 'popped': loadImage('metal_pop_effect.png')},
     'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png"), 'reinforced': loadImage("metal_balloon_cracked_reinforced.png")}, 
     'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png"), 'reinforced': loadImage("metal_balloon_damaged_reinforced.png")},
-    'target': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png")}
+    'target': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png"), 'popped': loadImage('target_pop_effect.png')}
   };
 
 

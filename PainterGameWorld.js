@@ -673,7 +673,7 @@ GameWorld.prototype.update = function (delta) {
       for (var k = 0; k < this.balloons.length; k++) {
         distanceX = this.balloons[k].position.x - this.balls[i].position.x;
         distanceY = this.balloons[k].position.y - this.balls[i].position.y;
-        if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85) {
+        if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85 && this.balloons[k].popped === false) {
           removeBall = true;
 
           // Rainbow Physics
@@ -689,7 +689,6 @@ GameWorld.prototype.update = function (delta) {
               sounds.extraLife.play();
               this.balloonsPopped += 1;
             }
-            break;
           }
 
           // Bomb balloon physics
@@ -704,7 +703,7 @@ GameWorld.prototype.update = function (delta) {
               for (var i = 0; i < this.powerUpSlots.length; i++) {
                 if (this.powerUpSlots[i].contains === undefined) {
                   this.powerUpSlots[i].contains = "bomb";
-                  return;
+                  break;
                 }
               }
             }
@@ -763,8 +762,6 @@ GameWorld.prototype.update = function (delta) {
               this.balloons[k].currentColor = "metal_damaged";
             }
             if (this.balloons[k].health <= 0) {
-              this.rows[this.balloons[k].index] -= 1;
-              this.score += this.balloons[k].popPointValue;
               this.addScore(25);
               this.balloonsPopped += 1;
               this.balloons[k] = null;
@@ -782,27 +779,31 @@ GameWorld.prototype.update = function (delta) {
             this.balloons[k].health -= 1;
             removeBall = true;
 
-            if (this.balloons[k].health <= 0) {
-              sounds.popEffect.volume = 0.4;
-              this.balloonsPopped += 1;
-              sounds.popEffect.play();
-              this.addScore(this.balloons[k].popPointValue);
-              this.tutorialStep();
-            }
+     
+          }
+          if (this.balloons[k].health <= 0) {
+            sounds.popEffect.volume = 0.4;
+            this.balloonsPopped += 1;
+            sounds.popEffect.play();
+            this.addScore(this.balloons[k].popPointValue);
+            this.tutorialStep();
+          }
+          //  Check if a balloon ran out of health
+
+          if (this.balloons[k].health <= 0) {
+            this.balloons[k].popped = true;
+            this.balloons[k].popTime = Date.now()
           }
 
-          //  Check if a balloon ran out of health
         }
-        if (this.balloons[k].health <= 0) {
+        if (this.balloons[k].popTime + 100 <= Date.now() ) {
           this.rows[this.balloons[k].index] -= 1;
           this.balloons[k] = null;
           this.balloonMinVelocity += 0.3;
           this.balloons = this.balloons.filter((a) => a);
           if (this.mode === "no_color_mode") break;
-        } else if (
-          this.balls[i].currentColor !== this.balloons[k].currentColor
-        ) {
         }
+         
       }
 
       // Check for barrier collisions
