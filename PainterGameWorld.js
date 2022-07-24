@@ -90,6 +90,8 @@ function GameWorld() {
   this.shopInfoBox = undefined;
   this.modeInfoBox = new ModeDescription();
   this.moving = true;
+  this.colorButtons = new Array();
+  this.colorButtons.push(new ColorButton("red", new Vector2(30, 400)));
   this.scrollButtons.push(new Arrow(new Vector2(930, 335), "right", 1));
   this.scrollButtons.push(new Arrow(new Vector2(370, 335), "left", 1));
   this.powerUpSlots.push(new PowerSlot(new Vector2(100, 350), 1));
@@ -382,6 +384,12 @@ GameWorld.prototype.draw = function () {
 
   this.drawBalloons();
   this.cannon.draw();
+
+  if (Touch.isTouchDevice) {
+    for (var i = 0; i < this.colorButtons.length; i++) {
+      this.colorButtons[i].draw();
+    }
+  }
 
   for (var i = 0; i < this.balls.length; i++) {
     this.balls[i].draw();
