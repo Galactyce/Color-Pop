@@ -163,7 +163,7 @@ GameWorld.prototype.drawGuides = function () {
         );
       }
   
-      if (this.score >= 10 && this.score <= 40) {
+      if (this.score >= 10 && this.score <= 30) {
         Canvas.drawText(
           "Use the buttons to change color.",
           new Vector2(50, 230),
