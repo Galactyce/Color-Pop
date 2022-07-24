@@ -15,7 +15,7 @@ function GameWorld() {
   this.score = 0;
   this.balloonSpawning = true;
   this.barrierSpawning = true;
-  this.homingBalls = false;
+  this.targeting = false;
   this.playEndSound = false;
   this.freezeTimer = 0;
   this.playEndSound = true;
@@ -68,7 +68,7 @@ function GameWorld() {
   this.area = "home";
   this.inventory = new Inventory();
   this.inventoryButton = new InventoryButton(new Vector2(1100, 550));
-  this.inventoryExitButton = new InventoryExitButton(new Vector2(900, 550))
+  this.inventoryExitButton = new InventoryExitButton(new Vector2(900, 550));
   this.inventoryItems = new Array();
   this.inventoryInfoBar = undefined;
   this.shopItems = new Array();
@@ -182,7 +182,7 @@ GameWorld.prototype.reset = function () {
   this.balloons = this.balloons.filter((a) => a);
 
   for (var i = 0; i < this.powerUpSlots.length; i++) {
-    this.powerUpSlots[i].contains = undefined;
+    this.powerUpSlots[i].contains = "target";
   }
   this.win = false;
 };
@@ -277,29 +277,29 @@ GameWorld.prototype.draw = function () {
       }
 
       if (!Touch.isTouchDevice) {
-      Canvas.drawText(
-        "Cancel: ",
-        new Vector2(130, 633),
-        "black",
-        "center",
-        "Courier New",
-        "25px"
-      );
-      Canvas.drawImage(
-        sprites.extras["simple_button"].normal,
-        new Vector2(180, 625),
-        0,
-        new Vector2(0, 0),
-        0.2
-      );
-      Canvas.drawText(
-        "Esc",
-        new Vector2(200, 633),
-        "black",
-        "left",
-        "Courier New",
-        "25px"
-      );
+        Canvas.drawText(
+          "Cancel: ",
+          new Vector2(130, 633),
+          "black",
+          "center",
+          "Courier New",
+          "25px"
+        );
+        Canvas.drawImage(
+          sprites.extras["simple_button"].normal,
+          new Vector2(180, 625),
+          0,
+          new Vector2(0, 0),
+          0.2
+        );
+        Canvas.drawText(
+          "Esc",
+          new Vector2(200, 633),
+          "black",
+          "left",
+          "Courier New",
+          "25px"
+        );
       }
 
       if (Touch.isTouchDevice) {
@@ -493,13 +493,14 @@ GameWorld.prototype.updateCookies = function () {
 };
 
 GameWorld.prototype.update = function (delta) {
+  console.log(this.targeting);
   if (Keyboard.keyPressed === 65) this.coins += 2;
   if (this.gameActive === false) {
     this.modeToggleButton.update();
-  this.tutorialModeButton.update();
-  for (var i = 0; i < this.scrollButtons.length; i++) {
-    this.scrollButtons[i].update();
-  }
+    this.tutorialModeButton.update();
+    for (var i = 0; i < this.scrollButtons.length; i++) {
+      this.scrollButtons[i].update();
+    }
     if (!this.inventory.open) {
       if (this.area === "home") {
         if (Keyboard.keyPressed === 39) {
@@ -550,8 +551,8 @@ GameWorld.prototype.update = function (delta) {
       for (var i = 0; i < this.inventoryItems.length; i++) {
         this.inventoryItems[i].update();
       }
-      if (Touch.isTouchDevice) { 
-        this.inventoryExitButton.update()
+      if (Touch.isTouchDevice) {
+        this.inventoryExitButton.update();
       }
     }
   }
@@ -607,14 +608,15 @@ GameWorld.prototype.update = function (delta) {
       }
     }
 
-    if (Date.now() > this.homingPowerUpStart + 15000) {
-      this.homingBalls = false;
+    if (Date.now() > this.targetPowerUpStart + 5000) {
+      this.targeting = false;
     }
 
     if (Date.now() > this.freezeTimer + 8000) {
       this.moving = true;
     }
 
+  
     for (var i = this.barriers.length; i < this.barrierCount; i++) {
       // Create barriers
       if (this.barrierSpawning === true) {
@@ -633,7 +635,7 @@ GameWorld.prototype.update = function (delta) {
     // Handle ball collisions
     for (var i = 0; i < this.balls.length; i++) {
       // Check if ball fell off screen
-      if (this.balls[i].position.y > 700) {
+      if (this.balls[i].position.y > Canvas.canvas.height) {
         this.balls[i] = null;
         i = this.balls.length;
         break;
@@ -644,6 +646,7 @@ GameWorld.prototype.update = function (delta) {
       for (var k = 0; k < this.balloons.length; k++) {
         distanceX = this.balloons[k].position.x - this.balls[i].position.x;
         distanceY = this.balloons[k].position.y - this.balls[i].position.y;
+
         if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85) {
           // Rainbow Physics
           if (this.balloons[k].currentColor === "rainbow") {
@@ -660,7 +663,6 @@ GameWorld.prototype.update = function (delta) {
 
               sounds.extraLife.play();
               this.balloonsPopped += 1;
-              removeBall = true;
             }
             break;
           }
@@ -684,11 +686,10 @@ GameWorld.prototype.update = function (delta) {
                 }
               }
             }
-            break;
           }
 
           // Homing power-up balloon physics
-          else if (this.balloons[k].currentColor === "homing") {
+          else if (this.balloons[k].currentColor === "target") {
             this.balloons[k].health -= 1;
             removeBall = true;
             if (this.balloons[k].health <= 0) {
@@ -699,8 +700,7 @@ GameWorld.prototype.update = function (delta) {
 
               for (var i = 0; i < this.powerUpSlots.length; i++) {
                 if (this.powerUpSlots[i].contains === undefined) {
-                  this.powerUpSlots[i].contains = "homing";
-                  break;
+                  this.powerUpSlots[i].contains = "target";
                 }
               }
 
@@ -721,12 +721,10 @@ GameWorld.prototype.update = function (delta) {
               for (var i = 0; i < this.powerUpSlots.length; i++) {
                 if (this.powerUpSlots[i].contains === undefined) {
                   this.powerUpSlots[i].contains = "freeze";
-                  break;
                 }
               }
               this.balloonsPopped += 1;
               this.addScore(10);
-              break;
             }
           }
 
@@ -752,7 +750,6 @@ GameWorld.prototype.update = function (delta) {
               this.balloonsPopped += 1;
               this.balloons[k] = null;
               this.balloons = this.balloons.filter((a) => a);
-              break;
             }
           }
 
@@ -774,20 +771,25 @@ GameWorld.prototype.update = function (delta) {
               this.tutorialStep();
             }
           }
+          if (this.balls[i].currentColor !== this.balloons[k].currentColor) {
+            removeBall = true;
+
+          }
 
           //  Check if a balloon ran out of health
 
-          if (this.balloons[k].health <= 0) {
-            this.rows[this.balloons[k].index] -= 1;
-            this.balloons[k] = null;
-            this.balloonMinVelocity += 0.3;
-            this.balloons = this.balloons.filter((a) => a);
-            if (this.mode === "no_color_mode") break;
-          } else if (
-            this.balls[i].currentColor !== this.balloons[k].currentColor
-          ) {
-            removeBall = true;
-          }
+     
+        }
+        if (this.balloons[k].health <= 0) {
+          this.rows[this.balloons[k].index] -= 1;
+          this.addScore(this.balloons[k].popPointValue);
+          this.balloons[k] = null;
+          this.balloonMinVelocity += 0.3;
+          this.balloons = this.balloons.filter((a) => a);
+          if (this.mode === "no_color_mode") break;
+        } else if (
+          this.balls[i].currentColor !== this.balloons[k].currentColor
+        ) {
         }
       }
 

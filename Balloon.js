@@ -20,7 +20,7 @@ function Balloon(xPosition, index, health) {
   this.specialProbability =
     2.75 +
     Game.gameWorld.specialBalloons.length / 100 +
-    Game.gameWorld.score / 25000;
+    Game.gameWorld.score / 3500;
   this.penaltyProbability =
     0.05 +
     Game.gameWorld.penaltyBalloons.length / 200 +
@@ -95,6 +95,74 @@ Balloon.prototype.update = function (delta) {
       this.position.x += this.moveDir;
     }
   }
+  this.rect = new Rectangle(
+    this.position.x - this.origin.x,
+    this.position.y - this.origin.y,
+    sprites.balloons[this.currentColor].normal.width,
+    sprites.balloons[this.currentColor].normal.height
+  )
+
+  if (Game.gameWorld.targeting) {
+    if (!Touch.isTouchDevice) {
+      if (this.rect.contains(Mouse.position) && Mouse.pressed) {
+        this.health -= 1;
+    }
+  }
+    if (Touch.isTouchDevice) {
+      if (Touch.containsTouchPress(this.rect)) {
+        this.health -= 1;
+      } 
+    }
+    if (this.health <= 0) {
+      if (this.currentColor === 'rainbow') {
+        
+        this.lives += 1;
+        this.addScore(10);
+        this.tutorialStep();
+
+        sounds.extraLife.play();
+
+      
+    }
+      if (this.currentColor === 'bomb') {
+        this.addScore(10);
+        this.tutorialStep();
+
+        for (var i = 0; i < this.powerUpSlots.length; i++) {
+          if (this.powerUpSlots[i].contains === undefined) {
+            this.powerUpSlots[i].contains = "bomb";
+            return;
+          }
+        
+      }
+    }
+    if (this.currentColor === 'target') {
+   
+      this.tutorialStep();
+
+      for (var i = 0; i < this.powerUpSlots.length; i++) {
+        if (this.powerUpSlots[i].contains === undefined) {
+          this.powerUpSlots[i].contains = "target";
+        }
+      }
+
+      this.balloonsPopped += 1;
+      this.addScore(10);
+    }
+    if (this.currentColor === 'ice') {
+    
+          this.tutorialStep();
+
+          for (var i = 0; i < this.powerUpSlots.length; i++) {
+            if (this.powerUpSlots[i].contains === undefined) {
+              this.powerUpSlots[i].contains = "freeze";
+            }
+          }
+          this.balloonsPopped += 1;
+          this.addScore(10);
+    }
+  }
+}
 };
 // 1
 
@@ -168,7 +236,7 @@ Balloon.prototype.chooseColor = function () {
       Game.gameWorld.mode === "freeplay"
     ) {
       if (Game.gameWorld.score >= 1000 && Math.random() < 0.1) this.wavy = true;
-      if (Game.gameWorld.score >= 1250 && Math.random() < 0.03)
+      if (Game.gameWorld.score >= 1250 && Math.random() < 0.05)
         this.armored = true;
     }
     if (Game.gameWorld.difficulty === "apex") {
@@ -176,4 +244,5 @@ Balloon.prototype.chooseColor = function () {
         this.armored = true;
     }
   }
+ 
 };

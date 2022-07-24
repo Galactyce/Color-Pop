@@ -19,7 +19,7 @@ PowerSlot.prototype.draw = function () {
       new Vector2(20, 20)
     );
   }
-  if (this.contains === "homing") {
+  if (this.contains === "target") {
     Canvas.drawImage(
       sprites.extras["homing_icon"].normal,
       new Vector2(this.position.x - 2.5, this.position.y - 2.5),
@@ -77,9 +77,9 @@ PowerSlot.prototype.activate = function () {
     Game.gameWorld.balloons = Game.gameWorld.balloons.filter((a) => a);
     sounds.boom.play();
     Game.gameWorld.tutorialStep();
-  } else if (this.contains === "homing") {
-    Game.gameWorld.homingBalls = true;
-    Game.gameWorld.homingPowerUpStart = Date.now();
+  } else if (this.contains === "target") {
+    Game.gameWorld.targeting = true;
+    Game.gameWorld.targetPowerUpStart = Date.now();
     Game.gameWorld.tutorialStep();
   } else if (this.contains === "freeze") {
     Game.gameWorld.moving = false;
