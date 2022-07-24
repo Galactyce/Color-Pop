@@ -27,6 +27,7 @@ ColorButton.prototype.draw = function() {+
 
 ColorButton.prototype.update = function() {
   if (Touch.containsTouchPress(this.rect)) {
+    alert(this.color)
     Game.gameWorld.cannon.color = this.color;
   }
 }
