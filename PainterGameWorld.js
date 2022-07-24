@@ -68,7 +68,7 @@ function GameWorld() {
   this.area = "home";
   this.inventory = new Inventory();
   this.inventoryButton = new InventoryButton(new Vector2(1100, 550));
-  this.inventoryExitButton = new InventoryExitButton(new Vector2(1100, 550))
+  this.inventoryExitButton = new InventoryExitButton(new Vector2(900, 550))
   this.inventoryItems = new Array();
   this.inventoryInfoBar = undefined;
   this.shopItems = new Array();

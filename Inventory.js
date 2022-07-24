@@ -278,6 +278,7 @@ InventoryItem.prototype.update = function () {
         Game.gameWorld.updateCookies();
         document.cookie = "specialtyEquipped=" + this.item;
       }
+      this.touchTime = Date.now()
     }
   }
 };
@@ -308,6 +309,12 @@ InventoryExitButton.prototype.draw = function () {
     "top",
     "Comic Sans",
     "35px"
+  );
+  this.rect = new Rectangle(
+    this.position.x,
+    this.position.y,
+    this.sprite.width * 0.5,
+    this.sprite.height * 0.5
   );
 };
 
