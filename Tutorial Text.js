@@ -142,7 +142,7 @@ GameWorld.prototype.drawGuides = function () {
     }
   }
   else {
-    if (this.mode = 'tutorial') {
+    if (this.mode === 'tutorial') {
       if (this.score === 0) {
         Canvas.drawText(
           "Tap to fire a ball.",
