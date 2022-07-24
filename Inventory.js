@@ -184,8 +184,15 @@ InventoryButton.prototype.draw = function () {
 };
 
 InventoryButton.prototype.update = function () {
+  if (!Touch.isTouchDevice) {
   if (this.rect.contains(Mouse.position) && Mouse.pressed) {
     Game.gameWorld.inventory.open = !Game.gameWorld.inventory.open;
+  }
+  }
+  else {
+    if (Touch.containsTouchPress(this.rect)) {
+      Game.gameWorld.inventory.open = !Game.gameWorld.inventory.open;
+    }
   }
 };
 
@@ -195,6 +202,7 @@ function InventoryItem(item) {
   this.position = new Vector2(0, 0);
   this.origin = new Vector2(0, 0);
   this.rect = undefined;
+  this.touchTime = Date.now();
   this.identify();
 }
 
@@ -254,6 +262,7 @@ InventoryItem.prototype.draw = function () {
 };
 
 InventoryItem.prototype.update = function () {
+  if (!Touch.isTouchDevice) {
   if (this.rect.contains(Mouse.position)) {
     Game.gameWorld.inventoryInfoBar = new InventoryInfoBar(this.item);
     if (Mouse.pressed) {
@@ -262,4 +271,15 @@ InventoryItem.prototype.update = function () {
       document.cookie = "specialtyEquipped=" + this.item;
     }
   }
+}
+else {
+  if (Touch.containsTouchPress(this.rect)) {
+    Game.gameWorld.inventoryInfoBar = new InventoryInfoBar(this.item);
+    if (Date.now() < this.touchTime + 250) {
+      Game.gameWorld.specialtiesEquipped = this.item;
+      Game.gameWorld.updateCookies();
+      document.cookie = "specialtyEquipped=" + this.item;
+    }
+  }
+}
 };

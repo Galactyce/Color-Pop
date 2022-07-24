@@ -15,20 +15,20 @@ ColorButton.prototype.define = function() {
   else if (this.color === 'blue')
     this.sprite = sprites.extras['color_button'].blue;
     this.rect = new Rectangle(
-      this.position.x,
-      this.position.y,
-      this.sprite.width * 0.5,
-      this.sprite.height * 0.5
+      this.position.x - 10,
+      this.position.y - 10,
+      this.sprite.width * 0.5 + 20,
+      this.sprite.height * 0.5 + 20
     );
   }
   
 
 ColorButton.prototype.draw = function() {
   this.rect = new Rectangle(
-    this.position.x,
-    this.position.y,
-    this.sprite.width * 0.5,
-    this.sprite.height * 0.5
+    this.position.x - 10,
+    this.position.y - 10,
+    this.sprite.width * 0.5 + 20,
+    this.sprite.height * 0.5 + 20
   );
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, this.scale);
 }
