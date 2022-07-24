@@ -320,6 +320,6 @@ InventoryExitButton.prototype.draw = function () {
 
 InventoryExitButton.prototype.update = function () {
   if (Touch.containsTouchPress(this.rect)) {
-    this.inventory.open = false;
+    Game.gameWorld.inventory.open = false;
   }
 };
