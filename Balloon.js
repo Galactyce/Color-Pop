@@ -111,10 +111,11 @@ Balloon.prototype.update = function (delta) {
     if (Touch.isTouchDevice) {
       if (Touch.containsTouchPress(this.rect)) {
         this.health -= 1;
-        alert(this.health)
       } 
     }
     if (this.health <= 0) {
+
+      
       if (this.currentColor === 'rainbow') {
         
         this.lives += 1;

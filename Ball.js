@@ -23,7 +23,7 @@ Ball.prototype.reset = function () {
       .multiplyBy(Math.random() * 0.3 + 0.8);
   }
   }  
-  else {
+  else if (Touch.isTouchDevice) {
   this.velocity = Game.gameWorld.cannon.velocity;
   if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
     this.velocity = Touch.getPosition(0)
