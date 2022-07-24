@@ -53,23 +53,23 @@ Cannon.prototype.handleInput = function () {
     var adj = Mouse.position.x - this.position.x;
   }
   else if (Touch.isTouchDevice ) {
-    if (!Touch.containsTouchPress(Game.gameWorld.controlPanel.rect)) {
+    if (Touch.containsTouchPress(Game.gameWorld.controlPanel.rect)) alert()
     var opp = this.spl.y - this.position.y;
     var adj = this.spl.x - this.position.x;
-    }
+    
   }
   this.rotation = Math.atan2(opp, adj);
     if (Mouse.pressed && Game.gameWorld.started) {
       this.shoot()        
     }
     else if (Touch.isTouchDevice && Touch.touchPresses.length > 0 && Game.gameWorld.started) {
-      if (!Touch.containsTouchPress(Game.gameWorld.controlPanel.rect)) {
+      if (Touch.containsTouchPress(Game.gameWorld.controlPanel.rect)) alert()
       this.spl = Touch.getPosition(0)
       var opp = this.spl.y - this.position.y;
       var adj = this.spl.x - this.position.x;
       this.rotation = Math.atan2(opp, adj);
       this.shoot()
-    }
+    
   }
   }
 }
