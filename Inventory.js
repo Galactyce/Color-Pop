@@ -286,8 +286,8 @@ function InventoryExitButton(position) {
   this.sprite = sprites.extras["simple_button"].normal;
   this.position = position;
   this.rect = new Rectangle(
-    this.position.x - this.origin.x / 2,
-    this.position.y - this.origin.y / 2,
+    this.position.x,
+    this.position.y,
     this.sprite.width * 0.5,
     this.sprite.height * 0.5
   );
