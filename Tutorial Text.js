@@ -141,7 +141,7 @@ GameWorld.prototype.drawGuides = function () {
     }
     }
   }
-  else {
+  if (Touch.isTouchDevice) {
     if (this.mode === 'tutorial') {
       if (this.score === 0) {
         Canvas.drawText(
