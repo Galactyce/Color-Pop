@@ -10,6 +10,7 @@ function GameWorld() {
   this.maxBalloons = 3;
   this.win = false;
   this.mode = new Array("easy", "intermediate", "hard", "apex");
+  this.controlPanel = new ControlPanel();
   this.defaultBalloonHealth = 1;
   this.invincible = false;
   this.score = 0;
@@ -400,6 +401,8 @@ GameWorld.prototype.draw = function () {
       this.colorButtons[i].draw();
     }
   }
+
+  this.controlPanel.draw()
 
   for (var i = 0; i < this.balls.length; i++) {
     this.balls[i].draw();
