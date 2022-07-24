@@ -55,7 +55,6 @@ Ball.prototype.update = function (delta) {
     this.velocity.x *= 0.99;
     this.velocity.y += 6;
   
-  this.position.addTo(this.velocity.multiply(delta));
 
   if (Game.gameWorld.isOutsideWorld(this.position)) {
     this.active = false;
