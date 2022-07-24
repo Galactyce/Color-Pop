@@ -182,7 +182,7 @@ GameWorld.prototype.reset = function () {
   this.balloons = this.balloons.filter((a) => a);
 
   for (var i = 0; i < this.powerUpSlots.length; i++) {
-    this.powerUpSlots[i].contains = "target";
+    this.powerUpSlots[i].contains = undefined;
   }
   this.win = false;
 };
@@ -646,8 +646,9 @@ GameWorld.prototype.update = function (delta) {
       for (var k = 0; k < this.balloons.length; k++) {
         distanceX = this.balloons[k].position.x - this.balls[i].position.x;
         distanceY = this.balloons[k].position.y - this.balls[i].position.y;
-
         if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85) {
+          removeBall = true
+
           // Rainbow Physics
           if (this.balloons[k].currentColor === "rainbow") {
             removeBall = true;
@@ -770,11 +771,8 @@ GameWorld.prototype.update = function (delta) {
               this.addScore(this.balloons[k].popPointValue);
               this.tutorialStep();
             }
-          }
-          if (this.balls[i].currentColor !== this.balloons[k].currentColor) {
-            removeBall = true;
-
-          }
+          }   
+        
 
           //  Check if a balloon ran out of health
 
@@ -782,7 +780,6 @@ GameWorld.prototype.update = function (delta) {
         }
         if (this.balloons[k].health <= 0) {
           this.rows[this.balloons[k].index] -= 1;
-          this.addScore(this.balloons[k].popPointValue);
           this.balloons[k] = null;
           this.balloonMinVelocity += 0.3;
           this.balloons = this.balloons.filter((a) => a);

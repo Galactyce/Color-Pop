@@ -25,7 +25,7 @@ Game.loadAssets = function() {
     'metal': {'normal': loadImage("lead_balloon_full.png"), 'reinforced': loadImage("metal_balloon_full_reinforced.png")},
     'metal_cracked': {'normal': loadImage("lead_balloon_cracked.png"), 'reinforced': loadImage("metal_balloon_cracked_reinforced.png")}, 
     'metal_damaged': {'normal': loadImage("lead_balloon_damaged.png"), 'reinforced': loadImage("metal_balloon_damaged_reinforced.png")},
-    'homing': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png")}
+    'target': {'normal': loadImage('homing_balloon.png'), 'reinforced': loadImage("homing_balloon_reinforced.png")}
   };
 
 
