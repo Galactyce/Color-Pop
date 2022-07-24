@@ -30,7 +30,7 @@ Cannon.prototype.shoot = function() {
     this.velocity = Touch.getPosition(0).subtract(this.position).multiplyBy(1.2);
       }
       else {
-    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
+    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.6);
       }
     Game.gameWorld.balls.push(new Ball());
     if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
@@ -41,7 +41,7 @@ Cannon.prototype.shoot = function() {
 }
 
 Cannon.prototype.handleInput = function () {
-  if (!Game.paused) {
+  if (!Game.paused && Game.gameWorld.gameActive) {
     if (!Touch.isTouchDevice) {
     if (Keyboard.keyDown === 66) this.currentColor = "blue";
     else if (Keyboard.keyDown === 71) this.currentColor = "green";

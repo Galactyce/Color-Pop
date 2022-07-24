@@ -494,12 +494,12 @@ GameWorld.prototype.updateCookies = function () {
 
 GameWorld.prototype.update = function (delta) {
   if (Keyboard.keyPressed === 65) this.coins += 2;
-  this.modeToggleButton.update();
+  if (this.gameActive === false) {
+    this.modeToggleButton.update();
   this.tutorialModeButton.update();
   for (var i = 0; i < this.scrollButtons.length; i++) {
     this.scrollButtons[i].update();
   }
-  if (this.gameActive === false) {
     if (!this.inventory.open) {
       if (this.area === "home") {
         if (Keyboard.keyPressed === 39) {

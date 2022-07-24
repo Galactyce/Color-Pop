@@ -16,7 +16,7 @@ ColorButton.prototype.define = function() {
 }
   
 
-ColorButton.prototype.draw = function() {
+ColorButton.prototype.draw = function() {+
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, this.scale);
 }
 

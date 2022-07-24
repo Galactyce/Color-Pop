@@ -45,17 +45,9 @@ Ball.prototype.draw = function () {
 
 Ball.prototype.update = function (delta) {
   if (this.active === false) return;
-  this.position.addTo(this.velocity.multiply(delta));
-
-  if (Game.gameWorld.homingBalls === true) {
-    //this.velocity = Mouse.position.subtract(this.position).multiplyBy(0.8);
-  }
-
-
     this.velocity.x *= 0.99;
     this.velocity.y += 6;
-  
-
+    this.position.addTo(this.velocity.multiply(delta));
   if (Game.gameWorld.isOutsideWorld(this.position)) {
     this.active = false;
     return;

@@ -30,7 +30,7 @@ Game_Singleton.prototype.mainLoop = function () {
     Mouse.checkInputs();
     Mouse.reset();
   }
-  window.setTimeout(Game.mainLoop, 1000 / 50);
+  window.setTimeout(Game.mainLoop, 1000 / 60);
 };
 
 Game_Singleton.prototype.assetLoadingLoop = function () {
