@@ -305,8 +305,16 @@ GameWorld.prototype.draw = function () {
       if (Touch.isTouchDevice) {
         this.inventoryExitButton.draw();
         Canvas.drawText(
-          "Double tap to equip items",
+          "Double tap to",
           new Vector2(130, 580),
+          "black",
+          "left",
+          "Courier New",
+          "25px"
+        );
+        Canvas.drawText(
+          "equip items",
+          new Vector2(130, 610),
           "black",
           "left",
           "Courier New",
