@@ -28,7 +28,6 @@ Cannon.prototype.ballPosition = function () {
 Cannon.prototype.shoot = function() {
   if (Touch.isTouchDevice) {
     this.velocity = Touch.getPosition(0).subtract(this.position).multiplyBy(1.1);
-    alert(this.velocity.x)
       }
       else {
     this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
