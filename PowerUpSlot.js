@@ -2,7 +2,7 @@ function PowerSlot(position, index) {
   this.sprite = sprites.extras["power_up_slot"].normal;
   this.position = position;
   this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
-  this.contains = undefined;
+  this.contains = 'bomb';
   this.rect = new Rectangle(this.position.x, this.position.y, this.sprite.width, this.sprite.height);
   this.index = index;
 }
