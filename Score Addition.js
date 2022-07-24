@@ -28,7 +28,7 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score < 650 && this.score + value >= 650) {
-      this.specialBalloons.push("homing");
+      this.specialBalloons.push("target");
     }
 
     if (this.score >= 700) {
@@ -74,7 +74,7 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score < 600 && this.score + value >= 600) {
-      this.specialBalloons.push("homing");
+      this.specialBalloons.push("target");
     }
 
     if (this.score < 800 && this.score + value >= 800) {
@@ -151,7 +151,7 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score < 1500 && this.score + value >= 1500) {
-      this.specialBalloons.push("homing");
+      this.specialBalloons.push("target");
     }
 
     //  Add the boss
@@ -222,7 +222,7 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score < 650 && this.score + value >= 650) {
-      this.specialBalloons.push("homing");
+      this.specialBalloons.push("target");
     }
 
     if (this.score >= 850) {
@@ -352,7 +352,7 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score >= 1000) {
-      this.specialBalloons.push("homing");
+      this.specialBalloons.push("target");
     }
 
     if (this.score >= 1250) {
