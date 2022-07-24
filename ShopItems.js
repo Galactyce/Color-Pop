@@ -58,7 +58,14 @@ ShopItem.prototype.identify = function () {
     );
   }
 };
-ShopItem.prototype.draw = function () {
+ShopItem.prototype.draw = function ()  {
+this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+this.rect = new Rectangle(
+  this.position.x - this.origin.x,
+  this.position.y - this.origin.y,
+  this.sprite.width,
+  this.sprite.height
+);
   if (this.bought === false) {
     Canvas.drawImage(this.sprite, this.position, 0, this.origin);
   }
