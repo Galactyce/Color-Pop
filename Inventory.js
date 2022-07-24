@@ -295,6 +295,7 @@ function InventoryExitButton(position) {
   this.scale = 0.5;
 }
 InventoryExitButton.prototype.draw = function () {
+  if (Touch.isTouchDevice) {
   Canvas.drawImage(
     this.sprite,
     this.position,
@@ -316,10 +317,21 @@ InventoryExitButton.prototype.draw = function () {
     this.sprite.width * 0.5,
     this.sprite.height * 0.5
   );
+  }
+  else {
+    this.rect = new Rectangle(this.position.x, this.position.y, 300, 150);
+  }
 };
 
 InventoryExitButton.prototype.update = function () {
+  if (Touch.isTouchDevice) {
   if (Touch.containsTouchPress(this.rect)) {
     Game.gameWorld.inventory.open = false;
+  }
+}
+  else {
+    if (this.rect.contains(Mouse.position) && Mouse.pressed) {
+      Game.gameWorld.inventory.open = false;
+    }
   }
 };

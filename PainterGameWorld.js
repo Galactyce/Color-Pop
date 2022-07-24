@@ -69,7 +69,11 @@ function GameWorld() {
   this.area = "home";
   this.inventory = new Inventory();
   this.inventoryButton = new InventoryButton(new Vector2(1100, 550));
+  if (Touch.isTouchDevice)
   this.inventoryExitButton = new InventoryExitButton(new Vector2(900, 550));
+  if (!Touch.isTouchDevice) 
+  this.inventoryExitButton = new InventoryExitButton(new Vector2(65, 600));
+
   this.inventoryItems = new Array();
   this.inventoryInfoBar = undefined;
   this.shopItems = new Array();
@@ -579,9 +583,9 @@ GameWorld.prototype.update = function (delta) {
       for (var i = 0; i < this.inventoryItems.length; i++) {
         this.inventoryItems[i].update();
       }
-      if (Touch.isTouchDevice) {
+
         this.inventoryExitButton.update();
-      }
+      
     }
   }
 
