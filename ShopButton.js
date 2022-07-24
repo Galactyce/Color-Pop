@@ -43,7 +43,7 @@ ShopButton.prototype.update = function () {
     this.sprite.height * 0.5
   );
 
-  if (Touch.isTouchDevice) {
+  if (!Touch.isTouchDevice) {
     if (this.rect.contains(Mouse.position) && Mouse.pressed) {
       if (Game.gameWorld.area === "shop") {
         Game.gameWorld.area = "home";
