@@ -27,10 +27,10 @@ Cannon.prototype.ballPosition = function () {
 
 Cannon.prototype.shoot = function() {
   if (Touch.isTouchDevice) {
-    this.velocity = Touch.getPosition(0).subtract(this.position).multiplyBy(1.2);
+    this.velocity = Touch.getPosition(0).subtract(this.position).multiplyBy(0.7);
       }
       else {
-    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.6);
+    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
       }
     Game.gameWorld.balls.push(new Ball());
     if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
