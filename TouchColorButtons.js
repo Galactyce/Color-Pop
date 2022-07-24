@@ -13,15 +13,17 @@ ColorButton.prototype.define = function() {
     this.sprite = sprites.extras['color_button'].green;
   else if (this.color === 'blue')
     this.sprite = sprites.extras['color_button'].blue;
-    this.rect = new Rectangle(
-      this.position.x,
-      this.position.y,
-      this.sprite.width * 0.5,
-      this.sprite.height * 0.5
-    );}
+
+  }
   
 
 ColorButton.prototype.draw = function() {
+  this.rect = new Rectangle(
+    this.position.x,
+    this.position.y,
+    this.sprite.width * 0.5,
+    this.sprite.height * 0.5
+  );
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, this.scale);
 }
 
