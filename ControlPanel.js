@@ -5,7 +5,7 @@ function ControlPanel() {
   var mx = (50 - canvasOffset.x) * canvasScale.x;
   var my = (300 - canvasOffset.y) * canvasScale.y;
 
-  this.rect = new Rectangle(mx, my, 300 * canvasScale.x, 190 * canvasScale.y)
+  this.rect = new Rectangle(mx, my, 300 * canvasScale.x, 240 * canvasScale.y)
 }
 
 ControlPanel.prototype.draw = function() {
