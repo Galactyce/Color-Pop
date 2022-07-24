@@ -234,6 +234,26 @@ GameWorld.prototype.draw = function () {
       "100px"
     );
 
+    if (Touch.isTouchDevice) {
+
+      Canvas.drawText(
+      "Double tap to",
+      new Vector2(1000, 600),
+      "black",
+      "left",
+      "Courier New",
+      "30px"
+    );
+    Canvas.drawText(
+      "purchase items",
+      new Vector2(1000, 630),
+      "black",
+      "left",
+      "Courier New",
+      "30px"
+    );
+    }
+
     if (this.shopInfoBox !== undefined) {
       this.shopInfoBox.draw();
     }
