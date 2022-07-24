@@ -61,7 +61,6 @@ Cannon.prototype.handleInput = function () {
     }
     else if (Touch.isTouchDevice && Touch.touchPresses.length > 0 && Game.gameWorld.started) {
       this.spl = Touch.getPosition(0)
-      alert(this.spl.y)
       this.shoot()
     }
   }
