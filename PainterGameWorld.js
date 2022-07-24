@@ -635,7 +635,7 @@ GameWorld.prototype.update = function (delta) {
     // Handle ball collisions
     for (var i = 0; i < this.balls.length; i++) {
       // Check if ball fell off screen
-      if (this.balls[i].position.y > Canvas.canvas.height) {
+      if (this.balls[i].position.y > Canvas.canvas.height +_Canvas.offset.y) {
         this.balls[i] = null;
         i = this.balls.length;
         break;
