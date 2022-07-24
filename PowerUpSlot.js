@@ -3,12 +3,12 @@ function PowerSlot(position, index) {
   this.position = position;
   this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
   this.contains = 'bomb';
-  this.rect = new Rectangle(this.position.x, this.position.y, this.sprite.width, this.sprite.height);
   this.index = index;
 }
 
 PowerSlot.prototype.draw = function () {
   this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+  this.rect = new Rectangle(this.position.x - this.origin.x, this.position.y - this.origin.y, this.sprite.width, this.sprite.height);
 
   Canvas.drawImage(this.sprite, this.position, 0, this.origin);
   if (this.contains === "bomb") {
