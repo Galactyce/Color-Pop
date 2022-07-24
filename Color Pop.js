@@ -80,7 +80,7 @@ Game.loadAssets = function() {
     'apex_button': {'normal': loadImage("apex_mode_button.png")},
     'end_screen': {'normal': loadImage("blank_end_screen.png")},
     'arrow': {'normal': loadImage('arrow.png')},
-    'color_buttons': {'red': loadImage('color_button_red.png')},
+    'color_button': {'red': loadImage('color_button_red.png')},
     'power_up_slot': {'normal': loadImage("power_up_slot.png")},
     'bomb_icon': {'normal': loadImage("bomb.png")},
     'homing_icon': {'normal': loadImage('homing_powerup_icon.png')},
