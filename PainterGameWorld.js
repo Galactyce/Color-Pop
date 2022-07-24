@@ -568,6 +568,12 @@ GameWorld.prototype.update = function (delta) {
       this.powerUpSlots[3].update();
     }
 
+    if (Touch.isTouchDevice) {
+      for (var i = 0; i < this.colorButtons.length; i++) {
+        this.colorButtons[i].update();
+      }
+    }
+
     if (this.mode === "no_color_mode") {
       this.balloonMinVelocity = 50; // Set no color mode speed to a static pace of 50
     } else if (this.mode === "hard" || this.mode === "apex") {

@@ -13,7 +13,12 @@ ColorButton.prototype.define = function() {
     this.sprite = sprites.extras['color_button'].green;
   else if (this.color === 'blue')
     this.sprite = sprites.extras['color_button'].blue;
-}
+    this.rect = new Rectangle(
+      this.position.x,
+      this.position.y,
+      this.sprite.width * 0.5,
+      this.sprite.height * 0.5
+    );}
   
 
 ColorButton.prototype.draw = function() {+
@@ -21,6 +26,8 @@ ColorButton.prototype.draw = function() {+
 }
 
 ColorButton.prototype.update = function() {
-  
+  if (Touch.containsTouchPress(this.rect)) {
+    Game.gameWorld.cannon.color = this.color;
+  }
 }
 
