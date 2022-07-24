@@ -49,7 +49,10 @@ Touch.prototype.containsTouch = function(rect) {
 
 Touch.prototype.containsTouchPress = function(rect) {
   for (var i=0; i<this.touchPresses.length; i++) {
-    if (rect.contains(this.getPosition(i))) return true;
+    if (rect.contains(this.getPosition(i))) {
+      this.touchPresses.splice(i, 1)
+      return true
+    };
   }
   return false;
 }
