@@ -65,7 +65,6 @@ function handleTouchStart(evt) {
   evt.preventDefault();
   this.touching = true;
   this.touchingRect = false;
-  alert(this.touchingRect)
   var touches = evt.changedTouches;
   for (var i=0; i<touches.length; i++) {
     Touch.touches.push(touches[i]);
@@ -78,6 +77,7 @@ function handleTouchEnd(evt) {
   this.touching = false
   var touches = evt.changedTouches;
   for (var i=0; i<touches.length; i++) {
+
     var id=Touch.getTouchIndexById(touches[i].identifier);
     Touch.touches.splice(id, 1);
     Touch.touchPresses.splice(id, 1);
