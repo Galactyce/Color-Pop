@@ -53,16 +53,14 @@ Cannon.prototype.handleInput = function () {
       var adj = Mouse.position.x - this.position.x;
       this.rotation = Math.atan2(opp, adj);
     } else if (Touch.isTouchDevice) {
+      if (!Touch.touchingRect) {
         var opp = this.spl.y - this.position.y;
         var adj = this.spl.x - this.position.x;
+      }
       this.rotation = Math.atan2(opp, adj);
   }
-  else if (Touch.isTouchDevice ) {
-    if (!Touch.touchingRect) {
-    var opp = this.spl.y - this.position.y;
-    var adj = this.spl.x - this.position.x;
-    }
-  }
+
+
   this.rotation = Math.atan2(opp, adj);
     
     if (Touch.isTouchDevice && Touch.touchPresses.length > 0 && Game.gameWorld.started) {
