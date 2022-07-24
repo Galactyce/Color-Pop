@@ -2,6 +2,7 @@ function Touch() {
   this.touches = [];
   this.touchPresses = [];
   this.touching = false;
+  this.touchingRect = false
 }
 
 Touch.prototype.checkInputs = function () {
@@ -43,6 +44,7 @@ Touch.prototype.getPosition = function(index) {
 Touch.prototype.containsTouch = function(rect) {
   for (var i=0; i<this.touches.length; i++) {
     if (rect.contains(this.getPosition(i))) return true;
+    this.touchingRect = true
   }
   return false;
 }
@@ -50,6 +52,7 @@ Touch.prototype.containsTouch = function(rect) {
 Touch.prototype.containsTouchPress = function(rect) {
   for (var i=0; i<this.touchPresses.length; i++) {
     if (rect.contains(this.getPosition(i))) {
+      this.touchingRect = true
       return true
     };
   }
@@ -69,6 +72,7 @@ function handleTouchStart(evt) {
 function handleTouchEnd(evt) {
   evt.preventDefault();
   this.touching = false
+  this.touchingRect = false
   var touches = evt.changedTouches;
   for (var i=0; i<touches.length; i++) {
     var id=Touch.getTouchIndexById(touches[i].identifier);
