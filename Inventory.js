@@ -308,7 +308,7 @@ InventoryExitButton.prototype.draw = function () {
     "black",
     "top",
     "Comic Sans",
-    "35px"
+    "65px"
   );
   this.rect = new Rectangle(
     this.position.x,
