@@ -169,7 +169,7 @@ GameWorld.prototype.reset = function () {
   this.balloonMinVelocity = 30;
   this.intenseBarrierCount = 0;
   this.lives = 5;
-  this.score = 0;
+  this.score = 600;
   this.gameActive = false;
   this.wavyActive = false;
   this.blimpColorChangeFrequency = 0;
@@ -422,7 +422,6 @@ GameWorld.prototype.draw = function () {
     }
   }
 
-  this.controlPanel.draw()
 
   for (var i = 0; i < this.balls.length; i++) {
     this.balls[i].draw();
@@ -686,9 +685,7 @@ GameWorld.prototype.update = function (delta) {
             this.balloons[k].health -= 1;
 
             if (this.balloons[k].health <= 0) {
-              this.rows[this.balloons[k].index] -= 1;
-              this.balloons[k] = null;
-              this.balloons = this.balloons.filter((a) => a);
+
               this.lives += 1;
               this.addScore(10);
               this.tutorialStep();
@@ -707,9 +704,6 @@ GameWorld.prototype.update = function (delta) {
               this.addScore(10);
               this.tutorialStep();
 
-              this.rows[this.balloons[k].index] -= 1;
-              this.balloons[k] = null;
-              this.balloons = this.balloons.filter((a) => a);
               this.balloonsPopped += 1;
               for (var i = 0; i < this.powerUpSlots.length; i++) {
                 if (this.powerUpSlots[i].contains === undefined) {
@@ -725,9 +719,7 @@ GameWorld.prototype.update = function (delta) {
             this.balloons[k].health -= 1;
             removeBall = true;
             if (this.balloons[k].health <= 0) {
-              this.rows[this.balloons[k].index] -= 1;
-              this.balloons[k] = null;
-              this.balloons = this.balloons.filter((a) => a);
+   
               this.tutorialStep();
 
               for (var i = 0; i < this.powerUpSlots.length; i++) {
@@ -746,8 +738,6 @@ GameWorld.prototype.update = function (delta) {
             this.balloons[k].health -= 1;
             removeBall = true;
             if (this.balloons[k].health <= 0) {
-              this.rows[this.balloons[k].index] -= 1;
-              this.balloons[k] = null;
               this.tutorialStep();
 
               for (var i = 0; i < this.powerUpSlots.length; i++) {
