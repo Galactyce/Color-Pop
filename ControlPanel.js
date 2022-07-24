@@ -11,7 +11,7 @@ function ControlPanel() {
 ControlPanel.prototype.draw = function() {
   var canvasScale = Canvas.scale;
   var canvasOffset = Canvas.offset;
-  var mx = (200 - canvasOffset.x);
+  var mx = (100 - canvasOffset.x);
   var my = (450 - canvasOffset.y);
   this.rect = new Rectangle(mx, my, 500 * canvasScale.x, 340 * canvasScale.y)
 
