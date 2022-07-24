@@ -118,21 +118,21 @@ Balloon.prototype.update = function (delta) {
       
       if (this.currentColor === 'rainbow') {
         
-        this.lives += 1;
-        this.addScore(10);
-        this.tutorialStep();
+        Game.gameWorld.lives += 1;
+        Game.gameWorld.addScore(10); 
+        Game.gameWorld.tutorialStep();
 
         sounds.extraLife.play();
 
       
     }
       if (this.currentColor === 'bomb') {
-        this.addScore(10);
+        Game.gameWorld.gameWorld.addScore(10);
         this.tutorialStep();
 
-        for (var i = 0; i < this.powerUpSlots.length; i++) {
-          if (this.powerUpSlots[i].contains === undefined) {
-            this.powerUpSlots[i].contains = "bomb";
+        for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
+          if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
+            Game.gameWorld.powerUpSlots[i].contains = "bomb";
             return;
           }
         
@@ -140,28 +140,28 @@ Balloon.prototype.update = function (delta) {
     }
     if (this.currentColor === 'target') {
    
-      this.tutorialStep();
+      Game.gameWorld.tutorialStep();
 
-      for (var i = 0; i < this.powerUpSlots.length; i++) {
-        if (this.powerUpSlots[i].contains === undefined) {
-          this.powerUpSlots[i].contains = "target";
+      for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
+        if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
+          Game.gameWorld.powerUpSlots[i].contains = "target";
         }
       }
 
-      this.balloonsPopped += 1;
-      this.addScore(10);
+      Game.gameWorld.balloonsPopped += 1;
+      Game.gameWorld.addScore(10);
     }
     if (this.currentColor === 'ice') {
     
-          this.tutorialStep();
+      Game.gameWorld.tutorialStep();
 
-          for (var i = 0; i < this.powerUpSlots.length; i++) {
-            if (this.powerUpSlots[i].contains === undefined) {
-              this.powerUpSlots[i].contains = "freeze";
+          for (var i = 0; i < Game.gameWorld.powerUpSlots.length; i++) {
+            if (Game.gameWorld.powerUpSlots[i].contains === undefined) {
+              Game.gameWorld.powerUpSlots[i].contains = "freeze";
             }
           }
-          this.balloonsPopped += 1;
-          this.addScore(10);
+          Game.gameWorld.balloonsPopped += 1;
+          Game.gameWorld.addScore(10);
     }
   }
 }
