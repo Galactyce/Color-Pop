@@ -304,6 +304,14 @@ GameWorld.prototype.draw = function () {
 
       if (Touch.isTouchDevice) {
         this.inventoryExitButton.draw();
+        Canvas.drawText(
+          "Double tap to equip items",
+          new Vector2(130, 633),
+          "black",
+          "center",
+          "Courier New",
+          "25px"
+        );
       }
     }
   }
