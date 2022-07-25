@@ -177,6 +177,7 @@ GameWorld.prototype.reset = function () {
   this.lives = 5;
   this.score = 0;
   this.specialBalloons = new Array();
+  this.penaltyBalloons = new Array()
   this.gameActive = false;
   this.wavyActive = false;
   this.blimpColorChangeFrequency = 0;

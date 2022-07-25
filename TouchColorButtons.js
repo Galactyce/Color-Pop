@@ -2,7 +2,7 @@ function ColorButton(color, position) {
   this.color = color;
   this.position = position;
   this.origin = new Vector2(0, 0);
-  this.scale = 0.5;
+  this.scale = 0.6;
  
   this.define();
 }
@@ -15,20 +15,20 @@ ColorButton.prototype.define = function() {
   else if (this.color === 'blue')
     this.sprite = sprites.extras['color_button'].blue;
     this.rect = new Rectangle(
-      this.position.x - 10,
-      this.position.y - 10,
-      this.sprite.width * 0.5 + 20,
-      this.sprite.height * 0.5 + 20
+      this.position.x ,
+      this.position.y ,
+      this.sprite.width * 0.5 ,
+      this.sprite.height * 0.5 
     );
   }
   
 
 ColorButton.prototype.draw = function() {
   this.rect = new Rectangle(
-    this.position.x - 10,
-    this.position.y - 10,
-    this.sprite.width * 0.5 + 20,
-    this.sprite.height * 0.5 + 20
+    this.position.x ,
+    this.position.y ,
+    this.sprite.width * 0.5 ,
+    this.sprite.height * 0.5
   );
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, this.scale);
 }
