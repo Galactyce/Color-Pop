@@ -99,9 +99,9 @@ function GameWorld() {
   this.modeInfoBox = new ModeDescription();
   this.moving = true;
   this.colorButtons = new Array();
-  this.colorButtons.push(new ColorButton("red", new Vector2(70, 400)));
-  this.colorButtons.push(new ColorButton("green", new Vector2(170, 400)));
-  this.colorButtons.push(new ColorButton("blue", new Vector2(270, 400)));
+  this.colorButtons.push(new ColorButton("red", new Vector(30, 400)));
+  this.colorButtons.push(new ColorButton("green", new Vector2(130, 400)));
+  this.colorButtons.push(new ColorButton("blue", new Vector2(230, 400)));
   this.scrollButtons.push(new Arrow(new Vector2(930, 335), "right", 1));
   this.scrollButtons.push(new Arrow(new Vector2(370, 335), "left", 1));
   this.powerUpSlots.push(new PowerSlot(new Vector2(100, 350), 1));
