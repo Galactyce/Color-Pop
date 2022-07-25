@@ -656,7 +656,6 @@ if (this.balloons[k].health <= 0) {
   sounds.popEffect.volume = 0.4;
   this.balloonsPopped += 1;
   sounds.popEffect.play();
-  this.tutorialStep();
   this.balloons[k].popped = true;
   this.balloons[k].popTime = Date.now()
 }
@@ -847,6 +846,7 @@ GameWorld.prototype.update = function (delta) {
       if ( Date.now() > this.balloons[k].popTime + 100) {
         this.rows[this.balloons[k].index] -= 1;
         this.addScore(this.balloons[k].popPointValue);
+        this.tutorialStep();
         this.balloons[k] = null;
         this.balloonMinVelocity += 0.3;
         this.balloons = this.balloons.filter((a) => a);
