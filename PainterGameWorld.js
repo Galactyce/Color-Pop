@@ -115,10 +115,13 @@ function GameWorld() {
     new ShopItem(new Vector2(700, 500), "extra_slot_upgrade", 2)
   );
   this.shopItems.push(
-    new ShopItem(new Vector2(900, 500), "blimp_slower_upgrade", 2)
+    new ShopItem(new Vector2(900, 500), "blimp_slower_upgrade", 3)
   );
   this.shopItems.push(
-    new ShopItem(new Vector2(400, 250), "barrier_buster_upgrade", 2)
+    new ShopItem(new Vector2(400, 250), "barrier_buster_upgrade", 4)
+  );
+  this.shopItems.push(
+    new ShopItem(new Vector2(1000, 250), "splash_balls_upgrade", 5)
   );
   this.reset();
   var cookie = document.cookie;
@@ -202,6 +205,7 @@ for (var i = 0; i < this.barriers.length; i++) {
     this.powerUpSlots[i].contains = undefined;
   }
   this.win = false;
+  sounds.backgroundMusicBasic.volume = 0;
 };
 
 GameWorld.prototype.draw = function () {
@@ -839,6 +843,10 @@ GameWorld.prototype.update = function (delta) {
         }
       
       }
+
+      if (this.lives <=0 && Touch.touchPresses.length > 0) {
+        this.reset()
+      }
       if ( Date.now() > this.balloons[k].popTime + 100) {
         this.rows[this.balloons[k].index] -= 1;
         this.addScore(this.balloons[k].popPointValue);
@@ -863,6 +871,9 @@ GameWorld.prototype.update = function (delta) {
         if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85 && this.balloons[k].popped === false) {
           this.popBalloon(k, i)
           removeBall = true
+          if (!this.specialtiesEquipped === 'splash_balls') {
+          break;
+          }
       }
       
       

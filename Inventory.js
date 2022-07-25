@@ -166,6 +166,16 @@ InventoryButton.prototype.draw = function () {
       this.sprite.height
     );
   }
+  if (Game.gameWorld.specialtiesEquipped === "splash_balls_upgrade") {
+    this.sprite = sprites.extras["splash_balls_upgrade_icon"].normal;
+    this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+    this.rect = new Rectangle(
+      this.position.x - this.origin.x,
+      this.position.y - this.origin.y,
+      this.sprite.width,
+      this.sprite.height
+    );
+  }
   if (
     Game.gameWorld.specialtiesEquipped === "undefined" ||
     Game.gameWorld.specialtiesEquipped === undefined
@@ -242,6 +252,17 @@ InventoryItem.prototype.identify = function () {
   if (this.item === "barrier_buster_upgrade") {
     this.sprite = sprites.extras["barrier_buster_upgrade_icon"].normal;
     this.position = new Vector2(620, 100);
+    this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+    this.rect = new Rectangle(
+      this.position.x - this.origin.x,
+      this.position.y - this.origin.y,
+      this.sprite.width,
+      this.sprite.height
+    );
+  }
+  if (this.item === "splash_balls_upgrade") {
+    this.sprite = sprites.extras["splash_balls_upgrade_icon"].normal;
+    this.position = new Vector2(760, 100);
     this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
     this.rect = new Rectangle(
       this.position.x - this.origin.x,

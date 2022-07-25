@@ -90,6 +90,7 @@ Game.loadAssets = function() {
     'extra_slot_upgrade_icon': {'normal': loadImage("extra_slot_upgrade_icon.png")},
     'blimp_slower_upgrade_icon': {'normal': loadImage("blimp_slower_upgrade_icon.png")},
     'barrier_buster_upgrade_icon': {'normal': loadImage("barrier_buster_upgrade_icon.png")},
+    'splash_balls_upgrade_icon': {'normal': loadImage("splash_balls_upgrade_icon.png")},
     'empty_icon': {'normal': loadImage('empty_icon.png')},
     'sold_sign': {'normal': loadImage("sold_sign.png")},
     'inventory': {'normal': loadImage("inventory_slots.png")},

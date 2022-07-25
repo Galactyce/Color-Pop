@@ -57,6 +57,18 @@ ShopItem.prototype.identify = function () {
       this.sprite.height
     );
   }
+  if (this.item === "splash_balls_upgrade") {
+    this.sprite = sprites.extras["splash_balls_upgrade_icon"].normal;
+    this.cost = 5;
+
+    this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+    this.rect = new Rectangle(
+      this.position.x - this.origin.x,
+      this.position.y - this.origin.y,
+      this.sprite.width,
+      this.sprite.height
+    );
+  }
 };
 ShopItem.prototype.draw = function ()  {
 this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
