@@ -86,6 +86,7 @@ function GameWorld() {
     specialtiesOwned: undefined,
   };
   this.scrollButtons = new Array();
+  this.backButton = new BackButton(new Vector2(100, 170))
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -176,7 +177,6 @@ GameWorld.prototype.reset = function () {
   this.lives = 5;
   this.score = 0;
   this.specialBalloons = new Array();
-
   this.gameActive = false;
   this.wavyActive = false;
   this.blimpColorChangeFrequency = 0;
@@ -507,14 +507,16 @@ GameWorld.prototype.playWinScreen = function () {
       "Comic Sans",
       "50px"
     );
+    if (!Touch.isTouchDevice) {
     Canvas.drawText(
-      "Press Space to restart.",
+      "Press Space to return.",
       new Vector2(370, 330),
       "black",
       "top",
       "Comic Sans",
       "50px"
     );
+    }
     Canvas.drawText(
       "+" + this.reward,
       new Vector2(370, 430),
@@ -524,6 +526,11 @@ GameWorld.prototype.playWinScreen = function () {
       "50px"
     );
     Canvas.drawImage(sprites.extras["coin"].normal, new Vector2(430, 430));
+
+    if (Touch.isTouchDevice) {
+      this.backButton.update();
+      this.backButton.draw();
+    }
   }
 };
 
@@ -720,13 +727,13 @@ GameWorld.prototype.update = function (delta) {
     }
   }
 
-  if (Keyboard.keyPressed === 32 && Touch.isTouchDevice) {
+  if (Keyboard.keyPressed === 32 && !Touch.isTouchDevice) {
     if (this.lives <= 0 || this.win === true) {
       this.reset();
     }
   }
   if (Touch.isTouchDevice && Touch.touchPresses.length > 0) {
-    if (this.lives <= 0 || this.win === true) {
+    if (this.lives <= 0) {
       this.reset();
     }
   }
