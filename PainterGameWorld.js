@@ -595,7 +595,7 @@ GameWorld.prototype.update = function (delta) {
     }
   }
 
-  if (Keyboard.keyPressed === 32 && Touch.isTouchDevice) {
+  if (Keyboard.keyPressed === 32 && !Touch.isTouchDevice) {
     if (this.lives <= 0 || this.win === true) {
       this.reset();
     }
