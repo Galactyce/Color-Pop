@@ -831,7 +831,7 @@ GameWorld.prototype.update = function (delta) {
           if (this.specialtiesEquipped === "barrier_buster_upgrade") {
             this.barriers[j].health -= 1;
             if (this.barriers[j].health <= 0) {
-              this.barriers[i] = null;
+              this.barriers[j] = null;
             }
           }
           break;
