@@ -85,7 +85,7 @@ function GameWorld() {
     specialtiesOwned: undefined,
   };
   this.scrollButtons = new Array();
-  this.backButton = new BackButton(new Vector2(170, 170))
+  this.backButton = new BackButton(new Vector2(110, 170))
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
