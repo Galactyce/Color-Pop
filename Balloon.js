@@ -123,7 +123,6 @@ Balloon.prototype.update = function (delta) {
   }
     if (Touch.isTouchDevice) {
       if (Touch.containsTouchPress(this.rect)) {
-        alert()
         this.health -= 1;
 
       } 
@@ -180,8 +179,12 @@ Balloon.prototype.update = function (delta) {
           Game.gameWorld.balloonsPopped += 1;
           Game.gameWorld.addScore(10);
     }
+      this.popped = true;
+      this.popTime = Date.now()
+    }
+
   }
-}
+
 };
 // 1
 
