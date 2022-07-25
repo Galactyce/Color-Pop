@@ -85,7 +85,7 @@ function GameWorld() {
     specialtiesOwned: undefined,
   };
   this.scrollButtons = new Array();
-  this.backButton = new BackButton(new Vector2(110, 170))
+  this.backButton = new BackButton(new Vector2(170, 170))
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -499,7 +499,7 @@ GameWorld.prototype.playWinScreen = function () {
     );
     if (!Touch.isTouchDevice) {
     Canvas.drawText(
-      "Press Space to restart.",
+      "Press Space to return.",
       new Vector2(370, 330),
       "black",
       "top",
