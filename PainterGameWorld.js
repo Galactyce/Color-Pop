@@ -815,6 +815,7 @@ GameWorld.prototype.update = function (delta) {
             this.balloons[k].popped = true;
             this.balloons[k].popTime = Date.now()
           }
+          removeBall = true;
 
         }
         if (this.balloons[k].popTime + 100 <= Date.now() ) {
@@ -824,7 +825,6 @@ GameWorld.prototype.update = function (delta) {
           this.balloons = this.balloons.filter((a) => a);
           if (this.mode === "no_color_mode") break;
         }
-         removeBall = true;
       }
 
       // Check for barrier collisions
