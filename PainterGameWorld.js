@@ -85,6 +85,7 @@ function GameWorld() {
     specialtiesOwned: undefined,
   };
   this.scrollButtons = new Array();
+  this.backButton = new BackButton(new Vector2(950, 30))
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -173,7 +174,7 @@ GameWorld.prototype.reset = function () {
   this.balloonMinVelocity = 30;
   this.intenseBarrierCount = 0;
   this.lives = 5;
-  this.score = 0;
+  this.score = 950;
   this.gameActive = false;
   this.wavyActive = false;
   this.blimpColorChangeFrequency = 0;
@@ -513,6 +514,11 @@ GameWorld.prototype.playWinScreen = function () {
       "50px"
     );
     Canvas.drawImage(sprites.extras["coin"].normal, new Vector2(430, 430));
+
+    if (Touch.isTouchDevice) {
+      this.backButton.update();
+      this.backButton.draw();
+    }
   }
 };
 
