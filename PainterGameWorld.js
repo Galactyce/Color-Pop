@@ -793,7 +793,7 @@ GameWorld.prototype.update = function (delta) {
     }
 
     for (var i = 0; i < this.balloons.length; i++) {
-      if (this.moving === true && this.lives > 0) {
+      if (this.moving === true && this.lives > 0 && this.win === false) {
         this.balloons[i].update(delta);
       }
     }
@@ -844,9 +844,6 @@ GameWorld.prototype.update = function (delta) {
       
       }
 
-      if (this.lives <=0 && Touch.touchPresses.length > 0) {
-        this.reset()
-      }
       if ( Date.now() > this.balloons[k].popTime + 100) {
         this.rows[this.balloons[k].index] -= 1;
         this.addScore(this.balloons[k].popPointValue);
