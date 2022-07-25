@@ -1,6 +1,8 @@
 GameWorld.prototype.addScore = function (value) {
+
   this.score += value;
-  this.tutorialStep()
+  this.tutorialStep(value)
+
   this.minVelocity += 3;
 
   if (this.mode === "intermediate") {

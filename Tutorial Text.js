@@ -267,7 +267,7 @@ GameWorld.prototype.drawGuides = function () {
       if (this.score === 500) {
         Canvas.drawText(
           "The blimp can only be damaged by its",
-          new Vector2(50, 430),
+          new Vector2(50, 230),
           "black",
           "top",
           "Comic Sans",
@@ -275,7 +275,7 @@ GameWorld.prototype.drawGuides = function () {
         );
         Canvas.drawText(
           "weakness color.",
-          new Vector2(50, 460),
+          new Vector2(50, 260),
           "black",
           "top",
           "Comic Sans",

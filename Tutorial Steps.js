@@ -1,4 +1,4 @@
-GameWorld.prototype.tutorialStep = function () {
+GameWorld.prototype.tutorialStep = function (value) {
   if (this.mode === "tutorial_mode") {
     this.balloonSpawning = false;
     this.barrierSpawning = false;
@@ -7,28 +7,28 @@ GameWorld.prototype.tutorialStep = function () {
       balloon.currentColor = "white";
       this.balloons.push(balloon);
     }
-    if (this.score === 10) {
+    else if (this.score === 10) {
       var balloon = new Balloon(900, 2, 1);
       balloon.currentColor = "green";
       this.balloons.push(balloon);
     }
-    if (this.score === 20) {
+    else if (this.score === 20) {
       var balloon = new Balloon(900, 2, 1);
       balloon.currentColor = "blue";
       this.balloons.push(balloon);
     }
-    if (this.score === 30) {
+    else if (this.score === 30) {
       var balloon = new Balloon(900, 2, 1);
       balloon.currentColor = "red";
       this.balloons.push(balloon);
     }
-    if (this.score === 40) {
+    else if (this.score === 40) {
       var balloon = new Balloon(900, 2, 1);
       balloon.currentColor = "rainbow";
       this.balloons.push(balloon);
     }
-    if (this.score === 50) {
-      for (var i = 0; i < 8; i++) {
+    else if (this.score === 50) {
+      for (var i = 0; i < 19; i++) {
         var colors = new Array("red", "green", "blue");
         var rand1 = Math.floor(Math.random() * 3);
         var rand2 = Math.floor(Math.random() * 3);
@@ -44,7 +44,7 @@ GameWorld.prototype.tutorialStep = function () {
       this.balloons.push(balloon);
     }
 
-    if (this.score === 260) {
+    else if (this.score === 260) {
       var barrier = new Barrier();
       barrier.position = new Vector2(700, -110);
       barrier.speed = 1.5;
@@ -56,7 +56,7 @@ GameWorld.prototype.tutorialStep = function () {
       balloon.currentColor = "green";
       this.balloons.push(balloon);
     }
-    if (this.score === 280) {
+    else if (this.score === 280) {
       var balloon = new Balloon(900, 1, 1);
       balloon.currentColor = "target";
       this.balloons.push(balloon);
@@ -64,7 +64,7 @@ GameWorld.prototype.tutorialStep = function () {
       balloon.currentColor = "green";
       this.balloons.push(balloon);
     }
-    if (this.score === 300) {
+    else if (this.score === 300) {
       var balloon = new Balloon(700, 1, 1);
       balloon.currentColor = "ice";
       this.balloons.push(balloon);
@@ -77,22 +77,21 @@ GameWorld.prototype.tutorialStep = function () {
         balloon.currentColor = colors[rand2];
         this.balloons.push(balloon);
       }
-      this.balloonsPerRow = 0;
-      this.rows = new Array(0, 0, 0);
+      
     }
 
-    if (this.score === 350) {
+    else if (this.score === 340) {
+      this.rows = new Array(0, 0, 0)
+
+    }
+
+    else if (this.score > 340 && this.score <= 500) {
       this.balloonsPerRow = 1;
-      this.rows = new Array(0, 0, 0);
-    }
-
-    if (this.score >= 350) {
-      var balloon = null;
-      this.moving = true;
       this.balloonSpawning = true;
-      this.balloonsPerRow = 1;
     }
-    if (this.score >= 500) {
+
+    else if (this.score >= 520) {
+      this.balloonSpawning = false;
       this.bossCount = 1;
     }
   }

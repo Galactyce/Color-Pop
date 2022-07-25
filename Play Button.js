@@ -20,7 +20,6 @@ PlayButton.prototype.start = function() {
   if (this.mode === "tutorial_mode") {
     Game.gameWorld.tutorialStep();
   }
-  Game.gameWorld.addScore(0);
 
   if (this.mode === "easy") {
     this.balloonMinVelocity = 30;
