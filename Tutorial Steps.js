@@ -81,12 +81,12 @@ GameWorld.prototype.tutorialStep = function () {
       this.rows = new Array(0, 0, 0);
     }
 
-    if (this.score === 370) {
+    if (this.score === 350) {
       this.balloonsPerRow = 1;
       this.rows = new Array(0, 0, 0);
     }
 
-    if (this.score >= 370) {
+    if (this.score >= 350) {
       var balloon = null;
       this.moving = true;
       this.balloonSpawning = true;
