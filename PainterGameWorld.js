@@ -198,7 +198,7 @@ for (var i = 0; i < this.barriers.length; i++) {
   this.intenseBarriers = this.intenseBarriers.filter((a) => a);
 
   for (var i = 0; i < this.powerUpSlots.length; i++) {
-    this.powerUpSlots[i].contains = 'target';
+    this.powerUpSlots[i].contains = undefined;
   }
   this.win = false;
 };
