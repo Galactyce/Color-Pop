@@ -70,9 +70,14 @@ if (Touch.isTouchDevice) {
 PowerSlot.prototype.activate = function () {
   if (this.contains === "bomb") {
     for (var k = 0; k < Game.gameWorld.balloons.length; k++) {
-      Game.gameWorld.rows[Game.gameWorld.balloons[k].index] -= 1;
-      Game.gameWorld.balloons[k] = null;
-      Game.gameWorld.addScore(10);
+      Gameg.gameWorld.balloons[k].health -= 10;
+      if (this.balloons[k].health <= 0) {
+        sounds.popEffect.volume = 0.4;
+        this.balloonsPopped += 1;
+        sounds.popEffect.play();
+        this.balloons[k].popped = true;
+        this.balloons[k].popTime = Date.now()
+      }
     }
     Game.gameWorld.balloons = Game.gameWorld.balloons.filter((a) => a);
     sounds.boom.play();
