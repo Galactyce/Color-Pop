@@ -179,8 +179,7 @@ Balloon.prototype.update = function (delta) {
           Game.gameWorld.balloonsPopped += 1;
           Game.gameWorld.addScore(10);
     }
-      this.popped = true;
-      this.popTime = Date.now()
+    
     }
 
   }
