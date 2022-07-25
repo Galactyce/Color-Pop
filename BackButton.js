@@ -14,6 +14,7 @@ BackButton.prototype.draw = function() {
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, 0.5);
   Canvas.drawText(
     "Back To Home",
+    this.position,
     'black',
     'left',
     'Courier New',
