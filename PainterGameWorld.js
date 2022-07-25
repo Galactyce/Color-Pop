@@ -556,7 +556,6 @@ if (this.balloons[k].currentColor === "rainbow") {
 
   if (this.balloons[k].health <= 0) {
     this.lives += 1;
-    this.tutorialStep();
 
     sounds.extraLife.play();
     this.balloonsPopped += 1;
@@ -568,7 +567,6 @@ else if (this.balloons[k].currentColor === "bomb") {
   this.balloons[k].health -= 1;
   removeBall = true;
   if (this.balloons[k].health <= 0) {
-    this.tutorialStep();
 
     this.balloonsPopped += 1;
     for (var i = 0; i < this.powerUpSlots.length; i++) {
@@ -585,7 +583,6 @@ else if (this.balloons[k].currentColor === "target") {
   this.balloons[k].health -= 1;
   removeBall = true;
   if (this.balloons[k].health <= 0) {
-    this.tutorialStep();
 
     for (var i = 0; i < this.powerUpSlots.length; i++) {
       if (this.powerUpSlots[i].contains === undefined) {
@@ -603,7 +600,6 @@ else if (this.balloons[k].currentColor === "ice") {
   this.balloons[k].health -= 1;
   removeBall = true;
   if (this.balloons[k].health <= 0) {
-    this.tutorialStep();
 
     for (var i = 0; i < this.powerUpSlots.length; i++) {
       if (this.powerUpSlots[i].contains === undefined) {
@@ -823,7 +819,6 @@ GameWorld.prototype.update = function (delta) {
             sounds.popEffect.volume = 0.4;
             this.balloonsPopped += 1;
             sounds.popEffect.play();
-            this.tutorialStep();
             this.balloons[k].popped = true;
             this.balloons[k].popTime = Date.now()
           }
@@ -835,7 +830,6 @@ GameWorld.prototype.update = function (delta) {
             sounds.popEffect.volume = 0.4;
             this.balloonsPopped += 1;
             sounds.popEffect.play();
-            this.tutorialStep();
             this.balloons[k].popped = true;
             this.balloons[k].popTime = Date.now()
           }
@@ -846,7 +840,6 @@ GameWorld.prototype.update = function (delta) {
       if ( Date.now() > this.balloons[k].popTime + 100) {
         this.rows[this.balloons[k].index] -= 1;
         this.addScore(this.balloons[k].popPointValue);
-        this.tutorialStep();
         this.balloons[k] = null;
         this.balloonMinVelocity += 0.3;
         this.balloons = this.balloons.filter((a) => a);
@@ -952,7 +945,6 @@ GameWorld.prototype.update = function (delta) {
               this.blimps = this.blimps.filter((a) => a);
               this.bossCount -= 1;
               this.balloonsPopped += 1;
-              this.tutorialStep();
               if (this.mode !== "freeplay_mode") {
                 this.balloonsPerRow = 0;
                 Game.paused = true;
