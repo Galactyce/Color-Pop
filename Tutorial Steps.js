@@ -28,7 +28,7 @@ GameWorld.prototype.tutorialStep = function () {
       this.balloons.push(balloon);
     }
     if (this.score === 50) {
-      for (var i = 0; i < 19; i++) {
+      for (var i = 0; i < 8; i++) {
         var colors = new Array("red", "green", "blue");
         var rand1 = Math.floor(Math.random() * 3);
         var rand2 = Math.floor(Math.random() * 3);
