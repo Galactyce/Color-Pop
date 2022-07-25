@@ -14,11 +14,11 @@ BackButton.prototype.draw = function() {
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, 0.5);
   Canvas.drawText(
     "Back To Home",
-    new Vector2(this.position.x + 30, this.position.y + 20),
+    new Vector2(this.position.x + 10, this.position.y + 10),
     'black',
-    'left',
-    'Courier New',
-    '25px'
+    'top',
+    'Comic Sans',
+    '20px'
   )
 }
 
