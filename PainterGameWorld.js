@@ -17,6 +17,7 @@ function GameWorld() {
   this.balloonSpawning = true;
   this.barrierSpawning = true;
   this.targeting = false;
+  this.targetPowerUpStart = Date.now()
   this.playEndSound = false;
   this.freezeTimer = 0;
   this.playEndSound = true;
@@ -197,7 +198,7 @@ for (var i = 0; i < this.barriers.length; i++) {
   this.intenseBarriers = this.intenseBarriers.filter((a) => a);
 
   for (var i = 0; i < this.powerUpSlots.length; i++) {
-    this.powerUpSlots[i].contains = 'target';
+    this.powerUpSlots[i].contains = undefined;
   }
   this.win = false;
 };
@@ -534,6 +535,125 @@ GameWorld.prototype.updateCookies = function () {
   document.cookie = "coins=" + this.coins;
 };
 
+GameWorld.prototype.popBalloon = function(k, i) {
+// Rainbow Physics
+
+if (this.balloons[k].currentColor === "rainbow") {
+  removeBall = true;
+  this.balloons[k].health -= 1;
+
+  if (this.balloons[k].health <= 0) {
+    this.lives += 1;
+    this.tutorialStep();
+
+    sounds.extraLife.play();
+    this.balloonsPopped += 1;
+  }
+}
+
+// Bomb balloon physics
+else if (this.balloons[k].currentColor === "bomb") {
+  this.balloons[k].health -= 1;
+  removeBall = true;
+  if (this.balloons[k].health <= 0) {
+    this.tutorialStep();
+
+    this.balloonsPopped += 1;
+    for (var i = 0; i < this.powerUpSlots.length; i++) {
+      if (this.powerUpSlots[i].contains === undefined) {
+        this.powerUpSlots[i].contains = "bomb";
+        break;
+      }
+    }
+  }
+}
+
+// Homing power-up balloon physics
+else if (this.balloons[k].currentColor === "target") {
+  this.balloons[k].health -= 1;
+  removeBall = true;
+  if (this.balloons[k].health <= 0) {
+    this.tutorialStep();
+
+    for (var i = 0; i < this.powerUpSlots.length; i++) {
+      if (this.powerUpSlots[i].contains === undefined) {
+        this.powerUpSlots[i].contains = "target";
+        break;
+      }
+    }
+
+    this.balloonsPopped += 1;
+  }
+}
+
+//  Ice balloon physics
+else if (this.balloons[k].currentColor === "ice") {
+  this.balloons[k].health -= 1;
+  removeBall = true;
+  if (this.balloons[k].health <= 0) {
+    this.tutorialStep();
+
+    for (var i = 0; i < this.powerUpSlots.length; i++) {
+      if (this.powerUpSlots[i].contains === undefined) {
+        this.powerUpSlots[i].contains = "freeze";
+        break;
+      }
+    }
+    this.balloonsPopped += 1;
+  }
+}
+
+// Metal balloon Physics
+else if (
+  this.balloons[k].currentColor === "metal" ||
+  this.balloons[k].currentColor === "metal_cracked" ||
+  this.balloons[k].currentColor === "metal_damaged"
+) {
+  this.balloons[k].health -= 1;
+  removeBall = true;
+  sounds.clang.play();
+  if (this.balloons[k].health === 6) {
+    this.balloons[k].currentColor = "metal_cracked";
+  }
+  if (this.balloons[k].health === 3) {
+    this.balloons[k].currentColor = "metal_damaged";
+  }
+  if (this.balloons[k].health <= 0) {
+    this.balloonsPopped += 1;
+    this.balloons[k] = null;
+    this.balloons = this.balloons.filter((a) => a);
+  }
+}
+
+// Blimp physics
+
+// Normal physics
+else if (
+  this.balls[i].currentColor === this.balloons[k].currentColor ||
+  this.balloons[k].currentColor === "white"
+) {
+  this.balloons[k].health -= 1;
+  removeBall = true;
+
+
+}
+
+//  Check if a balloon ran out of health
+if (this.balloons[k].health <= 0) {
+  sounds.popEffect.volume = 0.4;
+  this.balloonsPopped += 1;
+  sounds.popEffect.play();
+  this.tutorialStep();
+  this.balloons[k].popped = true;
+  this.balloons[k].popTime = Date.now()
+}
+
+}
+
+GameWorld.prototype.checkBalloonHealth = function() {
+  
+}
+
 GameWorld.prototype.update = function (delta) {
   this.updateCookies()
   this.cannon.update(delta);
@@ -660,7 +780,7 @@ GameWorld.prototype.update = function (delta) {
     }
 
     for (var i = 0; i < this.balloons.length; i++) {
-      if (this.moving === true) {
+      if (this.moving === true && this.lives > 0) {
         this.balloons[i].update(delta);
       }
     }
@@ -681,6 +801,43 @@ GameWorld.prototype.update = function (delta) {
     }
 
     // Handle ball collisions
+
+    for (var k=0; k<this.balloons.length; k++) {
+    if (this.targeting === true) {
+      if (Touch.isTouchDevice) {
+        if (Touch.containsTouchPress(this.balloons[k].rect)) {
+          this.balloons[k].health -= 1
+          if (this.balloons[k].health <= 0) {
+            sounds.popEffect.volume = 0.4;
+            this.balloonsPopped += 1;
+            sounds.popEffect.play();
+            this.tutorialStep();
+            this.balloons[k].popped = true;
+            this.balloons[k].popTime = Date.now()
+          }
+      }
+    }
+        if (this.balloons[k].rect.contains(Mouse.position) && Mouse.pressed) {
+          this.balloons[k].health -= 1
+          if (this.balloons[k].health <= 0) {
+            sounds.popEffect.volume = 0.4;
+            this.balloonsPopped += 1;
+            sounds.popEffect.play();
+            this.tutorialStep();
+            this.balloons[k].popped = true;
+            this.balloons[k].popTime = Date.now()
+          }
+        }
+      
+      }
+      if ( Date.now() > this.balloons[k].popTime + 100) {
+        this.rows[this.balloons[k].index] -= 1;
+        this.addScore(this.balloons[k].popPointValue);
+        this.balloons[k] = null;
+        this.balloonMinVelocity += 0.3;
+        this.balloons = this.balloons.filter((a) => a);
+        }
+    }
     for (var i = 0; i < this.balls.length; i++) {
       // Check if ball fell off screen
       if (this.balls[i].position.y > 1800) {
@@ -695,137 +852,13 @@ GameWorld.prototype.update = function (delta) {
         distanceX = this.balloons[k].position.x - this.balls[i].position.x;
         distanceY = this.balloons[k].position.y - this.balls[i].position.y;
         if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85 && this.balloons[k].popped === false) {
-          removeBall = true;
-
-          // Rainbow Physics
-          if (this.balloons[k].currentColor === "rainbow") {
-            removeBall = true;
-            this.balloons[k].health -= 1;
-
-            if (this.balloons[k].health <= 0) {
-              this.lives += 1;
-              this.addScore(10);
-              this.tutorialStep();
-
-              sounds.extraLife.play();
-              this.balloonsPopped += 1;
-            }
-          }
-
-          // Bomb balloon physics
-          else if (this.balloons[k].currentColor === "bomb") {
-            this.balloons[k].health -= 1;
-            removeBall = true;
-            if (this.balloons[k].health <= 0) {
-              this.addScore(10);
-              this.tutorialStep();
-
-              this.balloonsPopped += 1;
-              for (var i = 0; i < this.powerUpSlots.length; i++) {
-                if (this.powerUpSlots[i].contains === undefined) {
-                  this.powerUpSlots[i].contains = "bomb";
-                  break;
-                }
-              }
-            }
-          }
-
-          // Homing power-up balloon physics
-          else if (this.balloons[k].currentColor === "target") {
-            this.balloons[k].health -= 1;
-            removeBall = true;
-            if (this.balloons[k].health <= 0) {
-              this.tutorialStep();
-
-              for (var i = 0; i < this.powerUpSlots.length; i++) {
-                if (this.powerUpSlots[i].contains === undefined) {
-                  this.powerUpSlots[i].contains = "target";
-                  break;
-                }
-              }
-
-              this.balloonsPopped += 1;
-              this.addScore(10);
-            }
-          }
-
-          //  Ice balloon physics
-          else if (this.balloons[k].currentColor === "ice") {
-            this.balloons[k].health -= 1;
-            removeBall = true;
-            if (this.balloons[k].health <= 0) {
-              this.tutorialStep();
-
-              for (var i = 0; i < this.powerUpSlots.length; i++) {
-                if (this.powerUpSlots[i].contains === undefined) {
-                  this.powerUpSlots[i].contains = "freeze";
-                  break;
-                }
-              }
-              this.balloonsPopped += 1;
-              this.addScore(10);
-            }
-          }
-
-          // Metal balloon Physics
-          else if (
-            this.balloons[k].currentColor === "metal" ||
-            this.balloons[k].currentColor === "metal_cracked" ||
-            this.balloons[k].currentColor === "metal_damaged"
-          ) {
-            this.balloons[k].health -= 1;
-            removeBall = true;
-            sounds.clang.play();
-            if (this.balloons[k].health === 6) {
-              this.balloons[k].currentColor = "metal_cracked";
-            }
-            if (this.balloons[k].health === 3) {
-              this.balloons[k].currentColor = "metal_damaged";
-            }
-            if (this.balloons[k].health <= 0) {
-              this.addScore(25);
-              this.balloonsPopped += 1;
-              this.balloons[k] = null;
-              this.balloons = this.balloons.filter((a) => a);
-            }
-          }
-
-          // Blimp physics
-
-          // Normal physics
-          else if (
-            this.balls[i].currentColor === this.balloons[k].currentColor ||
-            this.balloons[k].currentColor === "white"
-          ) {
-            this.balloons[k].health -= 1;
-            removeBall = true;
-
-     
-          }
-          if (this.balloons[k].health <= 0) {
-            sounds.popEffect.volume = 0.4;
-            this.balloonsPopped += 1;
-            sounds.popEffect.play();
-            this.addScore(this.balloons[k].popPointValue);
-            this.tutorialStep();
-          }
-          //  Check if a balloon ran out of health
-
-          if (this.balloons[k].health <= 0) {
-            this.balloons[k].popped = true;
-            this.balloons[k].popTime = Date.now()
-          }
-          removeBall = true;
-
-        }
-        if (this.balloons[k].popTime + 100 <= Date.now() ) {
-          this.rows[this.balloons[k].index] -= 1;
-          this.balloons[k] = null;
-          this.balloonMinVelocity += 0.3;
-          this.balloons = this.balloons.filter((a) => a);
-          if (this.mode === "no_color_mode") break;
-        }
+          this.popBalloon(k, i)
+          removeBall = true
       }
+      
+      
+     
+    }
 
       // Check for barrier collisions
       for (var j = 0; j < this.barriers.length; j++) {

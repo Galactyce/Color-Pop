@@ -77,11 +77,13 @@ PowerSlot.prototype.activate = function () {
     Game.gameWorld.balloons = Game.gameWorld.balloons.filter((a) => a);
     sounds.boom.play();
     Game.gameWorld.tutorialStep();
-  } else if (this.contains === "target") {
-    Game.gameWorld.targeting = true;
+  } 
+  if (this.contains === "target") {
     Game.gameWorld.targetPowerUpStart = Date.now();
+    Game.gameWorld.targeting = true;
     Game.gameWorld.tutorialStep();
-  } else if (this.contains === "freeze") {
+  } 
+  if (this.contains === "freeze") {
     Game.gameWorld.moving = false;
     Game.gameWorld.freezeTimer = Date.now();
     Game.gameWorld.tutorialStep();
