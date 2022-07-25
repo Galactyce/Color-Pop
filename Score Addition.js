@@ -294,8 +294,8 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score >= 700) {
-      this.barrierCount = 6;
-      this.intenseBarrierCount = 3;
+      this.barrierCount = 4;
+      this.intenseBarrierCount = 2;
     }
 
     if (this.score < 800 && this.score + value >= 800) {
@@ -307,7 +307,7 @@ GameWorld.prototype.addScore = function (value) {
     }
 
     if (this.score >= 1450) {
-      this.intenseBarrierCount = 4;
+      this.intenseBarrierCount = 3;
     }
 
     if (this.score >= 1750) {
