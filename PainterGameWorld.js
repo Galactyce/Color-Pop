@@ -497,6 +497,7 @@ GameWorld.prototype.playWinScreen = function () {
       "Comic Sans",
       "50px"
     );
+    if (!Touch.isTouchDevice) {
     Canvas.drawText(
       "Press Space to restart.",
       new Vector2(370, 330),
@@ -505,6 +506,7 @@ GameWorld.prototype.playWinScreen = function () {
       "Comic Sans",
       "50px"
     );
+    }
     Canvas.drawText(
       "+" + this.reward,
       new Vector2(370, 430),
