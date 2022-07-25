@@ -174,6 +174,8 @@ GameWorld.prototype.reset = function () {
   this.intenseBarrierCount = 0;
   this.lives = 5;
   this.score = 0;
+  this.specialBalloons = new Array();
+
   this.gameActive = false;
   this.wavyActive = false;
   this.blimpColorChangeFrequency = 0;
@@ -185,9 +187,17 @@ GameWorld.prototype.reset = function () {
     this.balloons[i] = null;
   }
   this.balloons = this.balloons.filter((a) => a);
+for (var i = 0; i < this.barriers.length; i++) {
+    this.barriers[i] = null;
+  }
+  this.barriers = this.barriers.filter((a) => a);
+  for (var i = 0; i < this.intenseBarriers.length; i++) {
+    this.intenseBarriers[i] = null;
+  }
+  this.intenseBarriers = this.intenseBarriers.filter((a) => a);
 
   for (var i = 0; i < this.powerUpSlots.length; i++) {
-    this.powerUpSlots[i].contains = undefined;
+    this.powerUpSlots[i].contains = 'target';
   }
   this.win = false;
 };
@@ -525,6 +535,7 @@ GameWorld.prototype.updateCookies = function () {
 };
 
 GameWorld.prototype.update = function (delta) {
+  this.updateCookies()
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
   if (this.gameActive === false) {
@@ -807,7 +818,7 @@ GameWorld.prototype.update = function (delta) {
           this.balloons = this.balloons.filter((a) => a);
           if (this.mode === "no_color_mode") break;
         }
-         
+         removeBall = true;
       }
 
       // Check for barrier collisions
@@ -823,7 +834,7 @@ GameWorld.prototype.update = function (delta) {
           if (this.specialtiesEquipped === "barrier_buster_upgrade") {
             this.barriers[j].health -= 1;
             if (this.barriers[j].health <= 0) {
-              this.barriers[i] = null;
+              this.barriers[j] = null;
             }
           }
           break;

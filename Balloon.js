@@ -123,7 +123,9 @@ Balloon.prototype.update = function (delta) {
   }
     if (Touch.isTouchDevice) {
       if (Touch.containsTouchPress(this.rect)) {
+        alert()
         this.health -= 1;
+
       } 
     }
     if (this.health <= 0) {
