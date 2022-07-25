@@ -85,7 +85,7 @@ function GameWorld() {
     specialtiesOwned: undefined,
   };
   this.scrollButtons = new Array();
-  this.backButton = new BackButton(new Vector2(950, 30))
+  this.backButton = new BackButton(new Vector2(50, 300))
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -601,7 +601,7 @@ GameWorld.prototype.update = function (delta) {
     }
   }
   if (Touch.isTouchDevice && Touch.touchPresses.length > 0) {
-    if (this.lives <= 0 || this.win === true) {
+    if (this.lives <= 0) {
       this.reset();
     }
   }
