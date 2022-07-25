@@ -626,6 +626,7 @@ else if (
     this.balloons[k].currentColor = "metal_damaged";
   }
   if (this.balloons[k].health <= 0) {
+    this.rows[this.balloons[k].index] -= 1;
     this.balloonsPopped += 1;
     this.balloons[k] = null;
     this.balloons = this.balloons.filter((a) => a);
