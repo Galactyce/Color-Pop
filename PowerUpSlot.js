@@ -70,7 +70,7 @@ if (Touch.isTouchDevice) {
 PowerSlot.prototype.activate = function () {
   if (this.contains === "bomb") {
     for (var k = 0; k < Game.gameWorld.balloons.length; k++) {
-      Gameg.gameWorld.balloons[k].health -= 10;
+      Game.gameWorld.balloons[k].health -= 10;
       if (Game.gameWorld.balloons[k].health <= 0) {
         sounds.popEffect.volume = 0.4;
         Game.gameWorld.balloonsPopped += 1;
@@ -79,7 +79,6 @@ PowerSlot.prototype.activate = function () {
         Game.gameWorld.balloons[k].popTime = Date.now()
       }
     }
-    Game.gameWorld.balloons = Game.gameWorld.balloons.filter((a) => a);
     sounds.boom.play();
     Game.gameWorld.tutorialStep();
   } 
