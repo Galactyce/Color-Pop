@@ -659,6 +659,12 @@ GameWorld.prototype.update = function (delta) {
       this.moving = true;
     }
 
+    for (var i = 0; i < this.balloons.length; i++) {
+      if (this.moving === true) {
+        this.balloons[i].update(delta);
+      }
+    }
+
     for (var i = this.barriers.length; i < this.barrierCount; i++) {
       // Create barriers
       if (this.barrierSpawning === true) {
@@ -991,11 +997,7 @@ GameWorld.prototype.update = function (delta) {
 
     // Update balloons
 
-    for (var i = 0; i < this.balloons.length; i++) {
-      if (this.moving === true) {
-        this.balloons[i].update(delta);
-      }
-    }
+  
 
     for (var i = 0; i < this.blimps.length; i++) {
       if (Date.now() > this.freezeTimer + 5000) {
