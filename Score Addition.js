@@ -290,11 +290,11 @@ GameWorld.prototype.addScore = function (value) {
   if (this.mode === "no_color_mode") {
     this.balloonsPerRow = 4;
     if (this.score >= 200) {
-      this.barrierCount = 6;
+      this.barrierCount = 3;
     }
 
     if (this.score >= 700) {
-      this.barrierCount = 7;
+      this.barrierCount = 6;
       this.intenseBarrierCount = 3;
     }
 
