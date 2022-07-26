@@ -198,7 +198,7 @@ GameWorld.prototype.addScore = function (value) {
     }
   }
 
-  if (this.mode === "only_armored") {
+  if (this.mode === "armored_only") {
     // Armored only mode
     this.balloonMinVelocity = 25;
     this.balloonsPerRow = 1;
@@ -225,6 +225,7 @@ GameWorld.prototype.addScore = function (value) {
 
     if (this.score < 650 && this.score + value >= 650) {
       this.specialBalloons.push("target");
+      this.specialBalloons.push('ice');
     }
 
     if (this.score >= 850) {
@@ -233,7 +234,6 @@ GameWorld.prototype.addScore = function (value) {
 
     if (this.score >= 1000) {
       this.balloonsPerRow = 3;
-      this.intenseBarrierCount = 0;
       this.barrierCount = 2;
     }
 
@@ -248,9 +248,6 @@ GameWorld.prototype.addScore = function (value) {
       this.intenseBarrierCount = 1;
     }
 
-    if (this.score >= 1530) {
-      this.bossCount = 1;
-    }
   }
   if (this.mode === "faster_balloons") {
     // Faster balloons mode
