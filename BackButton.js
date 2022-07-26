@@ -21,8 +21,8 @@ BackButton.prototype.draw = function() {
     '20px'
   )
   this.rect = new Rectangle(
-    position.x - this.origin.x / 2,
-    position.y - this.origin.y / 2,
+    this.position.x - this.origin.x / 2,
+    this.position.y - this.origin.y / 2,
     this.sprite.width * 0.5,
     this.sprite.height * 0.5
   );
