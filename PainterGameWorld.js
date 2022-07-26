@@ -170,6 +170,19 @@ GameWorld.prototype.drawBalloons = function () {
   }
 };
 
+function lock (orientation) {
+  // (A1) GO INTO FULL SCREEN FIRST
+  let de = document.documentElement;
+  if (de.requestFullscreen) { de.requestFullscreen(); }
+  else if (de.mozRequestFullScreen) { de.mozRequestFullScreen(); }
+  else if (de.webkitRequestFullscreen) { de.webkitRequestFullscreen(); }
+  else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
+
+  // (A2) THEN LOCK ORIENTATION
+  screen.orientation.lock(orientation);
+
+}
+
 GameWorld.prototype.reset = function () {
   this.rows = new Array(0, 0, 0); // # of balloons in a row
   this.rowPositions = new Array(700, 900, 1100);
@@ -208,17 +221,7 @@ for (var i = 0; i < this.barriers.length; i++) {
   sounds.backgroundMusicBasic.volume = 0;
 
   if (Touch.isTouchDevice) {
-  function lock (orientation) {
-    // (A1) GO INTO FULL SCREEN FIRST
-    let de = document.documentElement;
-    if (de.requestFullscreen) { de.requestFullscreen(); }
-    else if (de.mozRequestFullScreen) { de.mozRequestFullScreen(); }
-    else if (de.webkitRequestFullscreen) { de.webkitRequestFullscreen(); }
-    else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
-  
-    // (A2) THEN LOCK ORIENTATION
-  }
-  screen.orientation.lock('landscape-primary');
+    lock('landscape-primary')
 
   }
 };
