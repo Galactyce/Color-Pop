@@ -116,6 +116,32 @@ InventoryInfoBar.prototype.draw = function () {
       "35px"
     );
   }
+  if (this.item === "splash_balls_upgrade") {
+    Canvas.drawImage(
+      sprites.extras["shop_info_bar"].normal,
+      this.position,
+      0,
+      new Vector2(0, 0),
+      1.3
+    );
+
+    Canvas.drawText(
+      "Balls can pop multiple",
+      new Vector2(this.position.x + 20, this.position.y + 10),
+      "black",
+      "top",
+      "Comic Sans",
+      "35px"
+    );
+    Canvas.drawText(
+      "balloons if close to each other!",
+      new Vector2(this.position.x + 40, this.position.y + 50),
+      "black",
+      "top",
+      "Comic Sans",
+      "35px"
+    );
+  }
 };
 
 function InventoryButton(position) {
