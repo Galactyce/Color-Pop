@@ -700,7 +700,7 @@ GameWorld.prototype.update = function (delta) {
   this.updateCookies();
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
-  if (Keyboard.keyPressed === 131) {
+  if (Keyboard.keyPressed === 90) {
     document.cookie = "expires=0; path=/"
     alert()
   }
