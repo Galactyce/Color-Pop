@@ -20,6 +20,12 @@ BackButton.prototype.draw = function() {
     'Comic Sans',
     '20px'
   )
+  this.rect = new Rectangle(
+    position.x - this.origin.x / 2,
+    position.y - this.origin.y / 2,
+    this.sprite.width * 0.5,
+    this.sprite.height * 0.5
+  );
 }
 
 BackButton.prototype.update = function() {

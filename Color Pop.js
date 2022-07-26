@@ -94,7 +94,8 @@ Game.loadAssets = function() {
     'empty_icon': {'normal': loadImage('empty_icon.png')},
     'sold_sign': {'normal': loadImage("sold_sign.png")},
     'inventory': {'normal': loadImage("inventory_slots.png")},
-    'coin': {'normal': loadImage('coin.png')}
+    'coin': {'normal': loadImage('coin.png')},
+    'slider': {'back': loadImage('slider_back.png'), 'front': loadImage('slider_front.png')}
   }
 
   sounds.playSound = loadSound("playSound_01", false)
