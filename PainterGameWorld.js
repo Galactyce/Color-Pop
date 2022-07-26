@@ -717,9 +717,9 @@ GameWorld.prototype.update = function (delta) {
         }
         if (Touch.isTouchDevice) {
           var rect = new Rectangle(0, 0, 200, 200);
-          if (Touch.containsTouchPress(rect)) [
+          if (Touch.containsTouchPress(rect)) {
             this.coins += 2;
-          ]
+          }
         }
       }
 
