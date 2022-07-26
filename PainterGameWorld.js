@@ -671,6 +671,7 @@ GameWorld.prototype.update = function (delta) {
   this.updateCookies()
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
+
   if (this.gameActive === false) {
     this.modeToggleButton.update();
     this.tutorialModeButton.update();
@@ -713,6 +714,12 @@ GameWorld.prototype.update = function (delta) {
       if (this.area === "shop") {
         for (var i = 0; i < this.shopItems.length; i++) {
           this.shopItems[i].update();
+        }
+        if (Touch.isTouchDevice) {
+          var rect = new Rectangle(0, 0, 200, 200);
+          if (Touch.containsTouchPress(rect)) [
+            this.coins += 2;
+          ]
         }
       }
 
