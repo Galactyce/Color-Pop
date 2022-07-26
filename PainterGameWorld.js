@@ -202,7 +202,10 @@ for (var i = 0; i < this.barriers.length; i++) {
     this.intenseBarriers[i] = null;
   }
   this.intenseBarriers = this.intenseBarriers.filter((a) => a);
-
+  for (var i=0; i<this.blimps.length; i++) {
+    this.blimps[i] = null
+  }
+  this.blimps = this.blimps.filter((a) => a)
   for (var i = 0; i < this.powerUpSlots.length; i++) {
     this.powerUpSlots[i].contains = undefined;
   }
@@ -943,6 +946,7 @@ GameWorld.prototype.update = function (delta) {
             this.balls[i].currentColor === this.blimps[z].markerColor ||
             this.mode === "no_color_mode"
           ) {
+          
             if (
               this.specialtiesEquipped === "blimp_slower_upgrade" &&
               Date.now() >= this.blimps[z].slowCooldown + 1000
