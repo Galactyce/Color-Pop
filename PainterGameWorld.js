@@ -179,7 +179,6 @@ function lock (orientation) {
   document.fullscreenEnabled();
   // (A2) THEN LOCK ORIENTATION
   screen.orientation.lock(orientation);
-
 }
 
 GameWorld.prototype.reset = function () {
@@ -219,10 +218,9 @@ for (var i = 0; i < this.barriers.length; i++) {
   this.win = false;
   sounds.backgroundMusicBasic.volume = 0;
 
-  if (Touch.isTouchDevice) {
     lock('landscape-primary')
 
-  }
+  
 };
 
 GameWorld.prototype.draw = function () {
