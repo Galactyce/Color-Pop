@@ -17,7 +17,7 @@ function GameWorld() {
   this.balloonSpawning = true;
   this.barrierSpawning = true;
   this.targeting = false;
-  this.targetPowerUpStart = Date.now()
+  this.targetPowerUpStart = Date.now();
   this.playEndSound = false;
   this.freezeTimer = 0;
   this.playEndSound = true;
@@ -71,9 +71,9 @@ function GameWorld() {
   this.inventory = new Inventory();
   this.inventoryButton = new InventoryButton(new Vector2(1100, 550));
   if (Touch.isTouchDevice)
-  this.inventoryExitButton = new InventoryExitButton(new Vector2(900, 550));
-  if (!Touch.isTouchDevice) 
-  this.inventoryExitButton = new InventoryExitButton(new Vector2(65, 600));
+    this.inventoryExitButton = new InventoryExitButton(new Vector2(900, 550));
+  if (!Touch.isTouchDevice)
+    this.inventoryExitButton = new InventoryExitButton(new Vector2(65, 600));
 
   this.inventoryItems = new Array();
   this.inventoryInfoBar = undefined;
@@ -86,7 +86,7 @@ function GameWorld() {
     specialtiesOwned: undefined,
   };
   this.scrollButtons = new Array();
-  this.backButton = new BackButton(new Vector2(100, 170))
+  this.backButton = new BackButton(new Vector2(100, 170));
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -138,9 +138,8 @@ GameWorld.prototype.checkCookies = function () {
     var cname = ccookie[i].split("=");
 
     for (var k = 0; k < this.shopItems.length; k++) {
-       console.log("cname:" + cname[1].trim() + ',' + this.shopItems[k].item)
+      console.log("cname:" + cname[1].trim() + "," + this.shopItems[k].item);
       if (cname[1].trim() == this.shopItems[k].item) {
-        
         this.specialtiesOwned.push(this.shopItems[k].item);
         this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
         this.shopItems[k].bought = true;
@@ -170,8 +169,6 @@ GameWorld.prototype.drawBalloons = function () {
   }
 };
 
-
-
 GameWorld.prototype.reset = function () {
   this.rows = new Array(0, 0, 0); // # of balloons in a row
   this.rowPositions = new Array(700, 900, 1100);
@@ -182,7 +179,7 @@ GameWorld.prototype.reset = function () {
   this.lives = 5;
   this.score = 0;
   this.specialBalloons = new Array();
-  this.penaltyBalloons = new Array()
+  this.penaltyBalloons = new Array();
   this.gameActive = false;
   this.wavyActive = false;
   this.blimpColorChangeFrequency = 0;
@@ -195,7 +192,7 @@ GameWorld.prototype.reset = function () {
     this.balloons[i] = null;
   }
   this.balloons = this.balloons.filter((a) => a);
-for (var i = 0; i < this.barriers.length; i++) {
+  for (var i = 0; i < this.barriers.length; i++) {
     this.barriers[i] = null;
   }
   this.barriers = this.barriers.filter((a) => a);
@@ -203,18 +200,15 @@ for (var i = 0; i < this.barriers.length; i++) {
     this.intenseBarriers[i] = null;
   }
   this.intenseBarriers = this.intenseBarriers.filter((a) => a);
-  for (var i=0; i<this.blimps.length; i++) {
-    this.blimps[i] = null
+  for (var i = 0; i < this.blimps.length; i++) {
+    this.blimps[i] = null;
   }
-  this.blimps = this.blimps.filter((a) => a)
+  this.blimps = this.blimps.filter((a) => a);
   for (var i = 0; i < this.powerUpSlots.length; i++) {
     this.powerUpSlots[i].contains = undefined;
   }
   this.win = false;
   sounds.backgroundMusicBasic.volume = 0;
-
-
-  
 };
 
 GameWorld.prototype.draw = function () {
@@ -522,14 +516,14 @@ GameWorld.prototype.playWinScreen = function () {
       "50px"
     );
     if (!Touch.isTouchDevice) {
-    Canvas.drawText(
-      "Press Space to return.",
-      new Vector2(370, 330),
-      "black",
-      "top",
-      "Comic Sans",
-      "50px"
-    );
+      Canvas.drawText(
+        "Press Space to return.",
+        new Vector2(370, 330),
+        "black",
+        "top",
+        "Comic Sans",
+        "50px"
+      );
     }
     Canvas.drawText(
       "+" + this.reward,
@@ -564,14 +558,14 @@ GameWorld.prototype.playWinScreen = function () {
     );
 
     if (!Touch.isTouchDevice) {
-    Canvas.drawText(
-      "Press Space to return.",
-      new Vector2(370, 330),
-      "black",
-      "top",
-      "Comic Sans",
-      "50px"
-    );
+      Canvas.drawText(
+        "Press Space to return.",
+        new Vector2(370, 330),
+        "black",
+        "top",
+        "Comic Sans",
+        "50px"
+      );
     }
 
     if (Touch.isTouchDevice) {
@@ -589,123 +583,121 @@ GameWorld.prototype.updateCookies = function () {
   document.cookie = "coins=" + this.coins;
 };
 
-GameWorld.prototype.popBalloon = function(k, i) {
-// Rainbow Physics
+GameWorld.prototype.popBalloon = function (k, i) {
+  // Rainbow Physics
 
-if (this.balloons[k].currentColor === "rainbow") {
-  removeBall = true;
-  this.balloons[k].health -= 1;
+  if (this.balloons[k].currentColor === "rainbow") {
+    removeBall = true;
+    this.balloons[k].health -= 1;
 
-  if (this.balloons[k].health <= 0) {
-    this.lives += 1;
+    if (this.balloons[k].health <= 0) {
+      this.lives += 1;
 
-    sounds.extraLife.play();
-    this.balloonsPopped += 1;
+      sounds.extraLife.play();
+      this.balloonsPopped += 1;
+    }
   }
-}
 
-// Bomb balloon physics
-else if (this.balloons[k].currentColor === "bomb") {
-  this.balloons[k].health -= 1;
-  removeBall = true;
-  if (this.balloons[k].health <= 0) {
-
-    this.balloonsPopped += 1;
-    for (var i = 0; i < this.powerUpSlots.length; i++) {
-      if (this.powerUpSlots[i].contains === undefined) {
-        this.powerUpSlots[i].contains = "bomb";
-        break;
+  // Bomb balloon physics
+  else if (this.balloons[k].currentColor === "bomb") {
+    this.balloons[k].health -= 1;
+    removeBall = true;
+    if (this.balloons[k].health <= 0) {
+      this.balloonsPopped += 1;
+      for (var i = 0; i < this.powerUpSlots.length; i++) {
+        if (this.powerUpSlots[i].contains === undefined) {
+          this.powerUpSlots[i].contains = "bomb";
+          break;
+        }
       }
     }
   }
-}
 
-// Homing power-up balloon physics
-else if (this.balloons[k].currentColor === "target") {
-  this.balloons[k].health -= 1;
-  removeBall = true;
-  if (this.balloons[k].health <= 0) {
-
-    for (var i = 0; i < this.powerUpSlots.length; i++) {
-      if (this.powerUpSlots[i].contains === undefined) {
-        this.powerUpSlots[i].contains = "target";
-        break;
+  // Homing power-up balloon physics
+  else if (this.balloons[k].currentColor === "target") {
+    this.balloons[k].health -= 1;
+    removeBall = true;
+    if (this.balloons[k].health <= 0) {
+      for (var i = 0; i < this.powerUpSlots.length; i++) {
+        if (this.powerUpSlots[i].contains === undefined) {
+          this.powerUpSlots[i].contains = "target";
+          break;
+        }
       }
+
+      this.balloonsPopped += 1;
     }
-
-    this.balloonsPopped += 1;
   }
-}
 
-//  Ice balloon physics
-else if (this.balloons[k].currentColor === "ice") {
-  this.balloons[k].health -= 1;
-  removeBall = true;
-  if (this.balloons[k].health <= 0) {
-
-    for (var i = 0; i < this.powerUpSlots.length; i++) {
-      if (this.powerUpSlots[i].contains === undefined) {
-        this.powerUpSlots[i].contains = "freeze";
-        break;
+  //  Ice balloon physics
+  else if (this.balloons[k].currentColor === "ice") {
+    this.balloons[k].health -= 1;
+    removeBall = true;
+    if (this.balloons[k].health <= 0) {
+      for (var i = 0; i < this.powerUpSlots.length; i++) {
+        if (this.powerUpSlots[i].contains === undefined) {
+          this.powerUpSlots[i].contains = "freeze";
+          break;
+        }
       }
+      this.balloonsPopped += 1;
     }
-    this.balloonsPopped += 1;
   }
-}
 
-// Metal balloon Physics
-else if (
-  this.balloons[k].currentColor === "metal" ||
-  this.balloons[k].currentColor === "metal_cracked" ||
-  this.balloons[k].currentColor === "metal_damaged"
-) {
-  this.balloons[k].health -= 1;
-  removeBall = true;
-  sounds.clang.play();
-  if (this.balloons[k].health === 6) {
-    this.balloons[k].currentColor = "metal_cracked";
+  // Metal balloon Physics
+  else if (
+    this.balloons[k].currentColor === "metal" ||
+    this.balloons[k].currentColor === "metal_cracked" ||
+    this.balloons[k].currentColor === "metal_damaged"
+  ) {
+    this.balloons[k].health -= 1;
+    removeBall = true;
+    sounds.clang.play();
+    if (this.balloons[k].health === 6) {
+      this.balloons[k].currentColor = "metal_cracked";
+    }
+    if (this.balloons[k].health === 3) {
+      this.balloons[k].currentColor = "metal_damaged";
+    }
+    if (this.balloons[k].health <= 0) {
+      this.rows[this.balloons[k].index] -= 1;
+      this.balloonsPopped += 1;
+      this.balloons[k] = null;
+      this.balloons = this.balloons.filter((a) => a);
+    }
   }
-  if (this.balloons[k].health === 3) {
-    this.balloons[k].currentColor = "metal_damaged";
+
+  // Blimp physics
+
+  // Normal physics
+  if (!this.targeting) {
+    if (
+      this.balls[i].currentColor === this.balloons[k].currentColor ||
+      this.balloons[k].currentColor === "white" ||
+      this.targeting === true
+    ) {
+      this.balloons[k].health -= 1;
+      removeBall = true;
+    }
+    if (this.targeting) {
+      this.balloons[k].health -= 1;
+    }
   }
+
+  //  Check if a balloon ran out of health
   if (this.balloons[k].health <= 0) {
-    this.rows[this.balloons[k].index] -= 1;
+    sounds.popEffect.volume = 0.4;
     this.balloonsPopped += 1;
-    this.balloons[k] = null;
-    this.balloons = this.balloons.filter((a) => a);
+    sounds.popEffect.play();
+    this.balloons[k].popped = true;
+    this.balloons[k].popTime = Date.now();
   }
-}
+};
 
-// Blimp physics
-
-// Normal physics
-else if (
-  this.balls[i].currentColor === this.balloons[k].currentColor ||
-  this.balloons[k].currentColor === "white" || this.targeting === true
-) {
-  this.balloons[k].health -= 1;
-  removeBall = true;
-
-
-}
-
-//  Check if a balloon ran out of health
-if (this.balloons[k].health <= 0) {
-  sounds.popEffect.volume = 0.4;
-  this.balloonsPopped += 1;
-  sounds.popEffect.play();
-  this.balloons[k].popped = true;
-  this.balloons[k].popTime = Date.now()
-}
-
-}
-
-GameWorld.prototype.checkBalloonHealth = function() {
-  
-}
+GameWorld.prototype.checkBalloonHealth = function () {};
 
 GameWorld.prototype.update = function (delta) {
-  this.updateCookies()
+  this.updateCookies();
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
 
@@ -772,8 +764,7 @@ GameWorld.prototype.update = function (delta) {
         this.inventoryItems[i].update();
       }
 
-        this.inventoryExitButton.update();
-      
+      this.inventoryExitButton.update();
     }
   }
 
@@ -859,28 +850,26 @@ GameWorld.prototype.update = function (delta) {
 
     // Handle ball collisions
 
-    for (var k=0; k<this.balloons.length; k++) {
-    if (this.targeting === true) {
-      if (Touch.isTouchDevice) {
-        if (Touch.containsTouchPress(this.balloons[k].rect)) {
-          this.popBalloon(k, i)
-      }
-    }
-    else if (!Touch.isTouchDevice) {
-        if (this.balloons[k].rect.contains(Mouse.position) && Mouse.pressed) {
-          this.popBalloon(k, i)
-
+    for (var k = 0; k < this.balloons.length; k++) {
+      if (this.targeting === true) {
+        if (Touch.isTouchDevice) {
+          if (Touch.containsTouchPress(this.balloons[k].rect)) {
+            this.popBalloon(k, i);
+          }
+        } else if (!Touch.isTouchDevice) {
+          if (this.balloons[k].rect.contains(Mouse.position) && Mouse.pressed) {
+            this.popBalloon(k, i);
+          }
         }
-    }
       }
 
-      if ( Date.now() > this.balloons[k].popTime + 100) {
+      if (Date.now() > this.balloons[k].popTime + 100) {
         this.rows[this.balloons[k].index] -= 1;
         this.addScore(this.balloons[k].popPointValue);
         this.balloons[k] = null;
         this.balloonMinVelocity += 0.3;
         this.balloons = this.balloons.filter((a) => a);
-        }
+      }
     }
     for (var i = 0; i < this.balls.length; i++) {
       // Check if ball fell off screen
@@ -895,22 +884,23 @@ GameWorld.prototype.update = function (delta) {
       for (var k = 0; k < this.balloons.length; k++) {
         distanceX = this.balloons[k].position.x - this.balls[i].position.x;
         distanceY = this.balloons[k].position.y - this.balls[i].position.y;
-        if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85 && this.balloons[k].popped === false) {
-      
-          this.popBalloon(k, i)
-          removeBall = true
+        if (
+          Math.abs(distanceX) < 55 &&
+          Math.abs(distanceY) < 85 &&
+          this.balloons[k].popped === false
+        ) {
+          this.popBalloon(k, i);
+          removeBall = true;
           if (
             this.balls[i].currentColor === this.balloons[k].currentColor ||
-            this.balloons[k].currentColor === "white" 
+            this.balloons[k].currentColor === "white"
           ) {
-            if (this.specialtiesEquipped !== 'splash_balls_upgrade') {
-              break
+            if (this.specialtiesEquipped !== "splash_balls_upgrade") {
+              break;
             }
+          }
+        }
       }
-      
-    }
-     
-    }
 
       // Check for barrier collisions
       for (var j = 0; j < this.barriers.length; j++) {
@@ -968,7 +958,6 @@ GameWorld.prototype.update = function (delta) {
             this.balls[i].currentColor === this.blimps[z].markerColor ||
             this.mode === "no_color_mode"
           ) {
-          
             if (
               this.specialtiesEquipped === "blimp_slower_upgrade" &&
               Date.now() >= this.blimps[z].slowCooldown + 1000
@@ -1081,8 +1070,6 @@ GameWorld.prototype.update = function (delta) {
     }
 
     // Update balloons
-
-  
 
     for (var i = 0; i < this.blimps.length; i++) {
       if (Date.now() > this.freezeTimer + 5000) {
