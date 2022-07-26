@@ -22,7 +22,7 @@ PlayButton.prototype.start = function() {
   }
 
   if (this.mode === "easy") {
-    this.balloonMinVelocity = 30;
+    this.balloonMinVelocity = 20;
   }
   if (this.mode === "hard") {
   }
@@ -30,6 +30,7 @@ PlayButton.prototype.start = function() {
     Game.gameWorld.balloonMinVelocity = 50;
     Game.gameWorld.lives = 1;
   }
+  if (this.mode !== 'tutorial_mode') Game.gameWorld.addScore(0) 
 }
 
 PlayButton.prototype.update = function () {

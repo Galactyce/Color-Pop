@@ -867,7 +867,7 @@ GameWorld.prototype.update = function (delta) {
         if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85 && this.balloons[k].popped === false) {
           this.popBalloon(k, i)
           removeBall = true
-          if (!this.specialtiesEquipped === 'splash_balls') {
+          if (this.specialtiesEquipped !== 'splash_balls_upgrade') {
           break;
           }
       }
