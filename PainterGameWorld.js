@@ -126,7 +126,7 @@ function GameWorld() {
   this.reset();
   var cookie = document.cookie;
   console.log(cookie);
-  this.checkCookies();
+ // this.checkCookies();
 }
 
 GameWorld.prototype.checkCookies = function () {
