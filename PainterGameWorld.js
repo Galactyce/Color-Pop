@@ -865,14 +865,19 @@ GameWorld.prototype.update = function (delta) {
         distanceX = this.balloons[k].position.x - this.balls[i].position.x;
         distanceY = this.balloons[k].position.y - this.balls[i].position.y;
         if (Math.abs(distanceX) < 55 && Math.abs(distanceY) < 85 && this.balloons[k].popped === false) {
+      
           this.popBalloon(k, i)
           removeBall = true
-          if (this.specialtiesEquipped !== 'splash_balls_upgrade') {
-          break;
-          }
+          if (
+            this.balls[i].currentColor === this.balloons[k].currentColor ||
+            this.balloons[k].currentColor === "white" 
+          ) {
+            if (this.specialtiesEquipped !== 'splash_balls_upgrade') {
+              break
+            }
       }
       
-      
+    }
      
     }
 
