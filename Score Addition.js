@@ -360,16 +360,19 @@ GameWorld.prototype.addScore = function (value) {
 
     if (this.score >= 1500) {
       this.bossCount = 1;
-      this.balloonsPerRow = 2;
+      this.balloonsPerRow = 1;
+      this.intenseBarrierCount = 1;
+
     }
 
     if (this.score >= 1700) {
-      this.balloonsPerRow = 3;
+      this.balloonsPerRow = 2;
     }
     if (this.score >= 2000) {
       this.bossCount = 1;
     }
     if (this.score >= 3300) {
+      this.balloonsPerRow = 3
       this.bossCount = 1;
     }
   }

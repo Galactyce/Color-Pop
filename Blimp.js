@@ -38,6 +38,8 @@ Blimp.prototype.applyHealth = function () {
     if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
+      this.velocity /= 2
+
     }
   }
   if (Game.gameWorld.mode === "intermediate") {
@@ -46,6 +48,8 @@ Blimp.prototype.applyHealth = function () {
     if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
+      this.velocity /= 2
+
     }
   }
   if (Game.gameWorld.mode === "hard") {
@@ -54,13 +58,14 @@ Blimp.prototype.applyHealth = function () {
     if (this.armored) {
       this.maxHealth *= 2;
       this.health *= 2;
+      this.velocity /= 2
     }
   }
 
   if (Game.gameWorld.mode === "armored_only") {
     this.maxHealth = 120;
     this.health = 120;
-    this.velocity.y = 10;
+    this.velocity.y = 7;
   }
   if (Game.gameWorld.mode === "no_color_mode") {
     this.maxHealth = 100;
