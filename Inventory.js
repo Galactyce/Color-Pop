@@ -134,8 +134,16 @@ InventoryInfoBar.prototype.draw = function () {
       "35px"
     );
     Canvas.drawText(
-      "balloons if close to each other!",
+      "balloons if they are close",
       new Vector2(this.position.x + 40, this.position.y + 50),
+      "black",
+      "top",
+      "Comic Sans",
+      "35px"
+    );
+    Canvas.drawText(
+      "to each other",
+      new Vector2(this.position.x + 40, this.position.y + 90),
       "black",
       "top",
       "Comic Sans",
