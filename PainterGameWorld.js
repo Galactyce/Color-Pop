@@ -126,7 +126,7 @@ function GameWorld() {
   this.reset();
   var cookie = document.cookie;
   console.log(cookie);
- // this.checkCookies();
+ this.checkCookies();
 }
 
 GameWorld.prototype.checkCookies = function () {
@@ -670,7 +670,7 @@ GameWorld.prototype.popBalloon = function (k, i) {
   // Blimp physics
 
   // Normal physics
-  if (!this.targeting) {
+  if (this.targeting == false) {
     if (
       this.balls[i].currentColor === this.balloons[k].currentColor ||
       this.balloons[k].currentColor === "white" ||
@@ -681,7 +681,7 @@ GameWorld.prototype.popBalloon = function (k, i) {
     }
   
   }
-  if (this.targeting) {
+  if (this.targeting === true) {
     this.balloons[k].health -= 1;
   }
   //  Check if a balloon ran out of health

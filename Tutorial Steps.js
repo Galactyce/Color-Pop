@@ -91,6 +91,10 @@ GameWorld.prototype.tutorialStep = function (value) {
     }
 
     else if (this.score >= 520) {
+      for (var i=0;i<this.balloons.length; i++) {
+        this.balloons[i] = null
+      }
+      this.balloons = this.balloons.filter((a) => a)
       this.balloonSpawning = false;
       this.bossCount = 1;
     }
