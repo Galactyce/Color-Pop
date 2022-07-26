@@ -136,7 +136,6 @@ GameWorld.prototype.checkCookies = function () {
   var line = "";
 
   for (var i = 0; i < ccookie.length; i++) {
-    alert()
     var cname = ccookie[i].split("=");
 
     for (var k = 0; k < this.shopItems.length; k++) {
