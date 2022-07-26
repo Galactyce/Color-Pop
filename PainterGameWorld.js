@@ -134,7 +134,6 @@ GameWorld.prototype.checkCookies = function () {
   ccookie.sort((a, b) => a - b);
   console.log(ccookie);
   var line = "";
-alert()
   for (var i = 0; i < ccookie.length; i++) {
     var cname = ccookie[i].split("=");
 
