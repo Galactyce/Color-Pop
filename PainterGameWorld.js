@@ -189,6 +189,7 @@ GameWorld.prototype.reset = function () {
   this.balloonsPopped = 0;
   this.ballsFired = 0;
   this.paused = false;
+  this.bossCount = 0;
   this.area = "home";
   for (var i = 0; i < this.balloons.length; i++) {
     this.balloons[i] = null;
