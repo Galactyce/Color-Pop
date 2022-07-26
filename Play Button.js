@@ -22,7 +22,7 @@ PlayButton.prototype.start = function() {
   }
 
   if (this.mode === "easy") {
-    this.balloonMinVelocity = 20;
+    this.balloonMinVelocity = 10;
   }
   if (this.mode === "hard") {
   }
