@@ -217,8 +217,9 @@ for (var i = 0; i < this.barriers.length; i++) {
     else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
   
     // (A2) THEN LOCK ORIENTATION
-    screen.orientation.lock(orientation);
   }
+  screen.orientation.lock('landscape-primary');
+
   }
 };
 
