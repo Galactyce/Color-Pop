@@ -862,12 +862,12 @@ GameWorld.prototype.update = function (delta) {
     if (this.targeting === true) {
       if (Touch.isTouchDevice) {
         if (Touch.containsTouchPress(this.balloons[k].rect)) {
-          this.popBalloon(k)
+          this.popBalloon(k, i)
       }
     }
     else if (!Touch.isTouchDevice) {
         if (this.balloons[k].rect.contains(Mouse.position) && Mouse.pressed) {
-          this.popBalloon(k)
+          this.popBalloon(k, i)
 
         }
     }
