@@ -680,7 +680,7 @@ else if (
 // Normal physics
 else if (
   this.balls[i].currentColor === this.balloons[k].currentColor ||
-  this.balloons[k].currentColor === "white"
+  this.balloons[k].currentColor === "white" || this.targeting === true
 ) {
   this.balloons[k].health -= 1;
   removeBall = true;
@@ -862,27 +862,15 @@ GameWorld.prototype.update = function (delta) {
     if (this.targeting === true) {
       if (Touch.isTouchDevice) {
         if (Touch.containsTouchPress(this.balloons[k].rect)) {
-          this.balloons[k].health -= 1
-          if (this.balloons[k].health <= 0) {
-            sounds.popEffect.volume = 0.4;
-            this.balloonsPopped += 1;
-            sounds.popEffect.play();
-            this.balloons[k].popped = true;
-            this.balloons[k].popTime = Date.now()
-          }
+          this.popBalloon(k)
       }
     }
+    else if (!Touch.isTouchDevice) {
         if (this.balloons[k].rect.contains(Mouse.position) && Mouse.pressed) {
-          this.balloons[k].health -= 1
-          if (this.balloons[k].health <= 0) {
-            sounds.popEffect.volume = 0.4;
-            this.balloonsPopped += 1;
-            sounds.popEffect.play();
-            this.balloons[k].popped = true;
-            this.balloons[k].popTime = Date.now()
-          }
+          this.popBalloon(k)
+
         }
-      
+    }
       }
 
       if ( Date.now() > this.balloons[k].popTime + 100) {
