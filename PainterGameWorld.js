@@ -171,13 +171,14 @@ GameWorld.prototype.drawBalloons = function () {
 };
 
 function lock (orientation) {
-  let de = document.documentElement;
+  let de = document;
   if (de.requestFullscreen) { de.requestFullscreen(); }
   else if (de.mozRequestFullScreen) { de.mozRequestFullScreen(); }
   else if (de.webkitRequestFullscreen) { de.webkitRequestFullscreen(); }
   else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
   document.fullscreenEnabled();
   // (A2) THEN LOCK ORIENTATION
+  alert()
   screen.orientation.lock(orientation);
 }
 
