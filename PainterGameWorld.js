@@ -219,7 +219,6 @@ for (var i = 0; i < this.barriers.length; i++) {
   this.win = false;
   sounds.backgroundMusicBasic.volume = 0;
 
-    lock('landscape-primary')
 
   
 };
