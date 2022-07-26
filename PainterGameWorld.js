@@ -545,6 +545,39 @@ GameWorld.prototype.playWinScreen = function () {
       this.backButton.draw();
     }
   }
+
+  if (this.lives <= 0) {
+    Canvas.drawImage(
+      sprites.extras["end_screen"].normal,
+      { x: 350, y: 100 },
+      0,
+      { x: 0, y: 0 }
+    );
+    Canvas.drawText(
+      "You lost :(",
+      new Vector2(500, 140),
+      "black",
+      "top",
+      "Comic Sans",
+      "70px"
+    );
+
+    if (!Touch.isTouchDevice) {
+    Canvas.drawText(
+      "Press Space to return.",
+      new Vector2(370, 330),
+      "black",
+      "top",
+      "Comic Sans",
+      "50px"
+    );
+    }
+
+    if (Touch.isTouchDevice) {
+      this.backButton.update();
+      this.backButton.draw();
+    }
+  }
 };
 
 GameWorld.prototype.updateCookies = function () {
