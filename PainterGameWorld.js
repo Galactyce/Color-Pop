@@ -703,6 +703,7 @@ GameWorld.prototype.update = function (delta) {
   if (Keyboard.keyPressed === 90) {
     document.cookie = "expires=0; path=/"
     alert()
+    window.location.reload()
   }
   if (this.gameActive === false) {
     this.modeToggleButton.update();
