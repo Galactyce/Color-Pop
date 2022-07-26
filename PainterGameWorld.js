@@ -136,11 +136,13 @@ GameWorld.prototype.checkCookies = function () {
   var line = "";
 
   for (var i = 0; i < ccookie.length; i++) {
+    alert()
     var cname = ccookie[i].split("=");
 
     for (var k = 0; k < this.shopItems.length; k++) {
        console.log("ccookie:" + ccookie[i].trim() + ',' + 'item'+ k + '=' + this.shopItems[k].item)
       if (ccookie[i].trim() == "item" + k + "=" + this.shopItems[k].item) {
+        
         this.specialtiesOwned.push(this.shopItems[k].item);
         this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
         this.shopItems[k].bought = true;
@@ -170,17 +172,7 @@ GameWorld.prototype.drawBalloons = function () {
   }
 };
 
-function lock (orientation) {
-  let de = document;
-  if (de.requestFullscreen) { de.requestFullscreen(); }
-  else if (de.mozRequestFullScreen) { de.mozRequestFullScreen(); }
-  else if (de.webkitRequestFullscreen) { de.webkitRequestFullscreen(); }
-  else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
-  document.fullscreenEnabled();
-  // (A2) THEN LOCK ORIENTATION
-  alert()
-  screen.orientation.lock(orientation);
-}
+
 
 GameWorld.prototype.reset = function () {
   this.rows = new Array(0, 0, 0); // # of balloons in a row
