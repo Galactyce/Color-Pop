@@ -15,7 +15,7 @@ function Ball() {
 Ball.prototype.reset = function () {
   this.position = Game.gameWorld.cannon.ballPosition().subtractBy(this.origin);
   if (!Touch.isTouchDevice) { 
-    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1);
+    this.velocity = Mouse.position.subtract(this.position).multiplyBy(1.2);
     
   if (Game.gameWorld.specialtiesEquipped === "double_ball_upgrade") {
     this.velocity = Mouse.position
