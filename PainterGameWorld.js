@@ -679,11 +679,11 @@ GameWorld.prototype.popBalloon = function (k, i) {
       this.balloons[k].health -= 1;
       removeBall = true;
     }
-    if (this.targeting) {
-      this.balloons[k].health -= 1;
-    }
+  
   }
-
+  if (this.targeting) {
+    this.balloons[k].health -= 1;
+  }
   //  Check if a balloon ran out of health
   if (this.balloons[k].health <= 0) {
     sounds.popEffect.volume = 0.4;
