@@ -27,7 +27,7 @@ Blimp.prototype.changeMarker = function () {
 };
 
 Blimp.prototype.applyHealth = function () {
-  if (Game.gameWorld.mode === "only_armored") this.armored = true;
+  if (Game.gameWorld.mode === "armored_only") this.armored = true;
   if (Game.gameWorld.mode === "tutorial_mode") {
     this.maxHealth = 40;
     this.health = 40;
@@ -57,7 +57,7 @@ Blimp.prototype.applyHealth = function () {
     }
   }
 
-  if (Game.gameWorld.mode === "only_armored") {
+  if (Game.gameWorld.mode === "armored_only") {
     this.maxHealth = 120;
     this.health = 120;
     this.velocity.y = 10;
