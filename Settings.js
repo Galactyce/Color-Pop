@@ -35,13 +35,13 @@ function MusicController() {
   this.raiserSprite = sprites.extras['volume_raiser_icon'].normal
   this.lowerPosition = new Vector2(100, 500);
   this.raiserPosition = new Vector2(600, 500);
-  this.lowerRect = new Rect(
+  this.lowerRect = new Rectangle(
     this.position.x,
     this.position.y,
     this.lowerSprite.width,
     this.lowerSprite.height
   )
-  this.raiserRect = new Rect(
+  this.raiserRect = new Rectangle(
     this.position.x,
     this.position.y,
     this.raiserRect.width,
