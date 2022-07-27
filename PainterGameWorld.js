@@ -777,11 +777,7 @@ GameWorld.prototype.update = function (delta) {
       this.reset();
     }
   }
-  if (Touch.isTouchDevice && Touch.touchPresses.length > 0) {
-    if (this.lives <= 0) {
-      this.reset();
-    }
-  }
+ 
   if (Keyboard.keyPressed === 80) this.paused = !this.paused;
 
   if (!this.paused) {
