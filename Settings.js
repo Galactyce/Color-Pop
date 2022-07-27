@@ -1,5 +1,4 @@
 function SettingsButton(position) {
-  alert()
   this.sprite = sprites.extras['settings_icon'].normal;
   this.position = position;
  
