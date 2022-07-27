@@ -128,7 +128,6 @@ function GameWorld() {
   var cookie = document.cookie;
   console.log(cookie);
   this.checkCookies();
-  alert()
 }
 
 GameWorld.prototype.checkCookies = function () {
