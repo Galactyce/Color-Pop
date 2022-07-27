@@ -18,7 +18,6 @@ SettingsButton.prototype.draw = function() {
 SettingsButton.prototype.update = function() {
   if (!Touch.isTouchDevice) {
     if (this.rect.contains(Mouse.position) && Mouse.pressed) {
-      alert()
       Game.gameWorld.area = 'settings';
     }
 
