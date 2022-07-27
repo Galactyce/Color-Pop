@@ -87,6 +87,8 @@ function GameWorld() {
   };
   this.scrollButtons = new Array();
   this.backButton = new BackButton(new Vector2(100, 170));
+  this.settingsButton = new SettingsButton(new Vector2(1150, 0));
+  this.musicController = new MusicController()
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -124,8 +126,21 @@ function GameWorld() {
     new ShopItem(new Vector2(1000, 250), "splash_balls_upgrade", 5)
   );
   this.reset();
-  var cookie = document.cookie;
-  console.log(cookie);
+  var cookie = document.cookie
+  console.log(cookie)
+  if (cookie != '') { 
+    var cname = document.cookie.split("=")
+    var name = cname[1]
+  }
+  else {
+
+    var name = prompt('Enter your name')
+    var d = new Date()
+    d.setTime(d.getTime() + 5 * 365 * 24 * 60 * 60 * 1000)
+   document.cookie = "name=" + name +";expires=" + d.toUTCString() + ";path=/";
+    console.log(document.cookie.trim())
+  }
+
   this.checkCookies();
 }
 
@@ -146,6 +161,7 @@ GameWorld.prototype.checkCookies = function () {
             this.shopItems[k].bought = true;
             console.log(this.shopItems[k].item)
         }
+      
       }
       }
     console.log(this.specialtiesOwned.length)
@@ -217,6 +233,9 @@ GameWorld.prototype.reset = function () {
 
 GameWorld.prototype.draw = function () {
   if (!this.inventory.open) {
+    if (this.area === 'settings') {
+      this.musicController.draw()
+    }
     // Dont draw the background if the inventory is open
     if (this.area === "home") {
       Canvas.drawImage(
@@ -294,7 +313,7 @@ GameWorld.prototype.draw = function () {
         this.inventoryButton.draw();
         this.shopButton.draw();
         this.modeInfoBox.draw();
-
+        this.settingsButton.draw()
         for (var i = 0; i < this.scrollButtons.length; i++) {
           this.scrollButtons[i].draw();
         }
@@ -715,7 +734,12 @@ GameWorld.prototype.update = function (delta) {
       this.scrollButtons[i].update();
     }
     if (!this.inventory.open) {
+      if (this.area === 'settings') {
+        this.musicController.update()
+      }
       if (this.area === "home") {
+        this.settingsButton.update()
+
         if (Keyboard.keyPressed === 39) {
           this.scrollInteger++;
           if (this.scrollInteger > this.scrollLength - 1) {
