@@ -143,7 +143,7 @@ GameWorld.prototype.checkCookies = function () {
             this.specialtiesOwned.push(this.shopItems[k].item);
             this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
             this.shopItems[k].bought = true;
-          
+            console.log(this.shopItems[k].item)
         }
       }
     
