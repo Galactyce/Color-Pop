@@ -11,7 +11,7 @@ function SettingsButton(position) {
 }
 
 SettingsButton.prototype.draw = function() {
-  Canvas.drawImage(this.sprite, this.position, 0, this.origin, 0.1);
+  Canvas.drawImage(this.sprite, this.position, 0, this.origin, 0.2);
 
 }
 
