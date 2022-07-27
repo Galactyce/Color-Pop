@@ -126,7 +126,7 @@ function GameWorld() {
   this.reset();
   var cookie = document.cookie;
   console.log(cookie);
- //this.checkCookies();
+  this.checkCookies();
 }
 
 GameWorld.prototype.checkCookies = function () {
@@ -140,14 +140,14 @@ GameWorld.prototype.checkCookies = function () {
     for (var k = 0; k < this.shopItems.length; k++) {
       console.log("cname:" + cname[1].trim() + "," + this.shopItems[k].item);
       if (cname[1].trim() == this.shopItems[k].item) {
-        for (var x=0; x<this.inventoryItems.length; x++) {
+        for (var x = 0; x < this.inventoryItems.length; x++) {
           if (cname[1].trim() !== this.inventoryItems[x]) {
-        this.specialtiesOwned.push(this.shopItems[k].item);
-        this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
-        this.shopItems[k].bought = true;
+            this.specialtiesOwned.push(this.shopItems[k].item);
+            this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
+            this.shopItems[k].bought = true;
+          }
+        }
       }
-    }
-    }
     }
     if (cname[0].trim() == "specialtyEquipped") {
       this.specialtiesEquipped = cname[1];
@@ -683,7 +683,6 @@ GameWorld.prototype.popBalloon = function (k, i) {
       this.balloons[k].health -= 1;
       removeBall = true;
     }
-  
   }
   if (this.targeting === true) {
     this.balloons[k].health -= 1;
@@ -705,9 +704,9 @@ GameWorld.prototype.update = function (delta) {
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
   if (Keyboard.keyPressed === 90) {
-    document.cookie = "expires=Sat, 20 Aug 2020 12:00:00 UTC"
-    alert()
-    window.location.reload()
+    document.cookie = "expires=Sat, 20 Aug 2020 12:00:00 UTC";
+    alert();
+    window.location.reload();
   }
   if (this.gameActive === false) {
     this.modeToggleButton.update();
@@ -781,7 +780,7 @@ GameWorld.prototype.update = function (delta) {
       this.reset();
     }
   }
- 
+
   if (Keyboard.keyPressed === 80) this.paused = !this.paused;
 
   if (!this.paused) {
