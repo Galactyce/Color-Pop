@@ -87,7 +87,8 @@ function GameWorld() {
   };
   this.scrollButtons = new Array();
   this.backButton = new BackButton(new Vector2(100, 170));
-  this.settingsButton = new SettingsButton(new Vector2(1150, 0))
+  this.settingsButton = new SettingsButton(new Vector2(1150, 0));
+  this.musicController = new MusicController()
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
@@ -230,6 +231,9 @@ GameWorld.prototype.reset = function () {
 
 GameWorld.prototype.draw = function () {
   if (!this.inventory.open) {
+    if (this.area === 'settings') {
+      this.musicController.draw()
+    }
     // Dont draw the background if the inventory is open
     if (this.area === "home") {
       Canvas.drawImage(
