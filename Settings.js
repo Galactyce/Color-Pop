@@ -20,10 +20,16 @@ SettingsButton.prototype.update = function() {
     if (this.rect.contains(Mouse.position) && Mouse.pressed) {
       Game.gameWorld.area = 'settings';
     }
+
   }
   else {
     if (Touch.containsTouchPress(this.rect)) {
       Game.gameWorld.area = 'settings';
     }
   }
+}
+
+function MusicController() {
+  this.volume = 0.4;
+  this.position
 }
