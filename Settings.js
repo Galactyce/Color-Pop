@@ -81,7 +81,7 @@ function SettingsBackButton(position) {
   );
 }
 
-BackButton.prototype.draw = function() {
+SettingsBackButton.prototype.draw = function() {
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, 0.5);
   Canvas.drawText(
     "Back To Home",
@@ -94,7 +94,7 @@ BackButton.prototype.draw = function() {
  
 }
 
-BackButton.prototype.update = function() {
+SettingsBackButton.prototype.update = function() {
   if (Touch.containsTouchPress(this.rect)) {
     Game.gameWorld.area = 'home';
   }
