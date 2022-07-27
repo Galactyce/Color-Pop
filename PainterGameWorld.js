@@ -293,7 +293,7 @@ GameWorld.prototype.draw = function () {
         this.inventoryButton.draw();
         this.shopButton.draw();
         this.modeInfoBox.draw();
-
+        this.settingsButton.draw()
         for (var i = 0; i < this.scrollButtons.length; i++) {
           this.scrollButtons[i].draw();
         }
@@ -715,6 +715,8 @@ GameWorld.prototype.update = function (delta) {
     }
     if (!this.inventory.open) {
       if (this.area === "home") {
+        this.settingsButton.update()
+
         if (Keyboard.keyPressed === 39) {
           this.scrollInteger++;
           if (this.scrollInteger > this.scrollLength - 1) {
