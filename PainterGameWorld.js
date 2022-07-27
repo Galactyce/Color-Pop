@@ -146,7 +146,7 @@ GameWorld.prototype.checkCookies = function () {
             console.log(this.shopItems[k].item)
         }
       }
-    
+    console.log(this.specialtiesOwned.length)
     if (cname[0].trim() == "specialtyEquipped") {
       this.specialtiesEquipped = cname[1];
     }
