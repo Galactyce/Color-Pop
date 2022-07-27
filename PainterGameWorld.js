@@ -577,7 +577,7 @@ GameWorld.prototype.playWinScreen = function () {
 
 GameWorld.prototype.updateCookies = function () {
   for (var i = 0; i < this.specialtiesOwned.length; i++) {
-    document.cookie = " item" + [i] + "=" + this.specialtiesOwned[i] + ";";
+    document.cookie = "item" + [i] + "=" + this.specialtiesOwned[i] + ";";
   }
 
   document.cookie = "coins=" + this.coins;
@@ -701,7 +701,7 @@ GameWorld.prototype.update = function (delta) {
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
   if (Keyboard.keyPressed === 90) {
-    document.cookie = "expires=0; path=/"
+    document.cookie = "expires=Sat, 20 Aug 2020 12:00:00 UTC"
     alert()
     window.location.reload()
   }
