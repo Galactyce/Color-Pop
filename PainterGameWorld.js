@@ -732,6 +732,9 @@ GameWorld.prototype.update = function (delta) {
       this.scrollButtons[i].update();
     }
     if (!this.inventory.open) {
+      if (this.area === 'settings') {
+        this.musicController.update()
+      }
       if (this.area === "home") {
         this.settingsButton.update()
 

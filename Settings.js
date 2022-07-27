@@ -56,3 +56,14 @@ MusicController.prototype.draw = function() {
   }
   Canvas.drawImage(this.raiserSprite, this.raiserPosition);
 }
+
+MusicController.prototype.update = function() {
+  if (!Touch.isTouchDevice) {
+    if (this.lowerRect.contains(Mouse.position) && Mouse.pressed && this.volume > 0) {
+      this.volume -= 0.1;
+    }
+    if (this.raiserRect.contains(Mouse.position) && Mouse.pressed && this.volume < 1) {
+      this.volume += 0.1;
+    }
+  }
+}
