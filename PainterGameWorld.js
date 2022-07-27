@@ -125,8 +125,21 @@ function GameWorld() {
     new ShopItem(new Vector2(1000, 250), "splash_balls_upgrade", 5)
   );
   this.reset();
-  var cookie = document.cookie;
-  console.log(cookie);
+  var cookie = document.cookie
+  console.log(cookie)
+  if (cookie != '') { 
+    var cname = document.cookie.split("=")
+    var name = cname[1]
+  }
+  else {
+
+    var name = prompt('Enter your name')
+    var d = new Date()
+    d.setTime(d.getTime() + 5 * 365 * 24 * 60 * 60 * 1000)
+   document.cookie = "name=" + name +";expires=" + d.toUTCString() + ";path=/";
+    console.log(document.cookie.trim())
+  }
+
   this.checkCookies();
 }
 
@@ -139,7 +152,6 @@ GameWorld.prototype.checkCookies = function () {
     var cname = ccookie[i].split("=");
 
     for (var k = 0; k < this.shopItems.length; k++) {
-      if (cname[0] !== '""') { 
       console.log("cname:" + cname[1].trim() + "," + this.shopItems[k].item);
       if (cname[1].trim() == this.shopItems[k].item && this.shopItems[k].bought === false) {
             this.specialtiesOwned.push(this.shopItems[k].item);

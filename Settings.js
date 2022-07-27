@@ -31,5 +31,20 @@ SettingsButton.prototype.update = function() {
 
 function MusicController() {
   this.volume = 0.4;
-  this.position
+  this.lowerSprite = sprites.extras['volume_lower_icon'].normal
+  this.raiserSprite = sprites.extras['volume_raiser_icon'].normal
+  this.lowerPosition = new Vector2(100, 500);
+  this.raiserPosition = new Vector2(600, 500);
+  this.lowerRect = new Rect(
+    this.position.x,
+    this.position.y,
+    this.lowerSprite.width,
+    this.lowerSprite.height
+  )
+  this.raiserRect = new Rect(
+    this.position.x,
+    this.position.y,
+    this.raiserRect.width,
+    this.raiserRect.height
+  )
 }
