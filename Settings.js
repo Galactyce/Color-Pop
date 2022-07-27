@@ -72,10 +72,10 @@ MusicController.prototype.update = function() {
 function SettingsBackButton(position) {
   this.sprite = sprites.extras["simple_button"].normal;
   this.position = position;
-  this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+  this.origin = new Vector2(0, 0);
   this.rect = new Rectangle(
-    position.x - this.origin.x / 2,
-    position.y - this.origin.y / 2,
+    position.x,
+    position.y,
     this.sprite.width * 0.5,
     this.sprite.height * 0.5
   );

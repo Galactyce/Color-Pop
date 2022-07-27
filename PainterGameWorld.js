@@ -89,7 +89,7 @@ function GameWorld() {
   this.backButton = new BackButton(new Vector2(100, 170));
   this.settingsButton = new SettingsButton(new Vector2(1150, 0));
   this.musicController = new MusicController()
-  this.settingsBackButton = new SettingsBackButton(new Vector2(200, 200));
+  this.settingsBackButton = new SettingsBackButton(new Vector2(50, 50));
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
   this.blimpColorChangeFrequency = 0;
