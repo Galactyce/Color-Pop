@@ -53,6 +53,7 @@ function MusicController() {
 MusicController.prototype.draw = function() {
   Canvas.drawImage(this.lowerSprite, this.lowerPosition);
   for (var i=0; i<this.volume * 10; i++) {
+    alert(i)
     Canvas.drawImage(sprites.extras['volume_bar'].normal, new Vector2(this.lowerPosition.x + (i * 60), 230));
   }
   Canvas.drawImage(this.raiserSprite, this.raiserPosition);
