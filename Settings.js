@@ -44,8 +44,8 @@ function MusicController() {
   this.raiserRect = new Rectangle(
     this.raiserPosition.x,
     this.raiserPosition.y,
-    this.raiserRect.width,
-    this.raiserRect.height
+    this.raiserSprite.width,
+    this.raiserSprite.height
   )
 }
 
