@@ -152,7 +152,7 @@ ModeDescription.prototype.draw = function () {
   }
   if (this.mode === "faster_balloons") {
     Canvas.drawText(
-      "Balloons are 2x speed!",
+      "Balloons are 50% faster!",
       new Vector2(this.position.x - 160, this.position.y - 20),
       "black",
       "top",

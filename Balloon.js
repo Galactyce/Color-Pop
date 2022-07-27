@@ -136,7 +136,7 @@ Balloon.prototype.checkSpecials = function () {
     this.health *= 2;
   }
   if (Game.gameWorld.mode === "faster_balloons") {
-    this.velocity.y *= 2;
+    this.velocity.y *= 1.5;
   }
 
   if (Game.gameWorld.mode === "tutorial" && this.score >= 360) {
