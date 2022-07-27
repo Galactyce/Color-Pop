@@ -95,15 +95,22 @@ SettingsBackButton.prototype.draw = function() {
 }
 
 SettingsBackButton.prototype.update = function() {
+  if (Touch.isTouchDevice) {
   if (Touch.containsTouchPress(this.rect)) {
     Game.gameWorld.area = 'home';
   }
-  this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+}
+else {
+  if (this.rect.contains(Mouse.position) && Mouse.pressed) {
+    Game.gameWorld.area = 'home';
 
-  this.rect = new Rectangle(
-    this.position.x - this.origin.x / 2,
-    this.position.y - this.origin.y / 2,
-    this.sprite.width * 0.5,
-    this.sprite.height * 0.5
-  );
+  }
+}
+
+this.rect = new Rectangle(
+  this.position.x,
+  this.position.y,
+  this.sprite.width * 0.5,
+  this.sprite.height * 0.5
+);
 }
