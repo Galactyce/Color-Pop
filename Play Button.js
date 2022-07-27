@@ -13,7 +13,7 @@ PlayButton.prototype.start = function() {
   sounds.playSound.volume = 0.2;
   sounds.cannonShot.volume = 0.4;
   sounds.playSound.play();
-  sounds.backgroundMusicBasic.volume = 0.6;
+  sounds.backgroundMusicBasic.volume = Game.gameWorld.musicController.volume;
   Game.gameWorld.balloonsPerRow = 1;
   sounds.backgroundMusicBasic.play();
   Game.gameWorld.mode = this.mode;
