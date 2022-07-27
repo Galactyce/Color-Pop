@@ -20,16 +20,19 @@ BackButton.prototype.draw = function() {
     'Comic Sans',
     '20px'
   )
-  this.rect = new Rectangle(
-    this.position.x - this.origin.x / 2,
-    this.position.y - this.origin.y / 2,
-    this.sprite.width * 0.5,
-    this.sprite.height * 0.5
-  );
+ 
 }
 
 BackButton.prototype.update = function() {
   if (Touch.containsTouchPress(this.rect)) {
     Game.gameWorld.reset();
   }
+  this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+
+  this.rect = new Rectangle(
+    this.position.x - this.origin.x / 2,
+    this.position.y - this.origin.y / 2,
+    this.sprite.width * 0.5,
+    this.sprite.height * 0.5
+  );
 }
