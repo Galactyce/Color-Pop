@@ -89,6 +89,7 @@ function GameWorld() {
   this.backButton = new BackButton(new Vector2(100, 170));
   this.settingsButton = new SettingsButton(new Vector2(1150, 0));
   this.musicController = new MusicController()
+  this.SFXController = new SFXController()
   this.settingsBackButton = new SettingsBackButton(new Vector2(50, 50));
   this.powerUpSlots = new Array();
   this.lastSpecialBalloons = Date.now();
@@ -236,6 +237,7 @@ GameWorld.prototype.draw = function () {
   if (!this.inventory.open) {
     if (this.area === 'settings') {
       this.musicController.draw()
+      this.SFXController.draw()
       this.settingsBackButton.draw()
     }
     // Dont draw the background if the inventory is open
@@ -710,7 +712,7 @@ GameWorld.prototype.popBalloon = function (k, i) {
   }
   //  Check if a balloon ran out of health
   if (this.balloons[k].health <= 0) {
-    sounds.popEffect.volume = 0.4;
+    sounds.popEffect.volume =  Game.gameWorld.SFXController.volume;
     this.balloonsPopped += 1;
     sounds.popEffect.play();
     this.balloons[k].popped = true;
@@ -738,6 +740,7 @@ GameWorld.prototype.update = function (delta) {
     if (!this.inventory.open) {
       if (this.area === 'settings') {
         this.musicController.update();
+        this.SFXController.update();
         this.settingsBackButton.update()
 
       }

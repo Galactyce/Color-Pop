@@ -72,7 +72,7 @@ PowerSlot.prototype.activate = function () {
     for (var k = 0; k < Game.gameWorld.balloons.length; k++) {
       Game.gameWorld.balloons[k].health -= 10;
       if (Game.gameWorld.balloons[k].health <= 0) {
-        sounds.popEffect.volume = 0.4;
+        sounds.popEffect.volume =  Game.gameWorld.SFXController.volume;
         Game.gameWorld.balloonsPopped += 1;
         sounds.popEffect.play();
         Game.gameWorld.balloons[k].popped = true;

@@ -10,8 +10,8 @@ PlayButton.prototype.start = function() {
   Game.paused = false;
   Game.gameWorld.started = true
   Game.gameWorld.gameActive = true;
-  sounds.playSound.volume = 0.2;
-  sounds.cannonShot.volume = 0.4;
+  sounds.playSound.volume = Game.gameWorld.SFXController.volume - 0.2;
+  sounds.cannonShot.volume = Game.gameWorld.SFXController.volume;
   sounds.playSound.play();
   sounds.backgroundMusicBasic.volume = Game.gameWorld.musicController.volume;
   Game.gameWorld.balloonsPerRow = 1;
