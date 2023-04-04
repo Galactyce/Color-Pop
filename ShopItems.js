@@ -105,7 +105,6 @@ ShopItem.prototype.update = function () {
             Game.gameWorld.specialtiesEquipped = this.item; // Equip it automatically
           }
           Game.gameWorld.coins -= this.cost;
-          Game.gameWorld.updateCookies();
           this.bought = true;
           Game.gameWorld.shopInfoBox = undefined;
         }
@@ -128,7 +127,6 @@ ShopItem.prototype.update = function () {
           Game.gameWorld.specialtiesEquipped = this.item; // Equip it automatically
         }
         Game.gameWorld.coins -= this.cost;
-        Game.gameWorld.updateCookies();
         this.bought = true;
         Game.gameWorld.shopInfoBox = undefined;
       }
