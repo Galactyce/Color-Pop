@@ -41,7 +41,7 @@ PlayButton.prototype.update = function () {
 //   }
 //   else if (
 //     !Touch.isTouchDevice &&
-    this.rect.contains(Mouse.position) &&
+    if (this.rect.contains(Mouse.position) &&
     Mouse.pressed && 
     Game.gameWorld.gameActive === false 
   ) {
