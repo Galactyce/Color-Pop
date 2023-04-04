@@ -496,7 +496,7 @@ GameWorld.prototype.giveCoins = function () {
   if (this.mode === "faster_balloons") this.reward = 5;
   if (this.mode === "no_color_mode") this.reward = 3;
   this.coins += this.reward;
-  this.updateCookies();
+//   this.updateCookies();
 };
 
 GameWorld.prototype.handleInput = function (delta) {
@@ -602,13 +602,13 @@ GameWorld.prototype.playWinScreen = function () {
   }
 };
 
-GameWorld.prototype.updateCookies = function () {
-  for (var i = 0; i < this.specialtiesOwned.length; i++) {
-    document.cookie = "item" + [i] + "=" + this.specialtiesOwned[i] + ";";
-  }
+// GameWorld.prototype.updateCookies = function () {
+//   for (var i = 0; i < this.specialtiesOwned.length; i++) {
+//     document.cookie = "item" + [i] + "=" + this.specialtiesOwned[i] + ";";
+//   }
 
-  document.cookie = "coins=" + this.coins;
-};
+//   document.cookie = "coins=" + this.coins;
+// };
 
 GameWorld.prototype.popBalloon = function (k, i) {
   // Rainbow Physics
@@ -723,7 +723,7 @@ GameWorld.prototype.popBalloon = function (k, i) {
 GameWorld.prototype.checkBalloonHealth = function () {};
 
 GameWorld.prototype.update = function (delta) {
-  this.updateCookies();
+//   this.updateCookies();
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
   if (Keyboard.keyPressed === 90) {
