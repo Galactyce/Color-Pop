@@ -34,14 +34,14 @@ PlayButton.prototype.start = function() {
 }
 
 PlayButton.prototype.update = function () {
-//   if (Touch.isTouchDevice && Touch.containsTouchPress(this.rect) &&
-//   Game.gameWorld.gameActive === false 
-//   ) {
-//     this.start()
-//   }
-//   else if (
-//     !Touch.isTouchDevice &&
-    if (this.rect.contains(Mouse.position) &&
+  if (Touch.isTouchDevice && Touch.containsTouchPress(this.rect) &&
+  Game.gameWorld.gameActive === false 
+  ) {
+    this.start()
+  }
+  else if (
+    !Touch.isTouchDevice &&
+    this.rect.contains(Mouse.position) &&
     Mouse.pressed && 
     Game.gameWorld.gameActive === false 
   ) {
