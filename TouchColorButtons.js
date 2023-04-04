@@ -17,8 +17,8 @@ ColorButton.prototype.define = function() {
     this.rect = new Rectangle(
       this.position.x ,
       this.position.y ,
-      this.sprite.width * 0.5 ,
-      this.sprite.height * 0.5 
+      this.sprite.width,
+      this.sprite.height 
     );
   }
   
@@ -27,8 +27,8 @@ ColorButton.prototype.draw = function() {
   this.rect = new Rectangle(
     this.position.x ,
     this.position.y ,
-    this.sprite.width * 0.5 ,
-    this.sprite.height * 0.5
+    this.sprite.width ,
+    this.sprite.height 
   );
   Canvas.drawImage(this.sprite, this.position, 0, this.origin, this.scale);
 }
