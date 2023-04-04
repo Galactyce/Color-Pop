@@ -726,11 +726,7 @@ GameWorld.prototype.update = function (delta) {
 //   this.updateCookies();
   this.cannon.update(delta);
   if (Keyboard.keyPressed === 65) this.coins += 2;
-  if (Keyboard.keyPressed === 90) {
-    document.cookie = "expires=Sat, 20 Aug 2020 12:00:00 UTC";
-    alert();
-    window.location.reload();
-  }
+
   if (this.gameActive === false) {
     this.modeToggleButton.update();
     this.tutorialModeButton.update();
