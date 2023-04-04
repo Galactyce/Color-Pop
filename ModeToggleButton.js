@@ -53,7 +53,7 @@ ModeToggleButton.prototype.update = function () {
 }
 else {
   if (Touch.containsTouchPress(this.rect)) {
-    alert("penis");
+    alert(this.sprite.width / 2 + ", " + this.sprite.height / 2);
     if (this.mode === "normal") {
       this.mode = "extras";
       Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
