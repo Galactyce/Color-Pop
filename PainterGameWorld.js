@@ -189,6 +189,9 @@ GameWorld.prototype.loadSave = function() {
   }
   if (localStorage.itemsOwned) {
     this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
+    for (var i = 0; i < specialtiesOwned; i++) {
+      this.inventoryItems.push(new InventoryItem(specialtiesOwned[i]); 
+    }
   }
   if (localStorage.inventoryItems) {
     this.inventoryItems = JSON.parse(localStorage.inventoryItems);
