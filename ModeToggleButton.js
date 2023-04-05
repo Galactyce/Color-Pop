@@ -75,5 +75,6 @@ ModeToggleButton.prototype.update = function () {
       Game.gameWorld.scrollInteger = 0;
         return;
       }
+    }
   }
 };
