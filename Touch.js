@@ -56,6 +56,7 @@ Touch.prototype.containsTouch = function(rect) {
 Touch.prototype.containsTouchPress = function(rect) {
   for (var i=0; i<this.touchPresses.length; i++) {
     if (rect.contains(this.getPosition(i)) && this.touches[i]) {
+      alert(this.getPosition(i));
       this.touchingRect = true
       return true
     };
