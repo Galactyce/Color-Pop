@@ -128,6 +128,7 @@ function GameWorld() {
     new ShopItem(new Vector2(1000, 250), "splash_balls_upgrade", 5)
   );
   this.reset();
+  this.loadSave();
 //   var cookie = document.cookie
 //   console.log(cookie)
 //   if (cookie != '') { 
@@ -180,6 +181,10 @@ function GameWorld() {
 //     }
 //   }
 };
+
+GameWorld.prototype.loadSave = function() {
+  this.coins = localStorage.coins; 
+}
 
 GameWorld.prototype.drawBalloons = function () {
   for (var k = 0; k < this.blimps.length; k++) {
@@ -487,6 +492,10 @@ GameWorld.prototype.draw = function () {
   this.drawGuides();
 };
 
+GameWorld.prototype.save = function() {
+  localStorage.coins = this.coins;
+}
+
 GameWorld.prototype.giveCoins = function () {
   if (this.mode === "easy") this.reward = 1;
   if (this.mode === "intermediate") this.reward = 2;
@@ -496,7 +505,7 @@ GameWorld.prototype.giveCoins = function () {
   if (this.mode === "faster_balloons") this.reward = 5;
   if (this.mode === "no_color_mode") this.reward = 3;
   this.coins += this.reward;
-//   this.updateCookies();
+  this.save();
 };
 
 GameWorld.prototype.handleInput = function (delta) {
@@ -725,7 +734,13 @@ GameWorld.prototype.checkBalloonHealth = function () {};
 GameWorld.prototype.update = function (delta) {
 //   this.updateCookies();
   this.cannon.update(delta);
-  if (Keyboard.keyPressed === 65) this.coins += 2;
+  if (Keyboard.keyPressed === 65) {
+    this.coins += 2;
+    this.save();
+  }
+  if (Keyboard.keyPressed === 72) {
+    localStorage.clear();
+  }
 
   if (this.gameActive === false) {
     this.modeToggleButton.update();
