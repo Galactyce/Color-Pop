@@ -189,6 +189,9 @@ GameWorld.prototype.loadSave = function() {
   if (localStorage.itemsOwned) {
     this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
   }
+  if (localStorage.inventoryItems) {
+    this.inventoryItems = JSON.parse(localStorage.inventoryItems);
+  }
 }
 
 GameWorld.prototype.drawBalloons = function () {
