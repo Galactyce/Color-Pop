@@ -92,7 +92,9 @@ this.rect = new Rectangle(
 };
 
 ShopItem.prototype.save = function() {
-  
+  var list = Game.gameWorld.specialtiesOwned;
+  localStorage.itemsOwned = JSON.stringify(list);
+  Game.gameWorld.save();
 }
 
 ShopItem.prototype.update = function () {
@@ -104,7 +106,7 @@ ShopItem.prototype.update = function () {
         if (this.cost <= Game.gameWorld.coins) {
           Game.gameWorld.specialtiesOwned.push(this.item);
           Game.gameWorld.inventoryItems.push(new InventoryItem(this.item));
-          alert("balls");
+          
           if (Game.gameWorld.specialtiesOwned[0] === this.item) {
             // If this is your first upgrade bought
             Game.gameWorld.specialtiesEquipped = this.item; // Equip it automatically
