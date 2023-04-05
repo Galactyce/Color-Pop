@@ -91,6 +91,10 @@ this.rect = new Rectangle(
   }
 };
 
+ShopItem.prototype.save = function() {
+  
+}
+
 ShopItem.prototype.update = function () {
   if (this.bought === false) {
     if (!Touch.isTouchDevice) {
@@ -108,6 +112,8 @@ ShopItem.prototype.update = function () {
           Game.gameWorld.coins -= this.cost;
           this.bought = true;
           Game.gameWorld.shopInfoBox = undefined;
+          this.save();
+          Game.gameWorld.save();
         }
       }
     }
