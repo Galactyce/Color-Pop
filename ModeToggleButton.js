@@ -53,7 +53,7 @@ ModeToggleButton.prototype.update = function () {
 }
 else {
   if (Touch.containsTouchPress(this.rect)) {
-    alert(this.sprite.width / 2 + ", " + this.sprite.height / 2);
+    alert(this.rect.x + ", " + this.rect.y + ", " + this.rect.width + ", " + this.rect.height);
     if (this.mode === "normal") {
       this.mode = "extras";
       Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
