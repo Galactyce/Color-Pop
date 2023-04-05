@@ -183,7 +183,9 @@ function GameWorld() {
 };
 
 GameWorld.prototype.loadSave = function() {
-  this.coins = localStorage.coins; 
+  if (localStorage.coins) {
+    this.coins = localStorage.coins; 
+  }
 }
 
 GameWorld.prototype.drawBalloons = function () {
