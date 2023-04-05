@@ -31,11 +31,12 @@ ModeToggleButton.prototype.draw = function () {
 };
 
 ModeToggleButton.prototype.update = function () {
+ this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
   this.rect = new Rectangle(
-    this.position.x,
-    this.position.y,
-    this.sprite.width / 2,
-    this.sprite.height / 2
+    this.position.x - this.origin.x / 2,
+    this.position.y - this.origin.y / 2,
+    this.sprite.width * 0.5,
+    this.sprite.height * 0.5
   );
 
   if (!Touch.isTouchDevice) {
