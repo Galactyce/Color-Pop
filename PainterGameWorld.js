@@ -189,6 +189,7 @@ GameWorld.prototype.loadSave = function() {
   }
   if (localStorage.itemsOwned) {
     this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
+    alert(specialtiesOwned[0] + ", " + specialtiesOwned[1]);
     for (var i = 0; i < specialtiesOwned.length; i++) {
       this.inventoryItems.push(new InventoryItem(specialtiesOwned[i]); 
     }
