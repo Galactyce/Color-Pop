@@ -49,26 +49,31 @@ ModeToggleButton.prototype.update = function () {
     if (this.rect.contains(Mouse.position) && Mouse.pressed) {
       if (this.mode === "normal") {
         this.mode = "extras";
+          Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
+      Game.gameWorld.scrollInteger = 0;
         return;
       }
       if (this.mode === "extras") {
         this.mode = "normal";
+          Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
+      Game.gameWorld.scrollInteger = 0;
         return;
       }
     }
   }
   else {
     if (Touch.containsTouchPress(this.rect)) {
-      if (Game.gameWorld.area === "shop") {
-        Game.gameWorld.area = "home";
-        this.position = new Vector2(200, 550);
+      if (this.mode === "normal") {
+        this.mode = "extras";
+          Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
+      Game.gameWorld.scrollInteger = 0;
         return;
       }
-      if (Game.gameWorld.area === "home") {
-        Game.gameWorld.area = "shop";
-        this.position = new Vector2(200, 650);
+      if (this.mode === "extras") {
+        this.mode = "normal";
+          Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
+      Game.gameWorld.scrollInteger = 0;
         return;
       }
-    }
   }
 };
