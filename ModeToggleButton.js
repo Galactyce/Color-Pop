@@ -58,6 +58,7 @@ ModeToggleButton.prototype.update = function () {
         this.mode = "extras";
           Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
       Game.gameWorld.scrollInteger = 0;
+        alert("yes");
       }
       else if (this.mode === "extras") {
         this.mode = "normal";
