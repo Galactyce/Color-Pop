@@ -333,6 +333,7 @@ GameWorld.prototype.draw = function () {
           this.modeToggleButton.mode === "extras"
         ) {
           this.extraButtonString[this.scrollInteger].draw();
+          alert("balls");
         }
       }
     }
