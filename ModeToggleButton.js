@@ -1,13 +1,7 @@
 function ModeToggleButton(xPosition, yPosition) {
   this.sprite = sprites.extras["simple_button"].normal;
   this.position = new Vector2(xPosition, yPosition);
-  this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
-  this.rect = new Rectangle(
-    this.position.x - this.origin.x / 2,
-    this.position.y - this.origin.y / 2,
-    this.sprite.width * 0.5,
-    this.sprite.height * 0.5
-  );
+  this.origin = new Vector2(0, 0);
   this.mode = "normal";
 }
 
@@ -37,12 +31,11 @@ ModeToggleButton.prototype.draw = function () {
 };
 
 ModeToggleButton.prototype.update = function () {
-  this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
   this.rect = new Rectangle(
-    this.position.x - this.origin.x / 2,
-    this.position.y - this.origin.y / 2,
-    this.sprite.width * 0.5,
-    this.sprite.height * 0.5
+    this.position.x ,
+    this.position.y,
+    this.sprite.width,
+    this.sprite.height 
   );
 
   if (!Touch.isTouchDevice) {
