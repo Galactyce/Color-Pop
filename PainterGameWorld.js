@@ -189,14 +189,11 @@ GameWorld.prototype.loadSave = function() {
   }
   if (localStorage.itemsOwned) {
     this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
-    for (var i = 0; i < specialtiesOwned; i++) {
+    for (var i = 0; i < specialtiesOwned.length; i++) {
       this.inventoryItems.push(new InventoryItem(specialtiesOwned[i]); 
     }
   }
-  if (localStorage.inventoryItems) {
-    this.inventoryItems = JSON.parse(localStorage.inventoryItems);
-    alert(this.inventoryItems[0]);
-  }
+  
 }
 
 GameWorld.prototype.drawBalloons = function () {
