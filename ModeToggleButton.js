@@ -37,7 +37,7 @@ ModeToggleButton.prototype.draw = function () {
 };
 
 ModeToggleButton.prototype.update = function () {
- this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
+  this.origin = new Vector2(this.sprite.width / 2, this.sprite.height / 2);
   this.rect = new Rectangle(
     this.position.x - this.origin.x / 2,
     this.position.y - this.origin.y / 2,
@@ -46,30 +46,31 @@ ModeToggleButton.prototype.update = function () {
   );
 
   if (!Touch.isTouchDevice) {
-  if (this.rect.contains(Mouse.position) && Mouse.pressed) {
-    if (this.mode === "normal") {
-      this.mode = "extras";
-      Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
-      Game.gameWorld.scrollInteger = 0;
-    } else if (this.mode === "extras") {
-      this.mode = "normal";
-      Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
-      Game.gameWorld.scrollInteger = 0;
+    if (this.rect.contains(Mouse.position) && Mouse.pressed) {
+      if (Game.gameWorld.mode === "normal") {
+        Game.gameWorld.area = "extras";
+        this.position = new Vector2(200, 550);
+        return;
+      }
+      if (Game.gameWorld.area === "extras") {
+        Game.gameWorld.area = "normal";
+        this.position = new Vector2(200, 650);
+        return;
+      }
     }
   }
-}
-else {
-  if (Touch.containsTouchPress(this.rect)) {
-    alert(this.rect.x + ", " + this.rect.y + ", " + this.rect.width + ", " + this.rect.height);
-    if (this.mode === "normal") {
-      this.mode = "extras";
-      Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
-      Game.gameWorld.scrollInteger = 0;
-    } else if (this.mode === "extras") {
-      this.mode = "normal";
-      Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
-      Game.gameWorld.scrollInteger = 0;
+  else {
+    if (Touch.containsTouchPress(this.rect)) {
+      if (Game.gameWorld.area === "shop") {
+        Game.gameWorld.area = "home";
+        this.position = new Vector2(200, 550);
+        return;
+      }
+      if (Game.gameWorld.area === "home") {
+        Game.gameWorld.area = "shop";
+        this.position = new Vector2(200, 650);
+        return;
+      }
     }
   }
-}
 };
