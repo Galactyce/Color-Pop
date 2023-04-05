@@ -47,14 +47,12 @@ ModeToggleButton.prototype.update = function () {
 
   if (!Touch.isTouchDevice) {
     if (this.rect.contains(Mouse.position) && Mouse.pressed) {
-      if (Game.gameWorld.mode === "normal") {
-        Game.gameWorld.area = "extras";
-        this.position = new Vector2(200, 550);
+      if (this.mode === "normal") {
+        this.mode = "extras";
         return;
       }
-      if (Game.gameWorld.area === "extras") {
-        Game.gameWorld.area = "normal";
-        this.position = new Vector2(200, 650);
+      if (this.mode === "extras") {
+        this.mode = "normal";
         return;
       }
     }
