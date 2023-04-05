@@ -94,6 +94,7 @@ this.rect = new Rectangle(
 ShopItem.prototype.save = function() {
   var list = Game.gameWorld.specialtiesOwned;
   localStorage.itemsOwned = JSON.stringify(list);
+  localStorage.inventoryOwned = JSON.stringify(Game.gameWorld.inventoryItems);
   Game.gameWorld.save();
 }
 
