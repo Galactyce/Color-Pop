@@ -54,14 +54,13 @@ Touch.prototype.containsTouch = function(rect) {
 }
 
 Touch.prototype.containsTouchPress = function(rect) {
-    evt.preventDefault();
-    var touches = evt.changedTouches;
-    for (var i = 0; i < touches.length; ++i) {
-        var id = Touch.getTouchIndexFromId(touches[i].identifier);
-        Touch.touches.splice(id, 1);
-        Touch.touchPresses.splice(id, 1);
-
-    }
+    for (var i=0; i<this.touchPresses.length; i++) {
+    if (rect.contains(this.getPosition(i)) && this.touches[i]) {
+      alert(this.getPosition(i));
+      this.touchingRect = true
+      return true
+    };
+    return false;
 }
 
 function handleTouchStart(evt) {
