@@ -185,12 +185,14 @@ function GameWorld() {
 GameWorld.prototype.loadSave = function() {
   if (localStorage.coins) {
     this.coins = parseInt(localStorage.coins); 
+    alert(this.coins);
   }
   if (localStorage.itemsOwned) {
     this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
   }
   if (localStorage.inventoryItems) {
     this.inventoryItems = JSON.parse(localStorage.inventoryItems);
+    alert(this.inventoryItems[0]);
   }
 }
 
