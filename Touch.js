@@ -7,10 +7,10 @@ function Touch() {
 
 Touch.prototype.checkInputs = function () {
   document.addEventListener('touchstart', handleTouchStart, false);
-  document.addEventListener('touchend', handleTouchEnd, false);
-  document.addEventListener('touchcancel', handleTouchEnd, false);
-  document.addEventListener('touchleave', handleTouchEnd, false);
-  document.addEventListener('touchmove', handleTouchMove, false);
+ document.addEventListener('touchend', handleTouchEnd, false);
+    document.addEventListener('touchcancel', handleTouchEnd, false);
+    document.addEventListener('touchleave', handleTouchEnd, false);
+    document.body.addEventListener('touchmove', handleTouchMove, false);
 };
 
 Object.defineProperty(Touch.prototype, 'isTouchDevice', {
