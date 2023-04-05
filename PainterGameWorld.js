@@ -184,7 +184,7 @@ function GameWorld() {
 
 GameWorld.prototype.loadSave = function() {
   if (localStorage.coins) {
-    this.coins = localStorage.coins; 
+    this.coins = parseInt(localStorage.coins); 
   }
   if (localStorage.itemsOwned) {
     this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
