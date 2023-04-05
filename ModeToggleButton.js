@@ -34,8 +34,8 @@ ModeToggleButton.prototype.update = function () {
   this.rect = new Rectangle(
     this.position.x ,
     this.position.y,
-    this.sprite.width,
-    this.sprite.height 
+    this.sprite.width / 2,
+    this.sprite.height / 2 
   );
 
   if (!Touch.isTouchDevice) {
