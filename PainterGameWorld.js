@@ -740,8 +740,9 @@ GameWorld.prototype.update = function (delta) {
     this.coins += 2;
     this.save();
   }
-  if (Keyboard.keyPressed === 72) {
+  if (Keyboard.keyPressed === 80) {
     localStorage.clear();
+    window.location.reload();
   }
 
   if (this.gameActive === false) {
