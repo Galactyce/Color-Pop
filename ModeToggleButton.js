@@ -49,7 +49,7 @@ ModeToggleButton.prototype.update = function () {
     if (this.rect.contains(Mouse.position) && Mouse.pressed) {
       if (this.mode === "normal") {
         this.mode = "extras";
-          Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
+          Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
       Game.gameWorld.scrollInteger = 0;
         return;
       }
@@ -65,7 +65,7 @@ ModeToggleButton.prototype.update = function () {
     if (Touch.containsTouchPress(this.rect)) {
       if (this.mode === "normal") {
         this.mode = "extras";
-          Game.gameWorld.scrollLength = Game.gameWorld.normalButtonString.length;
+          Game.gameWorld.scrollLength = Game.gameWorld.extraButtonString.length;
       Game.gameWorld.scrollInteger = 0;
         return;
       }
