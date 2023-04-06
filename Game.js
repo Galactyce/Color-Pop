@@ -28,7 +28,7 @@ Game_Singleton.prototype.mainLoop = function () {
     Game.gameWorld.draw();
   }
   Mouse.reset();
-  Touch.reset()
+  // Touch.reset()
 
   
   window.setTimeout(Game.mainLoop, 1000 / 60);
