@@ -129,57 +129,7 @@ function GameWorld() {
   );
   this.reset();
   this.loadSave();
-//   var cookie = document.cookie
-//   console.log(cookie)
-//   if (cookie != '') { 
-//     var cname = document.cookie.split("=")
-//     var name = cname[1]
-//   }
-//   else {
-
-//     var name = prompt('Enter your name')
-//     var d = new Date()
-//     d.setTime(d.getTime() + 5 * 365 * 24 * 60 * 60 * 1000)
-//    document.cookie = "name=" + name +";expires=" + d.toUTCString() + ";path=/";
-//     console.log(document.cookie.trim())
-//   }
-
-//   this.checkCookies();
-// }
-
-// GameWorld.prototype.checkCookies = function () {
-//   var ccookie = document.cookie.split(";");
-//   ccookie.sort((a, b) => a - b);
-//   console.log(ccookie);
-//   var line = "";
-//   for (var i = 0; i < ccookie.length; i++) {
-//     var cname = ccookie[i].split("=");
-
-//     for (var k = 0; k < this.shopItems.length; k++) {
-//       if (cname.length > 1) { 
-//       console.log("cname:" + cname[1].trim() + "," + this.shopItems[k].item);
-//       if (cname[1].trim() == this.shopItems[k].item && this.shopItems[k].bought === false) {
-//             this.specialtiesOwned.push(this.shopItems[k].item);
-//             this.inventoryItems.push(new InventoryItem(this.shopItems[k].item));
-//             this.shopItems[k].bought = true;
-//             console.log(this.shopItems[k].item)
-//         }
-      
-//       }
-//       }
-//     console.log(this.specialtiesOwned.length)
-//     if (cname[0].trim() == "specialtyEquipped") {
-//       this.specialtiesEquipped = cname[1];
-//     }
-//     if (cname[0].trim() == "coins") {
-//       var int = parseInt(cname[1]);
-//       console.log(int);
-//       this.coins = int;
-//       // if (int === '""') {
-//       //   this.coins = 0;
-//       // }
-//     }
-//   }
+  this.level = 1;
 };
 
 GameWorld.prototype.loadSave = function() {
@@ -620,13 +570,7 @@ GameWorld.prototype.playWinScreen = function () {
   }
 };
 
-// GameWorld.prototype.updateCookies = function () {
-//   for (var i = 0; i < this.specialtiesOwned.length; i++) {
-//     document.cookie = "item" + [i] + "=" + this.specialtiesOwned[i] + ";";
-//   }
 
-//   document.cookie = "coins=" + this.coins;
-// };
 
 GameWorld.prototype.popBalloon = function (k, i) {
   // Rainbow Physics
