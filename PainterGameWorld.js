@@ -133,15 +133,15 @@ function GameWorld() {
 };
 
 GameWorld.prototype.loadSave = function() {
-  if (localStorage.coins) {
-    this.coins = parseInt(localStorage.coins); 
-    alert(this.coins);
-  }
-  if (localStorage.itemsOwned) {
-    this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
-    alert(specialtiesOwned[0] + ", " + specialtiesOwned[1]);
+//   if (localStorage.coins) {
+//     this.coins = parseInt(localStorage.coins); 
+//     alert(this.coins);
+//   }
+//   if (localStorage.itemsOwned) {
+//     this.specialtiesOwned = JSON.parse(localStorage.itemsOwned); 
+//     alert(specialtiesOwned[0] + ", " + specialtiesOwned[1]);
    
-  }
+//   }
   
 }
 
